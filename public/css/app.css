@@ -1,0 +1,481 @@
+html, body {
+  overflow-x: hidden;
+}
+
+
+
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: rgba(247, 247, 247, 0.986); /* Navbar transparan */
+    position: absolute; /* Navbar berada di atas gambar */
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 20px 0;
+    z-index: 10; /* Navbar tetap di atas */
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.navbar nav ul {
+    list-style-type: none;
+    display: flex;
+}
+
+.navbar nav ul li {
+    margin: 0 15px;
+}
+
+.navbar nav ul li a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+}
+
+/* Hero Section styles */
+.hero {
+    position: relative;     
+    text-align: center;
+    color: rgb(189, 0, 0);
+    padding: 100px 20px 20px; /* Padding atas dan bawah */
+    background-size: cover; /* Mengisi seluruh ruang */
+    background-position: center; /* Menjaga gambar tetap terpusat */
+    height: 500px; /* Menjaga tinggi gambar tetap */
+    margin-top: 80px; /* Memberikan jarak antara gambar dan navbar */
+}
+
+.hero-image {
+    width: 85%;
+    height: 700px; /* Mengatur gambar agar memenuhi hero */
+    object-fit: cover; /* Menjaga gambar tetap proporsional */
+    border-radius: 40px; /* Menjaga border-radius yang sama */
+    opacity: 1; /* Tidak ada transparansi pada gambar */
+    position: absolute; /* Memastikan gambar berada di belakang teks */
+    top: 0;
+    left: 50%; /* Menempatkan gambar di tengah secara horizontal */
+    transform: translateX(-50%); /* Memindahkan gambar ke kiri agar rata tengah */
+}
+
+/* Mengatur tampilan teks pada hero */
+.hero-text {
+  display: flex;
+  flex-direction: column; /* Susun vertikal */
+  align-items: flex-start; /* Rata kiri */
+  gap: 15px; /* Jarak antar elemen (h2 dan button) */
+  position: relative; /* tetap biar posisi absolute pada gambar tidak terganggu */
+  z-index: 2;
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-left: 170px;
+  margin-top: -100px;
+}
+
+.search-btn-left {
+  background-color: #ff0044;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 19px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-start; /* biar tombol tetap rata kiri */
+}
+
+.search-btn-right {
+  background-color: #006df100;
+  color: white;
+  border-color: #ff0044;
+  padding: 12px 25px;
+  border-radius: 19px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-start; /* biar tombol tetap rata kiri */
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    margin-right: 1000px;
+    margin-top: 70px;
+    text-align: left;
+    font-family: Josefin Sans;
+}
+
+
+.button-group {
+  display: flex;
+  gap: 40px; /* jarak antar tombol */
+}
+
+.search-btn:hover {
+  background-color: #b92020;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.hero .temperature {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+
+
+/* Property Information styles */
+.property-info {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.property-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.explore {
+    text-align: center;
+    margin: 30px 0;
+    margin-top: 220px;
+}
+
+.image-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.box {
+    flex: 1 1 200px;
+    max-width: 300px;
+    max-height: 300px;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #f0f0f0; /* supaya kotak gak kosong */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.box:hover {
+    transform: scale(1.05);
+}
+
+.deliver-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;  /* tampilkan seluruh gambar, tidak crop */
+    display: block;
+}
+
+
+.infographic-section {
+  display: flex;
+  justify-content: space-around;
+  background-color: #0a0f1d;
+  padding: 60px 20px;
+  padding-bottom: 2px;
+  color: white;
+  position: relative;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.info-box {
+  max-width: 200px;
+  z-index: 2;
+  margin: 20px;
+}
+
+.icon {
+  font-size: 40px;
+  color: #ff0044;
+  margin-bottom: 10px;
+}
+
+.info-box h3 {
+  font-size: 22px;
+  color: #ff0044;
+  margin: 10px 0;
+  padding-top: 0;  /* Ubah dari 100px ke 0 */
+  margin-top: 0;   /* Tambahkan agar tidak ada jarak atas */
+  margin-bottom: 6px; /* Jarak ke paragraf */
+}
+
+.icon {
+  font-size: 40px;
+  color: #ff0044;
+  margin-bottom: 8px; /* Kurangi jarak bawah icon */
+}
+
+.info-box p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 8px; /* Jarak ke caption */
+}
+
+.caption {
+  margin-top: 0;
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  font-style: italic;
+}
+
+.info-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.info-box {
+  padding: 10px 30px 20px 20px; /* atas kanan bawah kiri */
+  position: relative;
+  max-width: 250px;
+  /* hapus border-right di sini */
+  /* border-right: 2px solid #ff0044; */
+  padding-bottom: 100px;
+}
+
+.info-box img {
+  width: 80px;         /* Ubah ukuran sesuai kebutuhan, misalnya 80px */
+  height: auto;        /* Biar tetap proporsional */
+  margin-bottom: 20px; /* Jarak dari elemen di bawahnya */
+  object-fit: contain; /* Hindari gambar terdistorsi */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+  
+/* Tambahkan ini: */
+.info-box::after {
+  content: "";
+  position: absolute;
+  top: 20px;           /* jarak dari atas .info-box */
+  right: -60px;            /* tepat di tepi kanan */
+  width: 2px;          /* ketebalan garis */
+  height: 160px;        /* atur panjang garis di sini */
+  background-color: #ff0044;
+}
+
+
+.info-box:last-child {
+  border-right: none;
+}
+
+/* Buang garis pseudo-element di box dengan class .no-border */
+.infographic-section .info-box.no-border::after {
+  display: none;
+}
+
+/* Kalau kamu pakai border-right alih-alih ::after, pakai ini */
+.infographic-section .info-box.no-border {
+  border-right: none;
+}
+
+
+
+.carousel-wrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  overflow-x: auto;
+}
+
+.carousel-item {
+  flex: 0 0 380px;
+  position: relative;
+  z-index: 1;
+  margin-left: -100px; /* overlap ke kiri */
+  transition: transform 0.3s, z-index 0.3s;
+}
+
+.carousel-item:first-child {
+  margin-left: 0; /* jangan overlap di paling kiri */
+}
+
+.carousel-item:hover {
+  transform: scale(1.55);
+  z-index: 10;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  display: block;
+}
+
+.carousel-item:nth-child(2) {
+  z-index: 5;
+  flex: 0 0 480px; /* lebih besar dari yang lainnya */
+  z-index: 10;
+  transform: scale(1.05); /* bisa ditambah efek pembesaran */
+}
+
+.pilot-section {
+  text-align: center;
+  padding: 100px 20px;
+  background: white;
+  position: relative;
+}
+
+.pilot-section h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+}
+
+.pilot-section p {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.button-group .btn {
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-contact {
+  background-color: #e51b48;
+  color: white;
+}
+
+.btn-contact:hover {
+  background-color: #c2163c;
+}
+
+.btn-register {
+  background-color: white;
+  color: #e51b48;
+  border: 2px solid #e51b48;
+}
+
+.btn-register:hover {
+  background-color: #e51b48;
+  color: white;
+}
+
+footer {
+  background-color: #0f1323;
+  color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+}
+
+.footer-top {
+  background-color: #e51b48;
+  padding: 15px;
+  text-align: center;
+  color: white;
+}
+
+.footer-top .contact-info {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-weight: bold;
+}
+
+.footer-top a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 40px 20px;
+  background-color: #0f1323;
+}
+
+.footer-column {
+  margin: 10px;
+  min-width: 150px;
+}
+
+.footer-column h4 {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 6px;
+  color: #ccc;
+}
+
+.social-icons a {
+  margin-right: 10px;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.footer-bottom {
+  background-color: #0b0e1a;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer-bottom .logos img {
+  max-height: 30px;
+  margin: 0 10px;
+  vertical-align: middle;
+}
