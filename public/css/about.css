@@ -128,19 +128,18 @@ body {
   text-align: justify;
 }
 
-/* Footer */
 footer {
   background-color: #0f1323;
   color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
   font-size: 14px;
 }
 
 .footer-top {
-  background-color: #14162d; /* Ganti dari #ffccd5 */
+  background-color: #e51b48;
   padding: 15px;
   text-align: center;
-  color: #ffffff;
-  font-weight: bold;
+  color: white;
 }
 
 .footer-top .contact-info {
@@ -148,15 +147,12 @@ footer {
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  font-weight: bold;
 }
 
 .footer-top a {
-  color: #ff0044; /* Sesuaikan warna tautan */
+  color: white;
   text-decoration: none;
-}
-
-.footer-top a:hover {
-  text-decoration: underline;
 }
 
 .footer-main {
@@ -164,22 +160,24 @@ footer {
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 40px 20px;
+  background-color: #0f1323;
 }
 
 .footer-column {
-  min-width: 150px;
   margin: 10px;
+  min-width: 150px;
 }
 
 .footer-column h4 {
   margin-bottom: 10px;
-  font-size: 1rem;
+  font-size: 14px;
   color: #ffffff;
 }
 
 .footer-column ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .footer-column ul li {

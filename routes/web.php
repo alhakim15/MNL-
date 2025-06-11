@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::get('/login',[AuthController::class,'index'])->name('login');
 Route::get('/register',[AuthController::class,'login'])->name('register');
-Route::get('/deliverbook',[AuthController::class,'tampilan'])->name('deliverbook');
-Route::get('/aboutus',[AuthController::class,'about'])->name('aboutus');
-Route::get('/contactus',[AuthController::class,'contact'])->name('contactus');
+Route::get('/deliverbook',[HomeController::class,'tampilan'])->name('deliverbook');
+Route::get('/aboutus',[HomeController::class,'about'])->name('aboutus');
+Route::get('/contactus',[HomeController::class,'contact'])->name('contactus');
+Route::get('/',[HomeController::class,'index'])->name('home');

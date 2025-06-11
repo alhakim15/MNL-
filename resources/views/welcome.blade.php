@@ -10,19 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poiret+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navbar Section -->
-    <header class="navbar">
-        <div class="navbar-container">
-            <h1 class="logo">Mutiara Nasional Line</h1>
-            <nav>
-                <ul>
-                    <li><a href="aboutus.php">About Us</a></li>
-                    <li><a href="contactus.php">Contact Us</a></li>
-                    <li><a href="login.php">Login</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  @include('components.navbar')
 
     <!-- Hero Section with Image -->
 <section class="hero">
@@ -38,17 +26,17 @@
 <section id="explore" class="explore">
   <div class="carousel-wrapper">
     <div class="carousel-item">
-      <a href="deliverbook.php">
+      <a href="{{ route('deliverbook') }}">
         <img src="Gambar/Tugu Khatulistiwa.jpg" alt="Pontianak">
       </a>
     </div>
     <div class="carousel-item">
-      <a href="deliverbook.php">
+      <a href="{{ route('deliverbook') }}">
         <img src="Gambar/Icon Bengkulu.jpg" alt="Bengkulu">
       </a>
     </div>
     <div class="carousel-item">
-      <a href="deliverbook.blade.php">
+      <a href="{{ route('deliverbook') }}">
         <img src="Gambar/Icon Bengkulu.jpg" alt="Bengkulu">
       </a>
     </div>
@@ -96,59 +84,7 @@
     </div>
   </section>
 
-<footer>
-  <div class="footer-top">
-    <div class="contact-info">
-      <span>(+62) <strong>8XXXXX</strong></span>
-      <span>📞</span>
-      <span><a href="mailto:ftc@athy.com">mnl.com</a></span>
-    </div>
-  </div>
-
-  <div class="footer-main">
-    <div class="footer-column">
-      <a href="aboutus.php"><h4>ABOUT US</h4></a>
-    </div>
-    <div class="footer-column">
-      <a href="contactus.php"><h4>CONTACT US</h4></a>
-      <ul>
-        <li>PHONE</li>
-        <li>EMAIL</li>
-        <li>LOCATION</li>
-      </ul>
-    </div>
-    <div class="footer-column">
-      <h4>DELIVER</h4>
-      <ul>
-        <li>JAKARTA</li>
-        <li>BENGKULU</li>
-        <li>PONTIANAK</li>
-      </ul>
-    </div>
-    <div class="footer-column">
-      <h4>FOLLOW US</h4>
-      <div class="social-icons">
-        <a href="#">🌐</a>
-        <a href="#">📘</a>
-        <a href="#">🐦</a>
-      </div>
-    </div>
-    <div class="footer-column">
-      <h4>PRIVATE POLICY</h4>
-      <h4>TERMS & CONDITIONS</h4>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <div class="logos">
-      <img src="Gambar/logo1.png" alt="Logo 1">
-      <img src="Gambar/logo2.png" alt="PELINDO">
-      <img src="Gambar/logo3.png" alt="Seunda Kelapa">
-    </div>
-    <p>PT. Mutiara Nasional Line</p>
-  </div>
-</footer>
-
+  @include('components.footer')
 
     <script src="scripts.js"></script>
 </body>
