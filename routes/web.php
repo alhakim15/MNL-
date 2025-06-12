@@ -25,13 +25,16 @@ Route::get('/contactus', [ContactController::class, 'index'])->name('contactus')
 Route::post('/contactus', [ContactController::class, 'store'])->name('contact.store');
 
 //autentikasi
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/deliver', [DeliveryController::class, 'create'])->name('deliveries.create');
+
 Route::middleware(['auth', 'role:user'])->group(function () {
-    Route::get('/deliver', [DeliveryController::class, 'create'])->name('deliveries.create');
     Route::post('/deliver', [DeliveryController::class, 'store'])->name('deliveries.store');
 });

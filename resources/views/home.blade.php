@@ -43,32 +43,15 @@
   </section>
 
 
-  <section class="infographic-section">
-    <div class="info-box">
-      <img src="Gambar/boat.png" class=image>
-      <h3>5+ Kapal</h3>
-      <p>Terdapat 5+ Kapal yang dimiliki oleh perusahaan PT. Mutiara Nasional Line</p>
-      <div class="caption">Caption text here</div>
-    </div>
-    <div class="info-box">
-      <img src="Gambar/grouping.png" class=image>
-      <h3>100 Karyawan</h3>
-      <p>Memiliki 100+ karyawan yang sudah bekerja sejak 2013</p>
-      <div class="caption">Caption text here</div>
-    </div>
-    <div class="info-box">
-      <img src="Gambar/stars.png" class=image>
-      <h3>5 STAR</h3>
-      <p>Mendapatkan respon positif dari customer yang sudah lita pegang kepercayaannya</p>
-      <div class="caption">Caption text here</div>
-    </div>
-    <div class="info-box no-border">
-      <img src="Gambar/customer.png" class=image> <!-- ukurannya 128 px -->
-      <h3>99+ Customer</h3>
-      <p>Sudah Menjadi kepercayaan kepada 99+ customer sejak 2012</p>
-      <div class="caption">Caption text here</div>
-    </div>
-  </section>
+  @foreach($infographics as $info)
+  <div class="info-box">
+    <img src="{{ asset('storage/' . $info->image) }}" class="image">
+    <h3>{{ $info->title }}</h3>
+    <p>{{ $info->description }}</p>
+    <div class="caption">{{ $info->caption }}</div>
+  </div>
+  @endforeach
+
 
   <section class="pilot-section">
     <h2>ADA KELUHAN TENTANG PERUSAHAAN KAMI?</h2>
@@ -87,7 +70,7 @@
   @include('components.footer')
 
 
-  <script src="scripts.js"></script>
+  <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>

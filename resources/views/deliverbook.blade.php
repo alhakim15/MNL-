@@ -28,9 +28,7 @@
       <div class="subtitle">
         Pengiriman Aman, Kirim Tepat Waktu
       </div>
-      <div class="illustration">
-        <img src="https://cdn-icons-png.flaticon.com/512/1995/1995463.png" alt="Shipping Illustration">
-      </div>
+
     </section>
 
     <!-- Booking Form Section -->

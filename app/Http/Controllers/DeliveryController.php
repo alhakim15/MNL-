@@ -13,10 +13,6 @@ class DeliveryController extends Controller
 
     public function create()
     {
-        $authUser = Auth::user();
-        if (!$authUser || $authUser->role !== 'user') {
-            return redirect()->route('login')->with('error', 'Anda harus login sebagai user untuk mengakses halaman ini.');
-        }
         $cities = City::all();
         $ships = Ship::all();
 

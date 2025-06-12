@@ -9,12 +9,12 @@
 
   <div class="footer-main">
     <div class="footer-column">
-      <a href="aboutus.php">
+      <a href="{{ route('aboutus') }}">
         <h4>ABOUT US</h4>
       </a>
     </div>
     <div class="footer-column">
-      <a href="contactus.php">
+      <a href="{{ route('contactus') }}">
         <h4>CONTACT US</h4>
       </a>
       <ul>

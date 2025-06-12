@@ -7,31 +7,31 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        // Validate the request
+        // Validasi input
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
+        // Coba login
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
             // Redirect berdasarkan role
             if (auth()->user()->role === 'admin') {
-                return redirect()->intended('/dashboard/admin');
+                return redirect()->intended('/admin'); // masuk ke Filament
             } else {
-                return redirect()->intended('/');
+                return redirect()->intended('/'); // user biasa
             }
         }
 
         return back()->withErrors([
             'email' => 'Email atau password salah.',
-        ]);
+        ])->onlyInput('email');
     }
 
     public function logout(Request $request)
@@ -42,33 +42,38 @@ class AuthController extends Controller
 
         return redirect()->route('home')->with('success', 'Anda telah berhasil keluar.');
     }
+
     public function register(Request $request)
     {
+
         $request->validate([
-            'name' => ['required'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'min:6'],
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'name' => $request->firtst_name . ' ' . $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'email_verified_at' => now(),
         ]);
-        $user->assignRole('user'); // Assign default role
-        $user->save();
-        // Automatically log in the user after registration
-        $request->session()->regenerate();
+
+        // Role default
+        $user->assignRole('user');
         Auth::login($user);
+        $request->session()->regenerate();
+
         return redirect('/login')->with('success', 'Registrasi berhasil! Silakan masuk.');
     }
-    public function showLoginForm()
+    public function showLogin()
     {
-        return view('auth.login');
+        return view('auth.login', ['title' => 'Login']);
     }
-    public function showRegisterForm()
+
+    public function showRegister()
     {
-        return view('auth.register');
+        return view('auth.register', ['title' => 'Register']);
     }
 }
