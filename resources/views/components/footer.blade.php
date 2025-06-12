@@ -9,10 +9,14 @@
 
   <div class="footer-main">
     <div class="footer-column">
-      <a href="aboutus.php"><h4>ABOUT US</h4></a>
+      <a href="aboutus.php">
+        <h4>ABOUT US</h4>
+      </a>
     </div>
     <div class="footer-column">
-      <a href="contactus.php"><h4>CONTACT US</h4></a>
+      <a href="contactus.php">
+        <h4>CONTACT US</h4>
+      </a>
       <ul>
         <li>PHONE</li>
         <li>EMAIL</li>
@@ -43,8 +47,8 @@
 
   <div class="footer-bottom">
     <div class="logos">
-      <img src="Gambar/logo1.png" alt="Logo 1">
-      <img src="Gambar/logo2.png" alt="PELINDO">
+      <img src="{{ asset('Gambar/logo1.png') }}" alt="Logo 1">
+      <img src="{{ asset('Gambar/logo2.png') }}" alt="PELINDO">
       <img src="Gambar/logo3.png" alt="Seunda Kelapa">
     </div>
     <p>PT. Mutiara Nasional Line</p>

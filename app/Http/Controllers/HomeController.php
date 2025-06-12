@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\Ship;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index(){
-        return view('welcome');
+    public function index()
+    {
+        $city = City::all();
+        $ships = Ship::all();
+        return view('home', compact('city', 'ships'));
     }
-    public function tampilan(){
-        return view('deliverbook');
-    }    
-        public function about(){
+
+    public function about()
+    {
         return view('aboutus');
-    }   
-            public function contact(){
-        return view('contactus');
-    }   
+    }
 }

@@ -1,33 +1,66 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buat Akun m.tix</title>
-<link href="{{ asset('css/register.css') }}" rel="stylesheet" > 
+  <title>Daftar - Sistem Kami</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 </head>
 
 <body>
-  <div class="top-left">
-    <img src="logo-mtix.png" alt="m-Tix Logo" class="logo" />
-  </div>
-  <div class="container">
-  <header>
-    <span class="back-arrow">&#8592;</span>
-    <h1>Buat akun m.tix kamu</h1>
-  </header>
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h2>Buat Akun Baru</h2>
+        <p>Isi formulir berikut untuk mendaftar</p>
+      </div>
 
-  <form class="form-box" method="POST" action="login(1).php">
-    <input type="text" name="username" placeholder="Username" required />
-    <input type="password" name="password" placeholder="Password" required />
+      @if($errors->any())
+      <div class="alert alert-danger">
+        @foreach($errors->all() as $error)
+        <p>{{ $error }}</p>
+        @endforeach
+      </div>
+      @endif
 
-    <div class="actions">
-      <button type="submit" name="register">Daftar</button>
-      <a href="login.php" class="secondary-btn">Login</a>
+      <form method="POST" action="{{ route('register') }}" class="auth-form">
+        @csrf
+        <div class="form-group">
+          <label for="name">Nama Lengkap</label>
+          <input type="text" id="name" name="name" value="{{ old('name') }}" required autofocus>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" value="{{ old('email') }}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password_confirmation">Konfirmasi Password</label>
+          <input type="password" id="password_confirmation" name="password_confirmation" required>
+        </div>
+
+        <button type="submit" class="auth-button">Daftar</button>
+      </form>
+
+      <div class="auth-footer">
+        Sudah punya akun? <a href="{{ route('login') }}">Masuk disini</a>
+      </div>
     </div>
-  </form>
-</div>
 
+    <div class="auth-branding">
+      <img src="{{ asset('Gambar/fix.png') }}" alt="Logo Perusahaan">
+      <h1>Sistem Kami</h1>
+      <p>Solusi terbaik untuk kebutuhan bisnis Anda</p>
+    </div>
   </div>
 </body>
+
 </html>

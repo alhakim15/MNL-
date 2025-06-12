@@ -14,4 +14,14 @@ class City extends Model
         'name',
         'image',
     ];
+
+    public function departures()
+    {
+        return $this->hasMany(Delivery::class, 'from_city_id');
+    }
+
+    public function arrivals()
+    {
+        return $this->hasMany(Delivery::class, 'to_city_id');
+    }
 }

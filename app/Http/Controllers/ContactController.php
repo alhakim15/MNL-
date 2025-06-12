@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Contact;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
 
-use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
@@ -12,7 +14,6 @@ class ContactController extends Controller
     {
         return view('contactus');
     }
-
     public function store(Request $request)
     {
         // Validate the request data
@@ -32,9 +33,9 @@ class ContactController extends Controller
             'phone' => $request->input('phone'),
             'subject' => $request->input('subject'),
         ]);
-        
+
         Mail::to('fakhrirrahman7@gmail.com')->send(new ContactMail($request->all()));
-        
+
 
         return redirect()->back()->with('success', 'Thank you for contacting us!');
     }

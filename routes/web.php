@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DeliveryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +17,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/deliverbook',[HomeController::class,'tampilan'])->name('deliverbook');
-Route::get('/aboutus',[HomeController::class,'about'])->name('aboutus');
-Route::get('/contactus',[HomeController::class,'contact'])->name('contactus');
-Route::get('/',[HomeController::class,'index'])->name('home');
+//tampilan awal
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/aboutus', [HomeController::class, 'about'])->name('aboutus');
+
+Route::get('/contactus', [ContactController::class, 'index'])->name('contactus');
+Route::post('/contactus', [ContactController::class, 'store'])->name('contact.store');
+
+//autentikasi
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/deliver', [DeliveryController::class, 'create'])->name('deliveries.create');
+    Route::post('/deliver', [DeliveryController::class, 'store'])->name('deliveries.store');
+});
