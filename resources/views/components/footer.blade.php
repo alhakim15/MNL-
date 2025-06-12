@@ -24,7 +24,9 @@
       </ul>
     </div>
     <div class="footer-column">
-      <h4>DELIVER</h4>
+      <a href="{{route('deliveries.create')}}">
+        <h4>DELIVER</h4>
+      </a>
       <ul>
         <li>JAKARTA</li>
         <li>BENGKULU</li>
