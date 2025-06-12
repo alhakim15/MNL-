@@ -41,17 +41,6 @@
     </div>
     <h3 class="carousel-title">DELIVER NOW</h3>
   </section>
-
-  {{-- <div class="infographic-scroll">
-    @foreach($infographics as $info)
-    <div class="info-box">
-      <img src="{{ asset('storage/' . $info->image) }}" class="image">
-      <h3>{{ $info->title }}</h3>
-      <p>{{ $info->description }}</p>
-      <div class="caption">{{ $info->caption }}</div>
-    </div>
-    @endforeach
-  </div> --}}
   <section class="infographic-section">
     @forelse($infographics as $info)
     <div class="info-box">
