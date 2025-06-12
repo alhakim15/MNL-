@@ -26,13 +26,7 @@ class ContactController extends Controller
         ]);
 
         // Create a new contact entry
-        Contact::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'message' => $request->input('message'),
-            'phone' => $request->input('phone'),
-            'subject' => $request->input('subject'),
-        ]);
+        Contact::create($request->all());
 
         Mail::to('fakhrirrahman7@gmail.com')->send(new ContactMail($request->all()));
 

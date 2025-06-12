@@ -3,23 +3,22 @@
 namespace App\Filament\Resources;
 
 use Filament\Forms;
-use App\Models\City;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\Infographic;
 use Filament\Resources\Resource;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\CityResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\CityResource\RelationManagers;
+use App\Filament\Resources\InfographicResource\Pages;
+use App\Filament\Resources\InfographicResource\RelationManagers;
 
-class CityResource extends Resource
+class InfographicResource extends Resource
 {
-    protected static ?string $model = City::class;
+    protected static ?string $model = Infographic::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -27,18 +26,18 @@ class CityResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
+                TextInput::make('title')
                     ->required()
-                    ->unique(ignoreRecord: true)
-                    ->maxLength(255)
-                    ->label('City Name'),
+                    ->maxLength(100),
+                Textarea::make('description')
+                    ->required()
+                    ->maxLength(1000),
+                TextInput::make('caption')
+                    ->maxLength(255),
                 FileUpload::make('image')
-                    ->label('City Image')
                     ->image()
-                    ->disk('public')
-                    ->directory('cities')
-                    ->nullable()
-                    ->maxSize(1024) // 1MB
+                    ->directory('infographics')
+                    ->required(),
             ]);
     }
 
@@ -46,22 +45,16 @@ class CityResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->label('City Name')
-                    ->searchable()
-                    ->sortable(),
-                ImageColumn::make('image')
-                    ->label('City Image')
-                    ->disk('public')
-                    ->size(50)
-                    ->circular(),
+                Tables\Columns\ImageColumn::make('image')->width(60)->height(60),
+                Tables\Columns\TextColumn::make('title')->searchable(),
+                Tables\Columns\TextColumn::make('description')->limit(50),
+                Tables\Columns\TextColumn::make('caption'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -80,9 +73,9 @@ class CityResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCities::route('/'),
-            'create' => Pages\CreateCity::route('/create'),
-            'edit' => Pages\EditCity::route('/{record}/edit'),
+            'index' => Pages\ListInfographics::route('/'),
+            'create' => Pages\CreateInfographic::route('/create'),
+            'edit' => Pages\EditInfographic::route('/{record}/edit'),
         ];
     }
 }

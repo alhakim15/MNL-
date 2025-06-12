@@ -7,7 +7,7 @@
   <title>Mutiara Nasional Line</title>
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Poiret+One&display=swap"
     rel="stylesheet">
-  <link href="{{ asset('css/about.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('css/about.css') }}">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
   <!-- About Us Section -->
   <section class="tentang">
     <div class="tentang-box">
-      <img src="Gambar/fix.png" alt="Logo Mutiara Nasional Line">
+      <img src="{{asset('Gambar/fix.png')}}" alt="Tentang Kami" class="tentang-image">
       <div class="text">
         <h1>About Us</h1>
         <p><strong>Sejarah Singkat PT Mutiara Nasional Line</strong></p>
@@ -36,35 +36,35 @@
   <!-- Features Section -->
   <section class="features">
     <div class="feature-box">
-      <img src="Gambar/cruise.png" alt="Pengalaman dan Armada">
+      <img src="{{asset('Gambar/cruise.png')}}" alt="Pengalaman dan Armada">
       <div class="feature-text">
         <h3>Pengalaman dan Armada</h3>
         <p>Armada kapal modern dan handal didukung oleh pengalaman panjang dalam industri pelayaran.</p>
       </div>
     </div>
     <div class="feature-box">
-      <img src="Gambar/shield.png" alt="Keamanan dan Ketepatan">
+      <img src="{{asset('Gambar/shield.png')}}" alt="Keamanan dan Ketepatan">
       <div class="feature-text">
         <h3>Keamanan dan Ketepatan</h3>
         <p>Kami berkomitmen terhadap keamanan dan ketepatan pengiriman barang Anda.</p>
       </div>
     </div>
     <div class="feature-box">
-      <img src="Gambar/order-tracking.png" alt="Tracking Canggih">
+      <img src="{{asset('Gambar/order-trac')}}king.png" alt="Tracking Canggih">
       <div class="feature-text">
         <h3>Tracking Canggih</h3>
         <p>Teknologi pelacakan barang real-time yang canggih dan mudah digunakan oleh pelanggan.</p>
       </div>
     </div>
     <div class="feature-box">
-      <img src="Gambar/people.png" alt="Tim Profesional">
+      <img src="{{asset('Gambar/people.png')}}" alt="Tim Profesional">
       <div class="feature-text">
         <h3>Tim Profesional</h3>
         <p>Tim profesional bersertifikasi yang menjunjung tinggi kepercayaan dan integritas.</p>
       </div>
     </div>
     <div class="feature-box">
-      <img src="Gambar/responsible.png" alt="Pelayanan Pelanggan">
+      <img src="{{asset('Gambar/responsible')}}.png" alt="Pelayanan Pelanggan">
       <div class="feature-text">
         <h3>Pelayanan Pelanggan</h3>
         <p>Pelayanan pelanggan yang responsif dan terpercaya untuk membantu kebutuhan Anda.</p>
@@ -73,8 +73,62 @@
   </section>
 
   <!-- Footer -->
-  @include('components.footer')
+  <footer>
+    <div class="footer-top">
+      <div class="contact-info">
+        <span>(+62) <strong>8XXXXX</strong></span>
+        <span>📞</span>
+        <span><a href="mailto:ftc@athy.com">mnl.com</a></span>
+      </div>
+    </div>
 
+    <div class="footer-main">
+      <div class="footer-column">
+        <a href="aboutus.php">
+          <h4>ABOUT US</h4>
+        </a>
+      </div>
+      <div class="footer-column">
+        <a href="contactus.php">
+          <h4>CONTACT US</h4>
+        </a>
+        <ul>
+          <li>PHONE</li>
+          <li>EMAIL</li>
+          <li>LOCATION</li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>DELIVER</h4>
+        <ul>
+          <li>JAKARTA</li>
+          <li>BENGKULU</li>
+          <li>PONTIANAK</li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>FOLLOW US</h4>
+        <div class="social-icons">
+          <a href="#">🌐</a>
+          <a href="#">📘</a>
+          <a href="#">🐦</a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h4>PRIVATE POLICY</h4>
+        <h4>TERMS & CONDITIONS</h4>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="logos">
+        <img src="{{asset('Gambar/logo1.png')}}" alt="Logo 1">
+        <img src="{{asset(' Gambar/logo2.png')}}" alt="PELINDO">
+        <img src="{{asset('Gambar/logo3.png')}}" alt="Seunda Kelapa">
+      </div>
+      <p>PT. Mutiara Nasional Line</p>
+    </div>1
+  </footer>
 </body>
 
 </html>

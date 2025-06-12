@@ -1,641 +1,481 @@
-/* Base Styles */
-:root {
-  --primary: #0056b3;
-  --primary-dark: #003d82;
-  --secondary: #ffc107;
-  --dark: #212529;
-  --light: #f8f9fa;
-  --accent: #e63946;
-  --text: #333333;
-  --text-light: #6c757d;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Josefin Sans', sans-serif;
-  color: var(--text);
-  line-height: 1.6;
-  background-color: #ffffff;
+html, body {
   overflow-x: hidden;
 }
 
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 1rem;
+
+
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-h2 {
-  font-size: 2.5rem;
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
 }
 
-h3 {
-  font-size: 1.8rem;
+/* Navbar styles */
+.navbar {
+    background-color: rgba(247, 247, 247, 0.986); /* Navbar transparan */
+    position: absolute; /* Navbar berada di atas gambar */
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 20px 0;
+    z-index: 10; /* Navbar tetap di atas */
 }
 
-p {
-  margin-bottom: 1rem;
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
 }
 
-/* Button Styles */
-button, .btn {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 30px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 0.9rem;
+.navbar nav ul {
+    list-style-type: none;
+    display: flex;
 }
 
-.search-btn {
-  background-color: var(--secondary);
-  color: var(--dark);
+.navbar nav ul li {
+    margin: 0 15px;
 }
 
-.search-btn:hover {
-  background-color: var(--primary);
-  color: white;
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+.navbar nav ul li a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
 }
 
-.btn-contact {
-  background-color: var(--accent);
-  color: white;
-  margin-right: 15px;
-}
-
-.btn-contact:hover {
-  background-color: #c1121f;
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.btn-register {
-  background-color: var(--primary);
-  color: white;
-}
-
-.btn-register:hover {
-  background-color: var(--primary-dark);
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Hero Section */
+/* Hero Section styles */
 .hero {
-  position: relative;
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
+    position: relative;     
+    text-align: center;
+    color: rgb(189, 0, 0);
+    padding: 100px 20px 20px; /* Padding atas dan bawah */
+    background-size: cover; /* Mengisi seluruh ruang */
+    background-position: center; /* Menjaga gambar tetap terpusat */
+    height: 500px; /* Menjaga tinggi gambar tetap */
+    margin-top: 80px; /* Memberikan jarak antara gambar dan navbar */
 }
 
 .hero-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
-  filter: brightness(0.7);
+    width: 85%;
+    height: 700px; /* Mengatur gambar agar memenuhi hero */
+    object-fit: cover; /* Menjaga gambar tetap proporsional */
+    border-radius: 40px; /* Menjaga border-radius yang sama */
+    opacity: 1; /* Tidak ada transparansi pada gambar */
+    position: absolute; /* Memastikan gambar berada di belakang teks */
+    top: 0;
+    left: 50%; /* Menempatkan gambar di tengah secara horizontal */
+    transform: translateX(-50%); /* Memindahkan gambar ke kiri agar rata tengah */
 }
 
+/* Mengatur tampilan teks pada hero */
 .hero-text {
-  padding: 0 5%;
-  max-width: 50%;
-  color: white;
-  animation: fadeInUp 1s ease;
+  display: flex;
+  flex-direction: column; /* Susun vertikal */
+  align-items: flex-start; /* Rata kiri */
+  gap: 15px; /* Jarak antar elemen (h2 dan button) */
+  position: relative; /* tetap biar posisi absolute pada gambar tidak terganggu */
+  z-index: 2;
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-left: 170px;
+  margin-top: -100px;
 }
 
-.hero-text h2 {
-  font-size: 3.5rem;
-  margin-bottom: 2rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  line-height: 1.1;
+.search-btn-left {
+  background-color: #ff0044;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 19px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-start; /* biar tombol tetap rata kiri */
 }
+
+.search-btn-right {
+  background-color: #006df100;
+  color: white;
+  border-color: #ff0044;
+  padding: 12px 25px;
+  border-radius: 19px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-start; /* biar tombol tetap rata kiri */
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    margin-right: 1000px;
+    margin-top: 70px;
+    text-align: left;
+    font-family: Josefin Sans;
+}
+
 
 .button-group {
   display: flex;
-  gap: 20px;
+  gap: 40px; /* jarak antar tombol */
 }
 
-/* Explore Section */
+.search-btn:hover {
+  background-color: #b92020;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.hero .temperature {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+
+
+/* Property Information styles */
+.property-info {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.property-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
 .explore {
-  padding: 5rem 5%;
-  text-align: center;
-  background-color: var(--light);
+    text-align: center;
+    margin: 30px 0;
+    margin-top: 220px;
 }
 
-.explore h3 {
-  margin-top: 2rem;
-  color: var(--primary);
-  font-size: 2.2rem;
+.image-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.box {
+    flex: 1 1 200px;
+    max-width: 300px;
+    max-height: 300px;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #f0f0f0; /* supaya kotak gak kosong */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.box:hover {
+    transform: scale(1.05);
+}
+
+.deliver-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;  /* tampilkan seluruh gambar, tidak crop */
+    display: block;
+}
+
+
+.infographic-section {
+  display: flex;
+  justify-content: space-around;
+  background-color: #0a0f1d;
+  padding: 60px 20px;
+  padding-bottom: 2px;
+  color: white;
   position: relative;
-  display: inline-block;
+  flex-wrap: wrap;
+  text-align: center;
 }
 
-.explore h3::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background-color: var(--secondary);
+.info-box {
+  max-width: 200px;
+  z-index: 2;
+  margin: 20px;
 }
+
+.icon {
+  font-size: 40px;
+  color: #ff0044;
+  margin-bottom: 10px;
+}
+
+.info-box h3 {
+  font-size: 22px;
+  color: #ff0044;
+  margin: 10px 0;
+  padding-top: 0;  /* Ubah dari 100px ke 0 */
+  margin-top: 0;   /* Tambahkan agar tidak ada jarak atas */
+  margin-bottom: 6px; /* Jarak ke paragraf */
+}
+
+.icon {
+  font-size: 40px;
+  color: #ff0044;
+  margin-bottom: 8px; /* Kurangi jarak bawah icon */
+}
+
+.info-box p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 8px; /* Jarak ke caption */
+}
+
+.caption {
+  margin-top: 0;
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  font-style: italic;
+}
+
+.info-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.info-box {
+  padding: 10px 30px 20px 20px; /* atas kanan bawah kiri */
+  position: relative;
+  max-width: 250px;
+  /* hapus border-right di sini */
+  /* border-right: 2px solid #ff0044; */
+  padding-bottom: 100px;
+}
+
+.info-box img {
+  width: 80px;         /* Ubah ukuran sesuai kebutuhan, misalnya 80px */
+  height: auto;        /* Biar tetap proporsional */
+  margin-bottom: 20px; /* Jarak dari elemen di bawahnya */
+  object-fit: contain; /* Hindari gambar terdistorsi */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+  
+/* Tambahkan ini: */
+.info-box::after {
+  content: "";
+  position: absolute;
+  top: 20px;           /* jarak dari atas .info-box */
+  right: -60px;            /* tepat di tepi kanan */
+  width: 2px;          /* ketebalan garis */
+  height: 160px;        /* atur panjang garis di sini */
+  background-color: #ff0044;
+}
+
+
+.info-box:last-child {
+  border-right: none;
+}
+
+/* Buang garis pseudo-element di box dengan class .no-border */
+.infographic-section .info-box.no-border::after {
+  display: none;
+}
+
+/* Kalau kamu pakai border-right alih-alih ::after, pakai ini */
+.infographic-section .info-box.no-border {
+  border-right: none;
+}
+
+
 
 .carousel-wrapper {
   display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
   overflow-x: auto;
-  gap: 2rem;
-  padding: 2rem 0;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
 }
 
 .carousel-item {
-  flex: 0 0 300px;
-  scroll-snap-align: start;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  flex: 0 0 380px;
+  position: relative;
+  z-index: 1;
+  margin-left: -100px; /* overlap ke kiri */
+  transition: transform 0.3s, z-index 0.3s;
+}
+
+.carousel-item:first-child {
+  margin-left: 0; /* jangan overlap di paling kiri */
 }
 
 .carousel-item:hover {
-  transform: translateY(-10px);
+  transform: scale(1.55);
+  z-index: 10;
 }
 
 .carousel-item img {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  display: block;
 }
 
-.carousel-item:hover img {
-  transform: scale(1.05);
+.carousel-item:nth-child(2) {
+  z-index: 5;
+  flex: 0 0 480px; /* lebih besar dari yang lainnya */
+  z-index: 10;
+  transform: scale(1.05); /* bisa ditambah efek pembesaran */
 }
 
-/* Infographic Section */
-.infographic-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  padding: 5rem 5%;
-  background-color: white;
-}
-
-.info-box {
-  text-align: center;
-  padding: 2rem;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  background-color: var(--light);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-.info-box:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-}
-
-.info-box::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
-}
-
-.info-box .image {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 1.5rem;
-  object-fit: contain;
-}
-
-.info-box h3 {
-  color: var(--primary);
-  margin-bottom: 1rem;
-}
-
-.info-box p {
-  color: var(--text-light);
-  margin-bottom: 1.5rem;
-}
-
-.caption {
-  color: var(--text-light);
-  font-size: 0.9rem;
-}
-
-/* Pilot Section */
 .pilot-section {
-  padding: 5rem 5%;
   text-align: center;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  color: white;
+  padding: 100px 20px;
+  background: white;
+  position: relative;
 }
 
 .pilot-section h2 {
   font-size: 2.5rem;
-  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 20px;
 }
 
 .pilot-section p {
-  max-width: 800px;
-  margin: 0 auto 2rem;
-  font-size: 1.1rem;
-  opacity: 0.9;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-/* Responsive Design */
-@media (max-width: 992px) {
-  .hero-text {
-    max-width: 70%;
-  }
-  
-  .hero-text h2 {
-    font-size: 2.8rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero {
-    height: 70vh;
-  }
-  
-  .hero-text {
-    max-width: 90%;
-    text-align: center;
-  }
-  
-  .hero-text h2 {
-    font-size: 2.2rem;
-  }
-  
-  .button-group {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .infographic-section {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 576px) {
-  .hero {
-    height: 60vh;
-  }
-  
-  .hero-text h2 {
-    font-size: 1.8rem;
-  }
-  
-  .infographic-section {
-    grid-template-columns: 1fr;
-  }
-  
-  .pilot-section h2 {
-    font-size: 2rem;
-  }
-  
-  .pilot-section .button-group {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .btn-contact {
-    margin-right: 0;
-    margin-bottom: 15px;
-  }
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dark);
-}
-
-/* ================ NAVBAR STYLES ================ */
-.navbar {
-  background-color: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
+.button-group .btn {
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.navbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 5%;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.logo {
-  color: var(--primary);
-  font-size: 1.8rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.logo:hover {
-  color: var(--primary-dark);
-}
-
-.navbar nav ul {
-  display: flex;
-  list-style: none;
-  gap: 2rem;
-}
-
-.navbar nav a {
-  color: var(--text);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  position: relative;
-  transition: color 0.3s ease;
-  padding: 0.5rem 0;
-}
-
-.navbar nav a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--primary);
-  transition: width 0.3s ease;
-}
-
-.navbar nav a:hover {
-  color: var(--primary);
-}
-
-.navbar nav a:hover::after {
-  width: 100%;
-}
-
-/* ================ FOOTER STYLES ================ */
-footer {
-  background-color: var(--dark);
+.btn-contact {
+  background-color: #e51b48;
   color: white;
-  padding-top: 3rem;
+}
+
+.btn-contact:hover {
+  background-color: #c2163c;
+}
+
+.btn-register {
+  background-color: white;
+  color: #e51b48;
+  border: 2px solid #e51b48;
+}
+
+.btn-register:hover {
+  background-color: #e51b48;
+  color: white;
+}
+
+footer {
+  background-color: #0f1323;
+  color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
 }
 
 .footer-top {
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 1rem 0;
+  background-color: #e51b48;
+  padding: 15px;
+  text-align: center;
+  color: white;
 }
 
-.contact-info {
+.footer-top .contact-info {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
+  gap: 20px;
   flex-wrap: wrap;
-  padding: 0.5rem 0;
+  font-weight: bold;
 }
 
-.contact-info span {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.contact-info a {
+.footer-top a {
   color: white;
   text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.contact-info a:hover {
-  color: var(--secondary);
 }
 
 .footer-main {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  padding: 3rem 5%;
-  max-width: 1400px;
-  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 40px 20px;
+  background-color: #0f1323;
 }
 
 .footer-column {
-  display: flex;
-  flex-direction: column;
+  margin: 10px;
+  min-width: 150px;
 }
 
 .footer-column h4 {
-  color: var(--secondary);
-  margin-bottom: 1.5rem;
-  font-size: 1.1rem;
-  position: relative;
-  padding-bottom: 0.5rem;
-}
-
-.footer-column h4::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 40px;
-  height: 2px;
-  background-color: var(--primary);
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #ffffff;
 }
 
 .footer-column ul {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .footer-column ul li {
-  margin-bottom: 0.8rem;
-  color: var(--text-light);
-  transition: color 0.3s ease;
-  cursor: pointer;
-}
-
-.footer-column ul li:hover {
-  color: var(--secondary);
-}
-
-.social-icons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
+  margin-bottom: 6px;
+  color: #ccc;
 }
 
 .social-icons a {
-  color: white;
-  font-size: 1.2rem;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.social-icons a:hover {
-  color: var(--secondary);
-  transform: translateY(-3px);
+  margin-right: 10px;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
 }
 
 .footer-bottom {
-  background-color: rgba(0, 0, 0, 0.2);
-  padding: 2rem 5%;
+  background-color: #0b0e1a;
   text-align: center;
+  padding: 20px;
 }
 
-.logos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
-}
-
-.logos img {
-  height: 40px;
-  width: auto;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
-}
-
-.logos img:hover {
-  opacity: 1;
-}
-
-.footer-bottom p {
-  color: var(--text-light);
-  font-size: 0.9rem;
-}
-
-/* ================ RESPONSIVE ADJUSTMENTS ================ */
-@media (max-width: 992px) {
-  .navbar-container {
-    padding: 1rem 5%;
-  }
-  
-  .logo {
-    font-size: 1.5rem;
-  }
-  
-  .navbar nav ul {
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .navbar-container {
-    flex-direction: column;
-    padding: 1rem;
-  }
-  
-  .logo {
-    margin-bottom: 1rem;
-  }
-  
-  .navbar nav ul {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-  }
-  
-  .footer-main {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 576px) {
-  .navbar nav ul {
-    gap: 0.8rem;
-  }
-  
-  .navbar nav a {
-    font-size: 0.9rem;
-  }
-  
-  .footer-main {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .footer-column {
-    align-items: center;
-    text-align: center;
-  }
-  
-  .footer-column h4::after {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .logos {
-    gap: 1rem;
-  }
-  
-  .logos img {
-    height: 30px;
-  }
-}
-
-/* Add this to your existing :root variables */
-:root {
-  --navbar-height: 80px; /* Add this for fixed navbar spacing */
-}
-
-/* Add this to prevent content from being hidden under fixed navbar */
-body {
-  padding-top: var(--navbar-height);
+.footer-bottom .logos img {
+  max-height: 30px;
+  margin: 0 10px;
+  vertical-align: middle;
 }

@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mutiara Nasional line</title>
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -14,14 +14,15 @@
 </head>
 
 <body>
+  <!-- Navbar Section -->
   @include('components.navbar')
-
   <!-- Hero Section with Image -->
   <section class="hero">
     <div class="hero-text">
       <h2>PENGIRIMAN CEPAT<br>ANTAR PONTIANAK<br>DAN BENGKULU</h2>
       <div class="button-group">
-        <button type="button" class="search-btn search-btn-left" onclick="window.location.href='LearnMore.php'">LEARN
+        <button type="button" class="search-btn search-btn-left"
+          onclick="window.location.href='{{route('aboutus')}}'">LEARN
           MORE</button>
       </div>
     </div>
@@ -30,15 +31,15 @@
 
   <section id="explore" class="explore">
     <div class="carousel-wrapper">
-      @foreach($city as $location)
+      @foreach ($city as $destination)
       <div class="carousel-item">
-        <a href="{{ route('deliveries.create') }}">
-          <img src="{{ asset('storage/' . $location->image) }}" alt="{{ $location->name }}">
+        <a href="{{ route('deliveries.create') }}" class="carousel-link">
+          <img src="{{ asset('storage/' . $destination->image) }}" alt="{{ $destination->name }}">
         </a>
       </div>
       @endforeach
     </div>
-    <h3>DELIVER NOW</h3>
+    <h3 class="carousel-title">DELIVER NOW</h3>
   </section>
 
 
@@ -76,13 +77,15 @@
       JIKA TIDAK ADA KELUHAN DAN MASUKAN KALIAN BISA LANGSUNG ANTAR DENGAN JASA KAMI.
     </p>
     <div class="button-group">
-      <a href="contactus.php"><button class="btn btn-contact">CONTACT US</button></a>
-      <button class="btn btn-register" id="scrollBtn">DELIVER NOW</button>
+      <a href="{{route('contactus')}}"><button class="btn btn-contact">CONTACT US</button></a>
+      <button class="btn btn-register" id="scrollBtn"
+        onclick="window.location.href='{{route('deliveries.create')}}'">DELIVER NOW</button>
 
     </div>
   </section>
 
   @include('components.footer')
+
 
   <script src="scripts.js"></script>
 </body>
