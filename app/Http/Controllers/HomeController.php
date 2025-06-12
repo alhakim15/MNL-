@@ -14,7 +14,7 @@ class HomeController extends Controller
     {
         $city = City::all();
         $ships = Ship::all();
-        $infographics = Infographic::all();
+        $infographics = Infographic::latest()->take(4)->get();
         return view('home', compact('city', 'ships', 'infographics'));
     }
 
