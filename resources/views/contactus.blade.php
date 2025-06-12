@@ -19,11 +19,18 @@
 
     <div class="contact-content centered">
       <!-- Contact Form -->
+      @if ($errors->any())
+      <div class="alert-danger" id="error-message">
+        {{ $errors->first() }}
+      </div>
+      @endif
+
       @if(session('success'))
       <div class="alert-success" id="success-message">
         {{ session('success') }}
       </div>
       @endif
+
 
       <form action="{{ route('contact.store') }}" method="POST" class="contact-form">
         @csrf
@@ -78,9 +85,14 @@
 
   <script>
     setTimeout(() => {
-    const msg = document.getElementById('success-message');
-    if (msg) {
-      msg.style.display = 'none';
+    const errorMsg = document.getElementById('error-message');
+    if (errorMsg) {
+      errorMsg.style.display = 'none';
+    }
+
+    const successMsg = document.getElementById('success-message');
+    if (successMsg) {
+      successMsg.style.display = 'none';
     }
   }, 3000); // 3000ms = 3 detik
   </script>

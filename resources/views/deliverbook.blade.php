@@ -47,6 +47,11 @@
         </ul>
       </div>
       @endif
+      @if(session('success'))
+      <div class="success-message">
+        <i class="fas fa-check-circle"></i> {{ session('success') }}
+      </div>
+      @endif
 
       <form method="POST" action="{{ route('deliveries.store') }}">
         @csrf
@@ -166,6 +171,42 @@
         capacityInfo.textContent = '';
       }
     });
+
+      setTimeout(() => {
+    const errorMsg = document.querySelector('.error-message');
+    if (errorMsg) {
+      errorMsg.style.display = 'none';
+    }
+
+    const successMsg = document.querySelector('.success-message');
+    if (successMsg) {
+      successMsg.style.display = 'none';
+    }
+  }, 3000);
+
+   const fromCitySelect = document.getElementById('from_city_id');
+  const toCitySelect = document.getElementById('to_city_id');
+
+  fromCitySelect.addEventListener('change', function () {
+    const selectedFrom = this.value;
+
+    // Tampilkan semua opsi terlebih dahulu
+    Array.from(toCitySelect.options).forEach(opt => {
+      opt.hidden = false;
+    });
+
+    // Sembunyikan opsi tujuan yang sama dengan asal
+    Array.from(toCitySelect.options).forEach(opt => {
+      if (opt.value === selectedFrom && selectedFrom !== "") {
+        opt.hidden = true;
+
+        // Jika sudah terpilih tujuan yang sama, reset
+        if (toCitySelect.value === selectedFrom) {
+          toCitySelect.value = "";
+        }
+      }
+    });
+  });
   </script>
 </body>
 

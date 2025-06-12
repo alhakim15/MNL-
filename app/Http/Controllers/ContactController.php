@@ -16,13 +16,25 @@ class ContactController extends Controller
     }
     public function store(Request $request)
     {
-        // Validate the request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                'regex:/^[a-zA-Z0-9._%+-]+@gmail\.com$/'
+            ],
             'message' => 'required|string|max:1000',
-            'phone' => 'nullable|string|max:20',
+            'phone' => [
+                'nullable',
+                'string',
+                'max:20',
+                'regex:/^(\+62|62|0)8[1-9][0-9]{6,9}$/'
+            ],
             'subject' => 'nullable|string|max:255',
+        ], [
+            'email.regex' => 'Email harus menggunakan domain @gmail.com.',
+            'phone.regex' => 'Nomor telepon harus valid dan sesuai format Indonesia (contoh: 0812xxxxxx).',
         ]);
 
         // Create a new contact entry
