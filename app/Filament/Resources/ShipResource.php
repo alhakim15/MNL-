@@ -17,7 +17,7 @@ class ShipResource extends Resource
 {
     protected static ?string $model = Ship::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-chart-bar';
 
     public static function form(Form $form): Form
     {

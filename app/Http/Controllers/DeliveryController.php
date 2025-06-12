@@ -14,7 +14,10 @@ class DeliveryController extends Controller
     public function create()
     {
         $cities = City::all();
-        $ships = Ship::all();
+        $ships = Ship::withSum('deliveries', 'weight')->get()->map(function ($ship) {
+            $ship->remaining_weight = $ship->max_weight - ($ship->deliveries_sum_weight ?? 0);
+            return $ship;
+        });
 
         return view('deliverbook', compact('cities', 'ships'));
     }

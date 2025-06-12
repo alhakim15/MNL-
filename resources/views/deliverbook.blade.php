@@ -7,6 +7,12 @@
   <title>Delivery Booking</title>
   <link href="{{ asset('css/deliverbook.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .capacity-notice {
+      margin-top: 0.5rem;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>
@@ -28,7 +34,6 @@
       <div class="subtitle">
         Pengiriman Aman, Kirim Tepat Waktu
       </div>
-
     </section>
 
     <!-- Booking Form Section -->
@@ -127,12 +132,14 @@
               <select id="ship_id" name="ship_id" required>
                 <option value="">Pilih Kapal</option>
                 @foreach ($ships as $ship)
-                <option value="{{ $ship->id }}">
+                <option value="{{ $ship->id }}" data-remaining="{{ $ship->remaining_weight }}"
+                  data-max="{{ $ship->max_weight }}">
                   {{ $ship->name }} (Max: {{ $ship->max_weight }} ton)
                 </option>
                 @endforeach
               </select>
             </div>
+            <div id="capacity-info" class="capacity-notice"></div>
           </div>
         </div>
 
@@ -142,6 +149,24 @@
       </form>
     </section>
   </div>
+
+  <script>
+    const shipSelect = document.getElementById('ship_id');
+    const capacityInfo = document.getElementById('capacity-info');
+
+    shipSelect.addEventListener('change', function () {
+      const selectedOption = this.options[this.selectedIndex];
+      const remaining = selectedOption.getAttribute('data-remaining');
+      const max = selectedOption.getAttribute('data-max');
+
+      if (remaining !== null) {
+        capacityInfo.textContent = `Sisa kapasitas kapal: ${remaining} ton dari total ${max} ton`;
+        capacityInfo.style.color = (remaining < 5) ? 'red' : 'green';
+      } else {
+        capacityInfo.textContent = '';
+      }
+    });
+  </script>
 </body>
 
 </html>
