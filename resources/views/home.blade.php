@@ -30,17 +30,23 @@
   </section>
 
   <section id="explore" class="explore">
-    <div class="carousel-wrapper">
-      @foreach ($city as $destination)
-      <div class="carousel-item">
-        <a href="{{ route('deliveries.create') }}" class="carousel-link">
-          <img src="{{ asset('storage/' . $destination->image) }}" alt="{{ $destination->name }}">
-        </a>
+    <div class="carousel-container">
+      <button class="carousel-btn prev" aria-label="Previous">&#10094;</button>
+      <div class="carousel-wrapper">
+        @foreach ($city as $destination)
+        <div class="carousel-item">
+          <a href="{{ route('deliveries.create') }}" class="carousel-link">
+            <img src="{{ asset('storage/' . $destination->image) }}" alt="{{ $destination->name }}">
+          </a>
+          <p>{{$destination->name}}</p>
+        </div>
+        @endforeach
       </div>
-      @endforeach
+      <button class="carousel-btn next" aria-label="Next">&#10095;</button>
     </div>
     <h3 class="carousel-title">DELIVER NOW</h3>
   </section>
+
   <section class="infographic-section">
     @forelse($infographics as $info)
     <div class="info-box">
@@ -72,7 +78,7 @@
   @include('components.footer')
 
 
-  <script src="{{ asset('js/app.js') }}"></script>
+  <script src="{{ asset('js/pages/home.js') }}"></script>
 </body>
 
 </html>

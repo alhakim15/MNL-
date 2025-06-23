@@ -7,36 +7,25 @@
   <title>Delivery Booking</title>
   <link href="{{ asset('css/deliverbook.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    .capacity-notice {
-      margin-top: 0.5rem;
-      font-weight: bold;
-    }
-  </style>
+
 </head>
 
 <body>
-  <!-- Navigation Back Button -->
   <nav class="back-nav">
-    <a href="{{ route('home')}}" class="back-button">
+    <a href="{{ route('home') }}" class="back-button">
       <i class="fas fa-arrow-left"></i> Back
     </a>
   </nav>
 
-  <!-- Main Content Container -->
   <div class="main-container">
-    <!-- Welcome Section -->
     <section class="welcome-section">
       <div class="welcome">
         <h2>Welcome 👋</h2>
         <h3>Liners</h3>
       </div>
-      <div class="subtitle">
-        Pengiriman Aman, Kirim Tepat Waktu
-      </div>
+      <div class="subtitle">Pengiriman Aman, Kirim Tepat Waktu</div>
     </section>
 
-    <!-- Booking Form Section -->
     <section class="booking-container">
       @if ($errors->any())
       <div class="error-message">
@@ -47,6 +36,7 @@
         </ul>
       </div>
       @endif
+
       @if(session('success'))
       <div class="success-message">
         <i class="fas fa-check-circle"></i> {{ session('success') }}
@@ -62,7 +52,7 @@
             <label for="sender_name">Nama Pengirim</label>
             <div class="input-with-icon">
               <i class="fas fa-user"></i>
-              <input type="text" id="sender_name" name="sender_name" placeholder="Nama pengirim">
+              <input type="text" id="sender_name" name="sender_name" value="{{ Auth::user()->name }}" readonly>
             </div>
           </div>
 
@@ -155,59 +145,27 @@
     </section>
   </div>
 
-  <script>
-    const shipSelect = document.getElementById('ship_id');
-    const capacityInfo = document.getElementById('capacity-info');
+  {{-- MODAL --}}
+  @if(session('deliveryData'))
+  <div id="deliveryModal" class="modal-overlay">
+    <div class="modal-box">
+      <h3>Pengiriman Berhasil!</h3>
+      <p><strong>Resi:</strong> <span id="resiNumber">{{ session('deliveryData.resi') }}</span></p>
+      <p><strong>Penerima:</strong> <span id="receiverName">{{ session('deliveryData.receiver_name') }}</span></p>
+      <p><strong>Dari:</strong> <span id="fromCity">{{ session('deliveryData.from') }}</span>
+        → <strong>Ke:</strong> <span id="toCity">{{ session('deliveryData.to') }}</span>
+      </p>
+      <p><strong>Barang:</strong> <span id="itemName">{{ session('deliveryData.item') }}</span>
+        ( <span id="weightTon">{{ session('deliveryData.weight') }}</span> ton )
+      </p>
+      <p><strong>Kapal:</strong> <span id="shipName">{{ session('deliveryData.ship') }}</span></p>
+      <p><strong>Tanggal:</strong> <span id="deliveryDate">{{ session('deliveryData.date') }}</span></p>
+      <button onclick="closeModal()">Tutup</button>
+    </div>
+  </div>
+  @endif
 
-    shipSelect.addEventListener('change', function () {
-      const selectedOption = this.options[this.selectedIndex];
-      const remaining = selectedOption.getAttribute('data-remaining');
-      const max = selectedOption.getAttribute('data-max');
-
-      if (remaining !== null) {
-        capacityInfo.textContent = `Sisa kapasitas kapal: ${remaining} ton dari total ${max} ton`;
-        capacityInfo.style.color = (remaining < 5) ? 'red' : 'green';
-      } else {
-        capacityInfo.textContent = '';
-      }
-    });
-
-      setTimeout(() => {
-    const errorMsg = document.querySelector('.error-message');
-    if (errorMsg) {
-      errorMsg.style.display = 'none';
-    }
-
-    const successMsg = document.querySelector('.success-message');
-    if (successMsg) {
-      successMsg.style.display = 'none';
-    }
-  }, 3000);
-
-   const fromCitySelect = document.getElementById('from_city_id');
-  const toCitySelect = document.getElementById('to_city_id');
-
-  fromCitySelect.addEventListener('change', function () {
-    const selectedFrom = this.value;
-
-    // Tampilkan semua opsi terlebih dahulu
-    Array.from(toCitySelect.options).forEach(opt => {
-      opt.hidden = false;
-    });
-
-    // Sembunyikan opsi tujuan yang sama dengan asal
-    Array.from(toCitySelect.options).forEach(opt => {
-      if (opt.value === selectedFrom && selectedFrom !== "") {
-        opt.hidden = true;
-
-        // Jika sudah terpilih tujuan yang sama, reset
-        if (toCitySelect.value === selectedFrom) {
-          toCitySelect.value = "";
-        }
-      }
-    });
-  });
-  </script>
+  <script src="{{ asset('js/pages/home.js') }}"></script>
 </body>
 
 </html>
