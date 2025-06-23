@@ -481,3 +481,130 @@ footer {
   vertical-align: middle;
 }
 
+.logout-button {
+    background-color: #c0392b; /* merah elegan */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+    background-color: #e74c3c;
+}
+
+.logout-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.5);
+}
+.logout-form {
+    display: inline;
+}
+
+.carousel-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-wrapper {
+  display: flex;
+  overflow: hidden;
+  width: 80vw;
+  max-width: 800px;
+  scroll-behavior: smooth;
+  transition: transform 0.5s cubic-bezier(.4,2,.6,1);
+}
+
+.carousel-item {
+  min-width: 300px;
+  max-width: 300px;
+  margin: 0 10px;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.carousel-btn {
+  background: rgba(255,255,255,0.8);
+  border: none;
+  color: #e51b48;
+  font-size: 2.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  position: relative;
+  z-index: 2;
+  transition: background 0.2s;
+  margin: 0 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.carousel-btn:hover {
+  background: #e51b48;
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .carousel-wrapper {
+    width: 95vw;
+    max-width: 95vw;
+  }
+  .carousel-item {
+    min-width: 220px;
+    max-width: 220px;
+  }
+}
+
+.carousel-item {
+  opacity: 0.5;
+  transform: scale(0.85);
+  transition: transform 0.4s, opacity 0.4s;
+  pointer-events: none;
+}
+.carousel-item.active {
+  opacity: 1;
+  transform: scale(1.15);
+  z-index: 2;
+  pointer-events: auto;
+}
+.carousel-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.carousel-item p {
+  margin-top: 16px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #e51b48;
+  text-align: center;
+  letter-spacing: 1px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 12px;
+  padding: 8px 0;
+  box-shadow: 0 2px 8px rgba(229,27,72,0.07);
+  transition: background 0.3s, color 0.3s;
+}
+
+.carousel-item.active p {
+  background: #e51b48;
+  color: #fff;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 16px rgba(229,27,72,0.15);
+}
