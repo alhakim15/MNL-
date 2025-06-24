@@ -6,16 +6,20 @@
                 <li><a href="{{ route('home') }}">Home</a></li>
                 <li><a href="{{ route('aboutus') }}">About Us</a></li>
                 <li><a href="{{ route('contactus') }}">Contact Us</a></li>
+                @can('create', App\Models\Delivery::class)
+                <li><a href="{{ route('deliveries.create') }}">Deliver Book</a></li>
+                @endcan
+                <li><a href="{{ route('tracking') }}">Tracking</a></li>
                 @auth
-                <li>
-                    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                <li class="nav-item">
+                    <form action="{{ route('logout') }}" method="POST" class="logout-form">
                         @csrf
-                        <button type="submit"
-                            style="background:none; border:none; padding:0; margin:0; cursor:pointer; color:inherit; text-decoration:underline;">
+                        <button type="submit" class="logout-button">
                             Logout
                         </button>
                     </form>
                 </li>
+
                 @else
                 <li><a href="{{ route('login') }}">Login</a></li>
                 @endauth

@@ -278,3 +278,27 @@ footer {
   color: #721c24;
   border: 1px solid #f5c6cb;
 }
+
+.logout-button {
+    background-color: #c0392b; /* merah elegan */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+    background-color: #e74c3c;
+}
+
+.logout-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.5);
+}
+.logout-form {
+    display: inline;
+}
+

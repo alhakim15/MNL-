@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('delivery_date');        // Tanggal pengiriman
             $table->string('item_name');          // Nama barang
             $table->decimal('weight', 8, 2);      // Berat barang (dalam ton)
+            $table->string('resi')->unique();
             $table->timestamps();
         });
     }

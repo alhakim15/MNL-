@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\City;
 use App\Models\Ship;
 use App\Models\Delivery;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\DeliveryStatusLog;
 use Illuminate\Support\Facades\Auth;
 
 class DeliveryController extends Controller
@@ -13,6 +16,7 @@ class DeliveryController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Delivery::class);
         $cities = City::all();
         $ships = Ship::withSum('deliveries', 'weight')->get()->map(function ($ship) {
             $ship->remaining_weight = $ship->max_weight - ($ship->deliveries_sum_weight ?? 0);
@@ -23,10 +27,11 @@ class DeliveryController extends Controller
     }
 
 
+
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'sender_name'    => 'required|string|max:255',
+        $this->authorize('create', Delivery::class);
+        $request->validate([
             'receiver_name'  => 'required|string|max:255',
             'from_city_id'   => 'required|exists:cities,id',
             'to_city_id'     => 'required|exists:cities,id',
@@ -36,29 +41,46 @@ class DeliveryController extends Controller
             'ship_id'        => 'required|exists:ships,id',
         ]);
 
-        // Ambil kapal yang dipilih
-        $ship = Ship::findOrFail($validated['ship_id']);
-
-        // Hitung total pengiriman aktif pada kapal tersebut
+        $ship = Ship::findOrFail($request->ship_id);
         $currentWeight = Delivery::where('ship_id', $ship->id)->sum('weight');
 
-        // Jika total melebihi kapasitas kapal, tolak permintaan
-        if ($currentWeight + $validated['weight'] > $ship->max_weight) {
+        if ($currentWeight + $request->weight > $ship->max_weight) {
             return back()->withErrors(['weight' => 'Kapasitas kapal melebihi batas maksimum (' . $ship->max_weight . ' ton).'])->withInput();
         }
 
-        Delivery::create([
-            'sender_name'    => $validated['sender_name'],
-            'receiver_name'  => $validated['receiver_name'],
-            'from_city_id'   => $validated['from_city_id'],
-            'to_city_id'     => $validated['to_city_id'],
-            'delivery_date'  => $validated['delivery_date'],
-            'item_name'      => $validated['item_name'],
-            'weight'         => $validated['weight'],
-            'ship_id'        => $ship->id,
-            'user_id'        => Auth::id(), // Simpan ID user yang membuat pengiriman
-        ])->save();
+        $delivery = Delivery::create([
+            'sender_name'   => Auth::user()->name,
+            'receiver_name' => $request->receiver_name,
+            'from_city_id'  => $request->from_city_id,
+            'to_city_id'    => $request->to_city_id,
+            'delivery_date' => $request->delivery_date,
+            'item_name'     => $request->item_name,
+            'weight'        => $request->weight,
+            'ship_id'       => $ship->id,
+            'resi'          => 'TRK' . strtoupper(Str::random(10)),
+        ]);
 
-        return redirect()->back()->with('success', 'Pengiriman berhasil dibuat!');
+        DeliveryStatusLog::create([
+            'delivery_id' => $delivery->id,
+            'status'      => DeliveryStatusLog::STATUS['PENDING'],
+            'location'    => $delivery->fromCity->name ?? 'Lokasi asal',
+            'note'        => 'Pengiriman baru saja dibuat.',
+            'logged_at'   => now(),
+        ]);
+
+        return redirect()
+            ->back()
+            ->with('success', 'Pengiriman berhasil dibuat!')
+            ->with('deliveryData', [
+                'resi' => $delivery->resi,
+                'receiver_name' => $delivery->receiver_name,
+                'from' => $delivery->fromCity->name,
+                'to' => $delivery->toCity->name,
+                'item' => $delivery->item_name,
+                'weight' => $delivery->weight,
+                'ship' => $delivery->ship->name,
+                'date' => Carbon::parse($delivery->delivery_date)->format('d M Y'),
+
+            ]);
     }
 }

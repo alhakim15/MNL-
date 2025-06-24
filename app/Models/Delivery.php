@@ -18,6 +18,7 @@ class Delivery extends Model
         'item_name',
         'ship_id',
         'weight',
+        'resi',
     ];
 
     // Relasi ke kota asal
@@ -36,5 +37,15 @@ class Delivery extends Model
     public function ship()
     {
         return $this->belongsTo(Ship::class, 'ship_id');
+    }
+
+    public function statusLogs()
+    {
+        return $this->hasMany(DeliveryStatusLog::class);
+    }
+
+    public function latestStatus()
+    {
+        return $this->hasOne(DeliveryStatusLog::class)->latestOfMany('logged_at');
     }
 }
