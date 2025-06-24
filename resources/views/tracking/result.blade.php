@@ -9,14 +9,27 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
         body {
-            background: linear-gradient(to right, #0077b6, #00b4d8);
+            background-color: #1a237e;
             min-height: 100vh;
             padding-top: 30px;
             padding-bottom: 30px;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         .card {
-            border-radius: 15px;
+            border-radius: 16px;
+            box-shadow: 0 12px 24px rgba(26, 35, 126, 0.25);
+        }
+
+        .card-header {
+            background: #1a237e;
+            color: #fff;
+        }
+
+        .card-header h1,
+        .card-header p {
+            color: #fff;
+            margin-bottom: 4px;
         }
 
         .timeline {
@@ -31,7 +44,7 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: #dee2e6;
+            background: #cfd8dc;
         }
 
         .timeline-item {
@@ -46,7 +59,7 @@
             height: 20px;
             border-radius: 50%;
             background: #fff;
-            border: 3px solid #0d6efd;
+            border: 3px solid #e91e63;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -54,17 +67,59 @@
 
         .timeline-dot i {
             font-size: 0.6rem;
-            color: #0d6efd;
+            color: #e91e63;
         }
 
         .timeline-dot.inactive {
-            border-color: #adb5bd;
+            border-color: #bbb;
         }
 
         .timeline-dot.inactive i {
-            color: #adb5bd;
+            color: #bbb;
+        }
+
+        .card-body h5,
+        .card-body p,
+        .card-body ul li {
+            color: #333;
+        }
+
+        .card-body h5 i {
+            color: #e91e63;
+        }
+
+        .card-footer {
+            background-color: #f9f9f9;
+            font-size: 0.9rem;
+        }
+
+        .alert-info {
+            background-color: #fff3f6;
+            color: #e91e63;
+            border-color: #fce4ec;
+        }
+
+        /* Ganti semua biru Bootstrap jadi biru dongker */
+        .text-primary,
+        .bi-flag-fill,
+        .bi-ship,
+        .bi-geo-fill {
+            color: #1a237e !important;
+        }
+
+        .bg-primary {
+            background-color: #1a237e !important;
+        }
+
+        .card .card {
+            border: 1px solid #eee;
+        }
+
+        .card .card-body small {
+            color: #666;
         }
     </style>
+
 </head>
 
 <body>

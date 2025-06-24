@@ -165,7 +165,7 @@
   </div>
   @endif
 
-  <script src="{{ asset('js/pages/home.js') }}"></script>
+  <script src="{{ asset('js/pages/deliver.js') }}"></script>
 </body>
 
 </html>

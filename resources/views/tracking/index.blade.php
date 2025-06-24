@@ -9,49 +9,69 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
         body {
-            background: linear-gradient(to right, #0077b6, #00b4d8);
+            background: linear-gradient(to bottom right, #f8c4cc, #1a237e);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         .card {
-            border-radius: 15px;
+            border-radius: 16px;
             overflow: hidden;
+            box-shadow: 0 12px 24px rgba(26, 35, 126, 0.25);
         }
 
         .card-header {
-            background: #023e8a;
+            background: #1a237e;
         }
 
         .card-header h2,
         .card-header p {
-            color: #ffffff;
+            color: #fff;
         }
 
         .btn-primary {
-            background-color: #0077b6;
-            border-color: #0077b6;
+            background-color: #e91e63;
+            border-color: #e91e63;
         }
 
         .btn-primary:hover {
-            background-color: #005f87;
+            background-color: #c2185b;
+            border-color: #c2185b;
         }
 
         .form-control:focus {
-            border-color: #00b4d8;
-            box-shadow: 0 0 0 0.25rem rgba(0, 180, 216, 0.25);
+            border-color: #e91e63;
+            box-shadow: 0 0 0 0.25rem rgba(233, 30, 99, 0.25);
         }
 
         .card-footer {
-            background-color: #f1f1f1;
+            background-color: #f9f9f9;
         }
 
         .input-group-text {
-            background-color: #e3f2fd;
+            background-color: #fff0f4;
+            color: #e91e63;
+        }
+
+        .form-label {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .alert-success {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .alert-danger {
+            background-color: #fdecea;
+            color: #d32f2f;
         }
     </style>
+
 </head>
 
 <body>
