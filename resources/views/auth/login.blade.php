@@ -8,12 +8,11 @@
   <title>Login - Mutiara Nasional Line</title>
   <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 
-    
+
 </head>
 
 <body>
   <div class="login-container">
-    <img src="{{ asset('Gambar/kapal cargo.jpg') }}" alt="Logo" class="login-logo">
     <div class="login-title">Login</div>
     @if(session('error'))
     <div class="login-error">{{ session('error') }}</div>

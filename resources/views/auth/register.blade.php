@@ -12,7 +12,6 @@
 
 <body>
   <div class="register-container">
-    <img src="{{ asset('Gambar/kapal cargo.jpg') }}" alt="Logo" class="register-logo">
     <div class="register-title">Buat Akun Baru</div>
     <div class="register-subtitle">Isi formulir berikut untuk mendaftar</div>
     @if ($errors->any())
