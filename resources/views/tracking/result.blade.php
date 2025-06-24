@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
         body {
-            background-color: #1a237e;
+            background-color: #0f111c;
+
             min-height: 100vh;
             padding-top: 30px;
             padding-bottom: 30px;
