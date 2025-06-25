@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register - Mutiara Nasional Line</title>
   <link rel="stylesheet" href="{{ asset('css/regis.css') }}">
+  <!-- SweetAlert2 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 </head>
 
@@ -14,15 +16,7 @@
   <div class="register-container">
     <div class="register-title">Buat Akun Baru</div>
     <div class="register-subtitle">Isi formulir berikut untuk mendaftar</div>
-    @if ($errors->any())
-    <div class="register-error">
-      <ul style="margin:0; padding-left:18px; text-align:left;">
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-    @endif
+
     <form method="POST" action="{{ route('register.submit') }}" class="register-form" autocomplete="off">
       @csrf
       <label class="form-label" for="first_name">Nama Depan</label>
@@ -61,7 +55,37 @@
       <a href="{{ route('login') }}">Login</a>
     </div>
   </div>
+
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <script>
+    // Handle Laravel session flash messages with SweetAlert2
+    @if(session('success'))
+      Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: '{{ session('success') }}',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#3085d6'
+      });
+    @endif
+
+    @if($errors->any())
+      let errorMessages = '';
+      @foreach($errors->all() as $error)
+        errorMessages += '• {{ $error }}\n';
+      @endforeach
+      
+      Swal.fire({
+        icon: 'error',
+        title: 'Terjadi Kesalahan!',
+        text: errorMessages,
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#d33'
+      });
+    @endif
+
     // Toggle password visibility
     document.querySelectorAll('.toggle-password').forEach(button => {
       button.addEventListener('click', function() {

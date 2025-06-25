@@ -54,7 +54,7 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
-            'name' => $request->firtst_name . ' ' . $request->last_name,
+            'name' => $request->first_name . ' ' . $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'email_verified_at' => now(),
@@ -65,7 +65,7 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect('/login')->with('success', 'Registrasi berhasil! Silakan masuk.');
+        return redirect()->back()->with('success', 'Registrasi berhasil! Silakan masuk.');
     }
     public function showLogin()
     {
