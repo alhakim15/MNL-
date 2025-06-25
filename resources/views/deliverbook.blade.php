@@ -15,6 +15,9 @@
     <a href="{{ route('home') }}" class="back-button">
       <i class="fas fa-arrow-left"></i> Back
     </a>
+    <a href="{{ route('deliveries.history') }}" class="back-button history-button">
+      <i class="fas fa-history"></i> History
+    </a>
   </nav>
 
   <div class="main-container">
@@ -160,7 +163,13 @@
       </p>
       <p><strong>Kapal:</strong> <span id="shipName">{{ session('deliveryData.ship') }}</span></p>
       <p><strong>Tanggal:</strong> <span id="deliveryDate">{{ session('deliveryData.date') }}</span></p>
-      <button onclick="closeModal()">Tutup</button>
+      <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
+        <button onclick="closeModal()" style="background: #6b7280;">Tutup</button>
+        <a href="{{ route('deliveries.history') }}"
+          style="background: #10b981; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: 600;">
+          <i class="fas fa-history"></i> Lihat History
+        </a>
+      </div>
     </div>
   </div>
   @endif

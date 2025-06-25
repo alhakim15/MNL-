@@ -83,4 +83,14 @@ class DeliveryController extends Controller
 
             ]);
     }
+
+    public function history()
+    {
+        $deliveries = Delivery::with(['fromCity', 'toCity', 'ship', 'latestStatus'])
+            ->where('sender_name', Auth::user()->name)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('delivery-history', compact('deliveries'));
+    }
 }

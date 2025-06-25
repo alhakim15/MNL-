@@ -7,9 +7,20 @@ use Illuminate\Http\Request;
 
 class TrackingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('tracking.index');
+        $resi = $request->get('resi');
+
+        if ($resi) {
+            $delivery = Delivery::where('resi', $resi)->first();
+
+            if ($delivery) {
+                $logs = $delivery->statusLogs()->orderByDesc('logged_at')->get();
+                return view('tracking.result', compact('delivery', 'logs'));
+            }
+        }
+
+        return view('tracking.index', compact('resi'));
     }
 
     public function search(Request $request)

@@ -14,10 +14,24 @@ body {
 
 /* Navigation Back Button */
 .back-nav {
-  position: absolute;
+  position: fixed;
   top: 20px;
   left: 20px;
-  z-index: 100;
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(15, 17, 28, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.back-nav:hover {
+  background: rgba(15, 17, 28, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .back-button {
@@ -31,10 +45,21 @@ body {
   border-radius: 6px;
   background-color: rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
+  height: 40px; /* Fixed height untuk memastikan alignment */
+  white-space: nowrap;
 }
 
 .back-button:hover {
   background-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(-3px);
+}
+
+.back-button.history-button {
+  background-color: #10b981;
+}
+
+.back-button.history-button:hover {
+  background-color: #059669;
   transform: translateX(-3px);
 }
 
@@ -43,7 +68,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 80px 40px;
+  padding: 100px 40px 80px;
   max-width: 1400px;
   margin: 0 auto;
   gap: 40px;
@@ -260,6 +285,33 @@ body {
   .form-row {
     flex-direction: column;
     gap: 15px;
+  }
+}
+
+/* Responsive Design untuk Navigation */
+@media (max-width: 768px) {
+  .back-nav {
+    top: 10px;
+    left: 10px;
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .back-button {
+    padding: 6px 12px;
+    font-size: 12px;
+    height: 36px;
+  }
+
+  .main-container {
+    padding: 80px 20px 60px;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .welcome-section {
+    position: static;
+    max-width: none;
   }
 }
 

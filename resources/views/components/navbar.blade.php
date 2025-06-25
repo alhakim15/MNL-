@@ -8,6 +8,7 @@
                 <li><a href="{{ route('contactus') }}">Contact Us</a></li>
                 @can('create', App\Models\Delivery::class)
                 <li><a href="{{ route('deliveries.create') }}">Deliver Book</a></li>
+                <li><a href="{{ route('deliveries.history') }}">History</a></li>
                 @endcan
                 <li><a href="{{ route('tracking') }}">Tracking</a></li>
                 @auth

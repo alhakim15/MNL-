@@ -41,4 +41,5 @@ Route::post('/tracking', [TrackingController::class, 'search'])->name('tracking.
 Route::middleware('auth')->group(function () {
     Route::get('/deliver', [DeliveryController::class, 'create'])->name('deliveries.create');
     Route::post('/deliver', [DeliveryController::class, 'store'])->name('deliveries.store');
+    Route::get('/delivery-history', [DeliveryController::class, 'history'])->name('deliveries.history');
 });

@@ -116,7 +116,7 @@
                                         <i class="bi bi-upc-scan"></i>
                                     </span>
                                     <input type="text" class="form-control" id="resi" name="resi"
-                                        placeholder="Contoh: TRKABCDEFGHIJ" required>
+                                        placeholder="Contoh: TRKABCDEFGHIJ" value="{{ $resi ?? '' }}" required>
                                 </div>
                                 <div class="form-text">Masukkan nomor resi yang Anda terima setelah booking pengiriman.
                                 </div>
