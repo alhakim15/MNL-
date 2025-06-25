@@ -19,13 +19,14 @@ body {
 
 /* Navbar styles */
 .navbar {
-    background-color: rgba(247, 247, 247, 0.986); /* Navbar transparan */
-    position: absolute; /* Navbar berada di atas gambar */
+    background-color: rgba(247, 247, 247, 0.986);
+    position: fixed;
     width: 100%;
     top: 0;
     left: 0;
     padding: 20px 0;
-    z-index: 10; /* Navbar tetap di atas */
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-container {
@@ -35,8 +36,14 @@ body {
     padding: 0 20px;
 }
 
+.navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000000;
+}
+
 .navbar nav ul {
-    list-style-type: none;
+    list-style: none;
     display: flex;
 }
 
@@ -48,6 +55,11 @@ body {
     text-decoration: none;
     color: #000000;
     font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.navbar nav ul li a:hover {
+    color: #ff0044;
 }
 
 /* Hero Section styles */

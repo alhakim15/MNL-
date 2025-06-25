@@ -6,49 +6,55 @@
 
 html,
 body {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Arial', sans-serif;
   background-color: #ffffff;
   color: #444;
   overflow-x: hidden;
 }
 
-/* Navbar */
+/* Navbar styles */
 .navbar {
-  background-color: rgba(247, 247, 247, 0.986);
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  padding: 20px 0;
-  z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgba(247, 247, 247, 0.986);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 20px 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
 }
 
 .navbar .logo {
-  font-size: 24px;
-  font-weight: bold;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000000;
 }
 
 .navbar nav ul {
-  list-style: none;
-  display: flex;
+    list-style: none;
+    display: flex;
 }
 
 .navbar nav ul li {
-  margin: 0 15px;
+    margin: 0 15px;
 }
 
 .navbar nav ul li a {
-  text-decoration: none;
-  color: #000000;
-  font-weight: bold;
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.navbar nav ul li a:hover {
+    color: #ff0044;
 }
 
 /* About Section */
@@ -207,23 +213,32 @@ footer {
 }
 
 .logout-button {
-    background-color: #c0392b; /* merah elegan */
+    background-color: #ff0044; /* Sesuai brand color */
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 8px 16px; /* Sesuai padding navbar link */
     border-radius: 6px;
     font-size: 0.9rem;
+    font-weight: bold; /* Sesuai navbar font-weight */
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: all 0.3s ease; /* Sesuai navbar transition */
+    margin-left: 10px; /* Jarak dari menu terakhir */
 }
 
 .logout-button:hover {
-    background-color: #e74c3c;
+    background-color: #d9003a; /* Warna hover yang lebih gelap */
+    transform: translateY(-1px); /* Efek naik sedikit */
+    box-shadow: 0 2px 8px rgba(255, 0, 68, 0.3); /* Shadow dengan brand color */
 }
 
 .logout-button:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.5);
+    box-shadow: 0 0 0 3px rgba(255, 0, 68, 0.3); /* Focus ring brand color */
+}
+
+.logout-button:active {
+    transform: translateY(0); /* Kembali ke posisi normal saat diklik */
+    box-shadow: 0 1px 4px rgba(255, 0, 68, 0.2);
 }
 .logout-form {
     display: inline;
