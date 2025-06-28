@@ -233,9 +233,6 @@
                 <a href="{{ route('payment.check-status', $delivery->resi) }}" class="btn btn-secondary">
                     <i class="fas fa-sync-alt"></i> Check Status
                 </a>
-                <a href="{{ route('payment.force-update', $delivery->resi) }}" class="btn btn-warning">
-                    <i class="fas fa-exclamation-triangle"></i> Force Update
-                </a>
                 @endif
 
                 <a href="{{ route('payment.dashboard') }}" class="btn btn-secondary">

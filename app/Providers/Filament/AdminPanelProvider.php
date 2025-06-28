@@ -47,7 +47,6 @@ class AdminPanelProvider extends PanelProvider
 
                 // Custom dashboard widgets
                 \App\Filament\Widgets\DeliveryStatsWidget::class,
-                \App\Filament\Widgets\PaymentStatsWidget::class,
                 \App\Filament\Widgets\MonthlyDeliveryChart::class,
                 \App\Filament\Widgets\DailyActivityChart::class,
                 \App\Filament\Widgets\RevenueChart::class,
