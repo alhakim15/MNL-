@@ -163,10 +163,11 @@
       </p>
       <p><strong>Kapal:</strong> <span id="shipName">{{ session('deliveryData.ship') }}</span></p>
       <p><strong>Tanggal:</strong> <span id="deliveryDate">{{ session('deliveryData.date') }}</span></p>
-      <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
-        <button onclick="closeModal()" style="background: #6b7280;">Tutup</button>
-        <a href="{{ route('deliveries.history') }}"
-          style="background: #10b981; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: 600;">
+      <div class="modal-button-group">
+        <button onclick="closeModal()" class="modal-btn modal-btn-close">
+          <i class="fas fa-times"></i> Tutup
+        </button>
+        <a href="{{ route('deliveries.history') }}" class="modal-btn modal-btn-history">
           <i class="fas fa-history"></i> Lihat History
         </a>
       </div>
