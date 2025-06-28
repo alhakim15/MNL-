@@ -5,7 +5,7 @@ namespace App\Filament\Pages\Auth;
 use Filament\Pages\Auth\Login as BaseLogin;
 use Filament\Forms\Form;
 
-class Login extends BaseLogin
+class CustomLogin extends BaseLogin
 {
     protected static string $view = 'auth.custom-login'; // pakai custom blade
 

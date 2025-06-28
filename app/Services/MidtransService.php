@@ -71,18 +71,7 @@ class MidtransService
 
     public function calculateShippingCost($weight, $fromCityId, $toCityId)
     {
-        // Basic calculation: base rate + weight rate
-        $baseRate = 50000; // Base rate 50,000 IDR
-        $weightRate = 10000; // 10,000 IDR per ton
-        $distanceMultiplier = 1; // Could be calculated based on city distance
-
-        // Simple distance calculation (you can enhance this)
-        if ($fromCityId != $toCityId) {
-            $distanceMultiplier = 1.5; // Different city = 1.5x multiplier
-        }
-
-        $cost = ($baseRate + ($weight * $weightRate)) * $distanceMultiplier;
-
-        return $cost;
+        // Use cache for shipping cost calculation
+        return \App\Services\CacheService::getShippingCost($fromCityId, $toCityId, $weight);
     }
 }
