@@ -20,68 +20,33 @@ use App\Http\Controllers\PaymentController;
 |
 */
 
-// Payment callback routes (MUST BE FIRST - no auth needed)
-Route::get('/payment/test', function () {
-    return response()->json([
-        'status' => 'working',
-        'timestamp' => now(),
-        'message' => 'Payment routes are accessible'
-    ]);
-})->name('payment.test');
 
-// Simple finish route for debugging
+
+// Payment finish route
 Route::get('/payment/finish', function (\Illuminate\Http\Request $request) {
-    // Log semua data yang masuk
-    \Illuminate\Support\Facades\Log::info('=== PAYMENT FINISH ACCESSED ===', [
-        'all_request' => $request->all(),
-        'query_string' => $request->getQueryString(),
-        'full_url' => $request->fullUrl(),
-        'method' => $request->method(),
-        'timestamp' => now()
-    ]);
-
     $orderId = $request->get('order_id');
-    \Illuminate\Support\Facades\Log::info('Order ID received: ' . $orderId);
 
     if ($orderId) {
         try {
-            // Cari delivery
             $delivery = \App\Models\Delivery::where('resi', $orderId)->first();
-            \Illuminate\Support\Facades\Log::info('Delivery search result for ' . $orderId . ': ' . ($delivery ? 'FOUND' : 'NOT FOUND'));
 
             if ($delivery) {
-                \Illuminate\Support\Facades\Log::info('Delivery details', [
-                    'resi' => $delivery->resi,
-                    'current_status' => $delivery->payment_status,
-                    'sender_name' => $delivery->sender_name
-                ]);
-
-                // Update status ke paid
                 $delivery->update([
                     'payment_status' => 'paid',
                     'paid_at' => now()
                 ]);
 
-                \Illuminate\Support\Facades\Log::info('Payment status updated to paid for: ' . $orderId);
-
-                // Return success page dengan delivery data
                 return view('payment.success', ['delivery' => $delivery]);
-            } else {
-                \Illuminate\Support\Facades\Log::error('Delivery not found for order_id: ' . $orderId);
             }
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Error in finish route: ' . $e->getMessage());
-            \Illuminate\Support\Facades\Log::error('Exception trace: ' . $e->getTraceAsString());
+            \Illuminate\Support\Facades\Log::error('Error in payment finish: ' . $e->getMessage());
         }
-    } else {
-        \Illuminate\Support\Facades\Log::error('No order_id provided in finish route');
     }
 
-    // Jika gagal, return not-found page
     return view('payment.not-found');
 })->name('payment.finish');
 
-Route::get('/payment/debug-finish', [PaymentController::class, 'debugFinish'])->name('payment.debug-finish');
+
 Route::get('/payment/not-found', [PaymentController::class, 'notFound'])->name('payment.not-found');
 Route::post('/payment/notification', [PaymentController::class, 'notification'])->name('payment.notification');
 Route::get('/payment/unfinish', [PaymentController::class, 'unfinish'])->name('payment.unfinish');
@@ -120,23 +85,8 @@ Route::middleware('auth')->group(function () {
 
     // Payment routes
     Route::get('/payment/dashboard', [PaymentController::class, 'dashboard'])->name('payment.dashboard');
-    Route::get('/payment/debug', [PaymentController::class, 'dashboardDebug'])->name('payment.debug');
     Route::get('/payment/history', [PaymentController::class, 'history'])->name('payment.history');
     Route::get('/payment/{resi}/check-status', [PaymentController::class, 'checkStatus'])->name('payment.check-status');
     Route::get('/payment/{resi}/force-update', [PaymentController::class, 'forceUpdateStatus'])->name('payment.force-update');
     Route::get('/payment/{resi}', [PaymentController::class, 'showPayment'])->name('payment.show');
 });
-
-// Simple test route to debug payment finish
-Route::get('/payment/test-finish', function (\Illuminate\Http\Request $request) {
-    \Illuminate\Support\Facades\Log::info('Test finish route accessed', $request->all());
-
-    return response()->json([
-        'status' => 'test_finish_working',
-        'order_id' => $request->get('order_id'),
-        'transaction_status' => $request->get('transaction_status'),
-        'status_code' => $request->get('status_code'),
-        'timestamp' => now(),
-        'all_params' => $request->all()
-    ]);
-})->name('payment.test-finish');

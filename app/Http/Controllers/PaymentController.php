@@ -129,10 +129,7 @@ class PaymentController extends Controller
         }
     }
 
-    public function debugFinish(Request $request)
-    {
-        return view('payment.debug');
-    }
+
 
     public function finish(Request $request)
     {
@@ -158,10 +155,10 @@ class PaymentController extends Controller
                 'user_name' => auth()->check() ? auth()->user()->name : 'guest'
             ]);
 
-            // If no order_id is provided, show debug information
+            // If no order_id is provided, redirect to not found
             if (!$orderId) {
                 Log::error('No order_id provided in finish callback');
-                return view('payment.debug');
+                return view('payment.not-found');
             }
 
             $delivery = Delivery::where('resi', $orderId)->first();
@@ -267,7 +264,7 @@ class PaymentController extends Controller
             Log::error('Exception trace: ' . $e->getTraceAsString());
 
             // Return a safe fallback response
-            return view('payment.debug')->with('error', 'Exception occurred: ' . $e->getMessage());
+            return view('payment.not-found')->with('error', 'Terjadi kesalahan saat memproses pembayaran.');
         }
     }
 
@@ -484,45 +481,7 @@ class PaymentController extends Controller
         }
     }
 
-    public function dashboardDebug()
-    {
-        $user = auth()->user();
 
-        // Get payment statistics
-        $totalDeliveries = Delivery::where('sender_name', $user->name)->count();
-        $pendingPayments = Delivery::where('sender_name', $user->name)
-            ->where('payment_status', 'pending')
-            ->count();
-        $paidPayments = Delivery::where('sender_name', $user->name)
-            ->where('payment_status', 'paid')
-            ->count();
-        $totalAmount = Delivery::where('sender_name', $user->name)
-            ->where('payment_status', 'paid')
-            ->sum('shipping_cost');
-
-        // Get recent payments
-        $recentPayments = Delivery::with(['fromCity', 'toCity', 'ship'])
-            ->where('sender_name', $user->name)
-            ->orderBy('created_at', 'desc')
-            ->limit(5)
-            ->get();
-
-        // Get pending payments
-        $pendingPaymentsList = Delivery::with(['fromCity', 'toCity', 'ship'])
-            ->where('sender_name', $user->name)
-            ->where('payment_status', 'pending')
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        return view('payment.dashboard-debug', compact(
-            'totalDeliveries',
-            'pendingPayments',
-            'paidPayments',
-            'totalAmount',
-            'recentPayments',
-            'pendingPaymentsList'
-        ));
-    }
 
     public function forceUpdateStatus($resi)
     {
