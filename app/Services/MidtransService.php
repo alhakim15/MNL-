@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
-use Midtrans\Config;
 use Midtrans\Snap;
+use Midtrans\Config;
 use App\Models\Delivery;
+use App\Services\CacheService;
 
 class MidtransService
 {
@@ -72,6 +73,6 @@ class MidtransService
     public function calculateShippingCost($weight, $fromCityId, $toCityId)
     {
         // Use cache for shipping cost calculation
-        return \App\Services\CacheService::getShippingCost($fromCityId, $toCityId, $weight);
+        return CacheService::getShippingCost($fromCityId, $toCityId, $weight);
     }
 }
