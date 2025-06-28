@@ -112,8 +112,18 @@
         }
 
         .btn-secondary:hover {
-            background: #5a6268;
+            background: #6c757d;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            background: #e0a800;
             transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
 
         .payment-status {
@@ -222,6 +232,9 @@
                 </button>
                 <a href="{{ route('payment.check-status', $delivery->resi) }}" class="btn btn-secondary">
                     <i class="fas fa-sync-alt"></i> Check Status
+                </a>
+                <a href="{{ route('payment.force-update', $delivery->resi) }}" class="btn btn-warning">
+                    <i class="fas fa-exclamation-triangle"></i> Force Update
                 </a>
                 @endif
 

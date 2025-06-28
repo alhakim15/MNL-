@@ -27,6 +27,7 @@ class MidtransService
             'customer_details' => [
                 'first_name' => $delivery->sender_name,
                 'email' => auth()->user()->email ?? 'noreply@example.com',
+                'phone' => $delivery->sender_phone ?? '081234567890',
             ],
             'item_details' => [
                 [
@@ -39,9 +40,9 @@ class MidtransService
                 ]
             ],
             'callbacks' => [
-                'finish' => route('payment.finish'),
-                'unfinish' => route('payment.unfinish'),
-                'error' => route('payment.error'),
+                'finish' => url('/payment/finish'),
+                'unfinish' => url('/payment/unfinish'),
+                'error' => url('/payment/error'),
             ],
             'custom_expiry' => [
                 'order_time' => date('Y-m-d H:i:s O'),
@@ -49,6 +50,10 @@ class MidtransService
                 'unit' => 'minute'
             ]
         ];
+
+        // Add notification URL for webhook
+        Config::$appendNotifUrl = url('/payment/notification');
+        Config::$overrideNotifUrl = url('/payment/notification');
 
         try {
             $snapToken = Snap::getSnapToken($params);
