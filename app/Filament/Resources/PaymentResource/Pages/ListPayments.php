@@ -18,7 +18,7 @@ class ListPayments extends ListRecords
             Actions\Action::make('refresh')
                 ->label('Refresh Data')
                 ->icon('heroicon-o-arrow-path')
-                ->action(fn () => $this->redirect(request()->url())),
+                ->action(fn() => $this->redirect(request()->url())),
         ];
     }
 
@@ -26,26 +26,26 @@ class ListPayments extends ListRecords
     {
         return [
             'all' => Tab::make('Semua')
-                ->badge(fn () => $this->getModel()::whereNotNull('shipping_cost')->count()),
-            
+                ->badge(fn() => $this->getModel()::whereNotNull('shipping_cost')->count()),
+
             'pending' => Tab::make('Pending')
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('payment_status', 'pending'))
-                ->badge(fn () => $this->getModel()::where('payment_status', 'pending')->count())
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('payment_status', 'pending'))
+                ->badge(fn() => $this->getModel()::where('payment_status', 'pending')->count())
                 ->badgeColor('warning'),
-            
+
             'paid' => Tab::make('Lunas')
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('payment_status', 'paid'))
-                ->badge(fn () => $this->getModel()::where('payment_status', 'paid')->count())
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('payment_status', 'paid'))
+                ->badge(fn() => $this->getModel()::where('payment_status', 'paid')->count())
                 ->badgeColor('success'),
-            
+
             'failed' => Tab::make('Gagal')
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('payment_status', 'failed'))
-                ->badge(fn () => $this->getModel()::where('payment_status', 'failed')->count())
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('payment_status', 'failed'))
+                ->badge(fn() => $this->getModel()::where('payment_status', 'failed')->count())
                 ->badgeColor('danger'),
-                
+
             'cancelled' => Tab::make('Dibatalkan')
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('payment_status', 'cancelled'))
-                ->badge(fn () => $this->getModel()::where('payment_status', 'cancelled')->count())
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('payment_status', 'cancelled'))
+                ->badge(fn() => $this->getModel()::where('payment_status', 'cancelled')->count())
                 ->badgeColor('secondary'),
         ];
     }

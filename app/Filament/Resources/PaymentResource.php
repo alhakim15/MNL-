@@ -37,7 +37,7 @@ class PaymentResource extends Resource
                 Forms\Components\TextInput::make('resi')
                     ->label('Nomor Resi')
                     ->disabled(),
-                
+
                 Forms\Components\TextInput::make('sender_name')
                     ->label('Nama Pengirim')
                     ->disabled(),
@@ -180,17 +180,17 @@ class PaymentResource extends Resource
                         return $query
                             ->when(
                                 $data['created_from'],
-                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
                             )
                             ->when(
                                 $data['created_until'],
-                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     }),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                
+
                 Action::make('update_status')
                     ->label('Update Status')
                     ->icon('heroicon-o-arrow-path')
@@ -199,21 +199,20 @@ class PaymentResource extends Resource
                         try {
                             // Panggil Midtrans API untuk cek status
                             $midtransService = app(\App\Services\MidtransService::class);
-                            
+
                             // Simulasi update status - dalam implementasi nyata, 
                             // Anda bisa memanggil Midtrans API di sini
                             Log::info('Admin requested payment status update for: ' . $record->resi);
-                            
+
                             // Redirect ke payment controller untuk force update
                             return redirect()->route('payment.force-update', $record->resi);
-                            
                         } catch (\Exception $e) {
                             Log::error('Failed to update payment status: ' . $e->getMessage());
-                            
+
                             return redirect()->back()->with('error', 'Gagal mengupdate status pembayaran');
                         }
                     })
-                    ->visible(fn (Delivery $record): bool => $record->payment_status === 'pending'),
+                    ->visible(fn(Delivery $record): bool => $record->payment_status === 'pending'),
 
                 Action::make('mark_as_paid')
                     ->label('Tandai Lunas')
@@ -228,10 +227,10 @@ class PaymentResource extends Resource
                             'paid_at' => now(),
                             'payment_type' => 'manual_admin'
                         ]);
-                        
+
                         Log::info('Admin manually marked payment as paid for: ' . $record->resi);
                     })
-                    ->visible(fn (Delivery $record): bool => $record->payment_status === 'pending'),
+                    ->visible(fn(Delivery $record): bool => $record->payment_status === 'pending'),
 
                 Action::make('cancel_payment')
                     ->label('Batalkan')
@@ -244,15 +243,15 @@ class PaymentResource extends Resource
                         $record->update([
                             'payment_status' => 'cancelled'
                         ]);
-                        
+
                         Log::info('Admin cancelled payment for: ' . $record->resi);
                     })
-                    ->visible(fn (Delivery $record): bool => in_array($record->payment_status, ['pending', 'failed'])),
+                    ->visible(fn(Delivery $record): bool => in_array($record->payment_status, ['pending', 'failed'])),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                    
+
                     Tables\Actions\BulkAction::make('mark_paid')
                         ->label('Tandai Lunas')
                         ->icon('heroicon-o-check-circle')
@@ -268,7 +267,7 @@ class PaymentResource extends Resource
                                     ]);
                                 }
                             });
-                            
+
                             Log::info('Admin bulk marked payments as paid');
                         }),
                 ]),

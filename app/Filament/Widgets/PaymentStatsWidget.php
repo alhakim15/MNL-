@@ -13,50 +13,37 @@ class PaymentStatsWidget extends BaseWidget
 
     protected function getStats(): array
     {
-        // Total pembayaran
-        $totalPayments = Delivery::whereNotNull('shipping_cost')->count();
-        $totalRevenue = Delivery::where('payment_status', 'paid')->sum('shipping_cost');
-        
-        // Pembayaran hari ini
-        $todayPayments = Delivery::whereDate('created_at', today())
-            ->whereNotNull('shipping_cost')
+        // Total muatan bulan ini
+        $currentMonth = Carbon::now();
+        $totalWeightThisMonth = Delivery::whereYear('created_at', $currentMonth->year)
+            ->whereMonth('created_at', $currentMonth->month)
+            ->sum('weight');
+
+        // Estimasi pendapatan dari muatan bulan ini
+        $estimatedRevenue = $totalWeightThisMonth * 1000000; // 1 juta per ton
+
+        // Tingkat keberhasilan pengiriman bulan ini
+        $totalDeliveriesThisMonth = Delivery::whereYear('created_at', $currentMonth->year)
+            ->whereMonth('created_at', $currentMonth->month)
             ->count();
-        $todayRevenue = Delivery::whereDate('paid_at', today())
+
+        $successfulDeliveriesThisMonth = Delivery::whereYear('created_at', $currentMonth->year)
+            ->whereMonth('created_at', $currentMonth->month)
             ->where('payment_status', 'paid')
-            ->sum('shipping_cost');
+            ->count();
 
-        // Pembayaran pending
-        $pendingPayments = Delivery::where('payment_status', 'pending')->count();
-        $pendingValue = Delivery::where('payment_status', 'pending')->sum('shipping_cost');
-
-        // Success rate
-        $successRate = $totalPayments > 0 
-            ? round((Delivery::where('payment_status', 'paid')->count() / $totalPayments) * 100, 1)
+        $successRate = $totalDeliveriesThisMonth > 0
+            ? round(($successfulDeliveriesThisMonth / $totalDeliveriesThisMonth) * 100, 1)
             : 0;
 
         return [
-            Stat::make('Total Pembayaran', number_format($totalPayments))
-                ->description('Semua transaksi pembayaran')
-                ->descriptionIcon('heroicon-m-credit-card')
+            Stat::make('Total Muatan Bulan Ini', number_format($totalWeightThisMonth, 1) . ' ton')
+                ->description('Estimasi pendapatan: Rp ' . number_format($estimatedRevenue / 1000000, 1) . 'M')
+                ->descriptionIcon('heroicon-m-truck')
                 ->color('primary'),
 
-            Stat::make('Total Pendapatan', 'Rp ' . number_format($totalRevenue))
-                ->description('Pembayaran yang sudah lunas')
-                ->descriptionIcon('heroicon-m-banknotes')
-                ->color('success'),
-
-            Stat::make('Pembayaran Hari Ini', number_format($todayPayments))
-                ->description('Rp ' . number_format($todayRevenue) . ' terkumpul')
-                ->descriptionIcon('heroicon-m-calendar-days')
-                ->color('info'),
-
-            Stat::make('Pembayaran Pending', number_format($pendingPayments))
-                ->description('Rp ' . number_format($pendingValue) . ' menunggu')
-                ->descriptionIcon('heroicon-m-clock')
-                ->color('warning'),
-
-            Stat::make('Success Rate', $successRate . '%')
-                ->description('Tingkat keberhasilan pembayaran')
+            Stat::make('Tingkat Keberhasilan', $successRate . '%')
+                ->description('Pengiriman berhasil bulan ini')
                 ->descriptionIcon('heroicon-m-chart-bar')
                 ->color($successRate >= 80 ? 'success' : ($successRate >= 60 ? 'warning' : 'danger')),
         ];

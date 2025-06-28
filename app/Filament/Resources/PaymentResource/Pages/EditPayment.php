@@ -15,7 +15,7 @@ class EditPayment extends EditRecord
     {
         return [
             Actions\ViewAction::make(),
-            
+
             Actions\Action::make('reset_payment')
                 ->label('Reset Pembayaran')
                 ->icon('heroicon-o-arrow-path')
@@ -29,12 +29,12 @@ class EditPayment extends EditRecord
                         'payment_type' => null,
                         'paid_at' => null,
                     ]);
-                    
+
                     Log::info('Admin reset payment status for: ' . $this->record->resi);
-                    
+
                     $this->redirect($this->getResource()::getUrl('view', ['record' => $this->record]));
                 })
-                ->visible(fn () => in_array($this->record->payment_status, ['paid', 'failed', 'cancelled'])),
+                ->visible(fn() => in_array($this->record->payment_status, ['paid', 'failed', 'cancelled'])),
         ];
     }
 

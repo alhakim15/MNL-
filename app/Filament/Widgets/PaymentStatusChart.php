@@ -46,7 +46,7 @@ class PaymentStatusChart extends ChartWidget
                     'label' => 'Jumlah Pembayaran',
                     'data' => $data,
                     'backgroundColor' => $colors,
-                    'borderColor' => array_map(function($color) {
+                    'borderColor' => array_map(function ($color) {
                         return str_replace('0.8', '1', $color);
                     }, $colors),
                     'borderWidth' => 2,
