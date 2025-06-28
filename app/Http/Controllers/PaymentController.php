@@ -265,4 +265,44 @@ class PaymentController extends Controller
                 ->with('error', 'Gagal mengecek status dari Midtrans: ' . $e->getMessage());
         }
     }
+
+    public function dashboardDebug()
+    {
+        $user = auth()->user();
+
+        // Get payment statistics
+        $totalDeliveries = Delivery::where('sender_name', $user->name)->count();
+        $pendingPayments = Delivery::where('sender_name', $user->name)
+            ->where('payment_status', 'pending')
+            ->count();
+        $paidPayments = Delivery::where('sender_name', $user->name)
+            ->where('payment_status', 'paid')
+            ->count();
+        $totalAmount = Delivery::where('sender_name', $user->name)
+            ->where('payment_status', 'paid')
+            ->sum('shipping_cost');
+
+        // Get recent payments
+        $recentPayments = Delivery::with(['fromCity', 'toCity', 'ship'])
+            ->where('sender_name', $user->name)
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        // Get pending payments
+        $pendingPaymentsList = Delivery::with(['fromCity', 'toCity', 'ship'])
+            ->where('sender_name', $user->name)
+            ->where('payment_status', 'pending')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('payment.dashboard-debug', compact(
+            'totalDeliveries',
+            'pendingPayments',
+            'paidPayments',
+            'totalAmount',
+            'recentPayments',
+            'pendingPaymentsList'
+        ));
+    }
 }

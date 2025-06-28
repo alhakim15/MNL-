@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
 
     // Payment routes
     Route::get('/payment/dashboard', [PaymentController::class, 'dashboard'])->name('payment.dashboard');
+    Route::get('/payment/debug', [PaymentController::class, 'dashboardDebug'])->name('payment.debug');
     Route::get('/payment/history', [PaymentController::class, 'history'])->name('payment.history');
     Route::get('/payment/{resi}/check-status', [PaymentController::class, 'checkStatus'])->name('payment.check-status');
     Route::get('/payment/{resi}', [PaymentController::class, 'showPayment'])->name('payment.show');
