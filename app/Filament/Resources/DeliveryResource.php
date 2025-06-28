@@ -157,4 +157,11 @@ class DeliveryResource extends Resource
             'edit' => Pages\EditDelivery::route('/{record}/edit'),
         ];
     }
+
+    public static function getWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\DeliveryResource\Widgets\DeliveryOverviewWidget::class,
+        ];
+    }
 }

@@ -45,10 +45,18 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
+                // Default Filament widgets
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
-                \App\Filament\Widgets\DeliveryStats::class,
 
+                // Custom dashboard widgets
+                \App\Filament\Widgets\DeliveryStatsWidget::class,
+                \App\Filament\Widgets\MonthlyDeliveryChart::class,
+                \App\Filament\Widgets\DailyActivityChart::class,
+                \App\Filament\Widgets\RevenueChart::class,
+                \App\Filament\Widgets\ShipUtilizationChart::class,
+                \App\Filament\Widgets\DeliveryStatusChart::class,
+                \App\Filament\Widgets\PopularRoutesChart::class,
+                \App\Filament\Widgets\WeightDistributionChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,
