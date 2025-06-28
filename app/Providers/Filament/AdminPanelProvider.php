@@ -15,7 +15,6 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use App\Filament\Pages\Auth\Login;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 
@@ -28,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->pages([
-                Login::class,
+                Pages\Dashboard::class,
             ])
             // ->registration()
             ->authGuard('web')
@@ -48,11 +47,13 @@ class AdminPanelProvider extends PanelProvider
 
                 // Custom dashboard widgets
                 \App\Filament\Widgets\DeliveryStatsWidget::class,
+                \App\Filament\Widgets\PaymentStatsWidget::class,
                 \App\Filament\Widgets\MonthlyDeliveryChart::class,
                 \App\Filament\Widgets\DailyActivityChart::class,
                 \App\Filament\Widgets\RevenueChart::class,
                 \App\Filament\Widgets\ShipUtilizationChart::class,
                 \App\Filament\Widgets\DeliveryStatusChart::class,
+                \App\Filament\Widgets\PaymentStatusChart::class,
                 \App\Filament\Widgets\PopularRoutesChart::class,
                 \App\Filament\Widgets\WeightDistributionChart::class,
             ])
