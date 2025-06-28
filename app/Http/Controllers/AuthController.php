@@ -72,7 +72,7 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect()->route('home')->with('success', 'Registrasi berhasil! Selamat datang di Mutiara Nasional Line.');
+        return redirect()->route('login')->with('success', 'Registrasi berhasil! Selamat datang di Mutiara Nasional Line.');
     }
     public function showLogin()
     {
