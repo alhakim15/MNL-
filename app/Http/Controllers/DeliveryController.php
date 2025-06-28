@@ -9,10 +9,17 @@ use App\Models\Delivery;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\DeliveryStatusLog;
+use App\Services\MidtransService;
 use Illuminate\Support\Facades\Auth;
 
 class DeliveryController extends Controller
 {
+    protected $midtransService;
+
+    public function __construct(MidtransService $midtransService)
+    {
+        $this->midtransService = $midtransService;
+    }
 
     public function create()
     {
@@ -48,6 +55,13 @@ class DeliveryController extends Controller
             return back()->withErrors(['weight' => 'Kapasitas kapal melebihi batas maksimum (' . $ship->max_weight . ' ton).'])->withInput();
         }
 
+        // Calculate shipping cost
+        $shippingCost = $this->midtransService->calculateShippingCost(
+            $request->weight,
+            $request->from_city_id,
+            $request->to_city_id
+        );
+
         $delivery = Delivery::create([
             'sender_name'   => Auth::user()->name,
             'receiver_name' => $request->receiver_name,
@@ -58,6 +72,8 @@ class DeliveryController extends Controller
             'weight'        => $request->weight,
             'ship_id'       => $ship->id,
             'resi'          => 'TRK' . strtoupper(Str::random(10)),
+            'shipping_cost' => $shippingCost,
+            'payment_status' => 'pending',
         ]);
 
         DeliveryStatusLog::create([
@@ -80,7 +96,8 @@ class DeliveryController extends Controller
                 'weight' => $delivery->weight,
                 'ship' => $delivery->ship->name,
                 'date' => Carbon::parse($delivery->delivery_date)->format('d M Y'),
-
+                'shipping_cost' => number_format($delivery->shipping_cost, 0, ',', '.'),
+                'payment_url' => route('payment.show', $delivery->resi),
             ]);
     }
 

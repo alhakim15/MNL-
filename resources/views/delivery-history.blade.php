@@ -203,6 +203,21 @@
             color: white;
         }
 
+        .text-success {
+            color: #28a745 !important;
+            font-weight: 600;
+        }
+
+        .text-warning {
+            color: #ffc107 !important;
+            font-weight: 600;
+        }
+
+        .text-danger {
+            color: #dc3545 !important;
+            font-weight: 600;
+        }
+
         @media (max-width: 768px) {
             .delivery-details {
                 grid-template-columns: 1fr;
@@ -342,6 +357,54 @@
                         </div>
                     </div>
                     @endif
+
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="detail-content">
+                            <div class="detail-label">Biaya Pengiriman</div>
+                            <div class="detail-value">Rp {{ number_format($delivery->shipping_cost, 0, ',', '.') }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="detail-content">
+                            <div class="detail-label">Status Pembayaran</div>
+                            <div class="detail-value">
+                                @php
+                                $paymentClass = match($delivery->payment_status) {
+                                'paid' => 'text-success',
+                                'pending' => 'text-warning',
+                                'failed' => 'text-danger',
+                                'expired' => 'text-danger',
+                                default => 'text-warning'
+                                };
+                                @endphp
+                                <span class="{{ $paymentClass }}">
+                                    @if($delivery->payment_status === 'paid')
+                                    <i class="fas fa-check-circle"></i> Sudah Dibayar
+                                    @elseif($delivery->payment_status === 'pending')
+                                    <i class="fas fa-clock"></i> Menunggu Pembayaran
+                                    @elseif($delivery->payment_status === 'failed')
+                                    <i class="fas fa-times-circle"></i> Gagal
+                                    @elseif($delivery->payment_status === 'expired')
+                                    <i class="fas fa-exclamation-circle"></i> Kedaluwarsa
+                                    @endif
+                                </span>
+                                @if($delivery->payment_status !== 'paid')
+                                <a href="{{ route('payment.show', $delivery->resi) }}" class="track-button"
+                                    style="margin-left: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    <i class="fas fa-credit-card"></i> Bayar
+                                </a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

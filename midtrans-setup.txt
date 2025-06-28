@@ -1,0 +1,14 @@
+
+# Untuk mendapatkan Midtrans credentials:
+# 1. Daftar di https://midtrans.com
+# 2. Login ke dashboard
+# 3. Pilih environment (Sandbox untuk testing)
+# 4. Ambil Server Key dan Client Key dari Settings > Access Keys
+
+# Contoh konfigurasi untuk .env:
+MIDTRANS_SERVER_KEY=SB-Mid-server-xxxxxxxxxxxxx
+MIDTRANS_CLIENT_KEY=SB-Mid-client-xxxxxxxxxxxxx
+MIDTRANS_IS_PRODUCTION=false
+MIDTRANS_IS_SANITIZED=true
+MIDTRANS_IS_3DS=true
+

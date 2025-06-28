@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,4 +50,16 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
     Route::delete('/profile', [ProfileController::class, 'deleteAccount'])->name('profile.delete');
+
+    // Payment routes
+    Route::get('/payment/dashboard', [PaymentController::class, 'dashboard'])->name('payment.dashboard');
+    Route::get('/payment/history', [PaymentController::class, 'history'])->name('payment.history');
+    Route::get('/payment/{resi}/check-status', [PaymentController::class, 'checkStatus'])->name('payment.check-status');
+    Route::get('/payment/{resi}', [PaymentController::class, 'showPayment'])->name('payment.show');
 });
+
+// Payment callback routes (no auth needed)
+Route::post('/payment/notification', [PaymentController::class, 'notification'])->name('payment.notification');
+Route::get('/payment/finish', [PaymentController::class, 'finish'])->name('payment.finish');
+Route::get('/payment/unfinish', [PaymentController::class, 'unfinish'])->name('payment.unfinish');
+Route::get('/payment/error', [PaymentController::class, 'error'])->name('payment.error');

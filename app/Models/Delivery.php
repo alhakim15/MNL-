@@ -19,6 +19,23 @@ class Delivery extends Model
         'ship_id',
         'weight',
         'resi',
+        'shipping_cost',
+        'payment_status',
+        'payment_token',
+        'payment_type',
+        'paid_at',
+    ];
+
+    protected $casts = [
+        'paid_at' => 'datetime',
+        'delivery_date' => 'date',
+    ];
+
+    const PAYMENT_STATUS = [
+        'PENDING' => 'pending',
+        'PAID' => 'paid',
+        'FAILED' => 'failed',
+        'EXPIRED' => 'expired',
     ];
 
     // Relasi ke kota asal

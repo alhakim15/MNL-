@@ -15,6 +15,9 @@
     <a href="{{ route('home') }}" class="back-button">
       <i class="fas fa-arrow-left"></i> Back
     </a>
+    <a href="{{ route('payment.dashboard') }}" class="back-button history-button">
+      <i class="fas fa-credit-card"></i> Payments
+    </a>
     <a href="{{ route('deliveries.history') }}" class="back-button history-button">
       <i class="fas fa-history"></i> History
     </a>
@@ -163,10 +166,19 @@
       </p>
       <p><strong>Kapal:</strong> <span id="shipName">{{ session('deliveryData.ship') }}</span></p>
       <p><strong>Tanggal:</strong> <span id="deliveryDate">{{ session('deliveryData.date') }}</span></p>
+      <p><strong>Biaya Pengiriman:</strong> <span id="shippingCost" style="color: #e74c3c; font-weight: bold;">Rp {{
+          session('deliveryData.shipping_cost') }}</span></p>
       <div class="modal-button-group">
         <button onclick="closeModal()" class="modal-btn modal-btn-close">
           <i class="fas fa-times"></i> Tutup
         </button>
+        <a href="{{ session('deliveryData.payment_url') }}" class="modal-btn modal-btn-payment"
+          style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+          <i class="fas fa-credit-card"></i> Bayar Sekarang
+        </a>
+        <a href="{{ route('payment.dashboard') }}" class="modal-btn modal-btn-history">
+          <i class="fas fa-tachometer-alt"></i> Payment Dashboard
+        </a>
         <a href="{{ route('deliveries.history') }}" class="modal-btn modal-btn-history">
           <i class="fas fa-history"></i> Lihat History
         </a>
