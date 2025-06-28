@@ -165,9 +165,10 @@ class PaymentController extends Controller
             ->with('error', 'Terjadi kesalahan dalam proses pembayaran. Silakan coba lagi.');
     }
 
-    public function dashboard()
+    public function dashboard(Request $request)
     {
         $user = auth()->user();
+        $status = $request->get('status', 'all');
 
         // Get payment statistics
         $totalDeliveries = Delivery::where('sender_name', $user->name)->count();
@@ -177,18 +178,26 @@ class PaymentController extends Controller
         $paidPayments = Delivery::where('sender_name', $user->name)
             ->where('payment_status', 'paid')
             ->count();
+        $failedPayments = Delivery::where('sender_name', $user->name)
+            ->where('payment_status', 'failed')
+            ->count();
         $totalAmount = Delivery::where('sender_name', $user->name)
             ->where('payment_status', 'paid')
             ->sum('shipping_cost');
 
-        // Get recent payments
-        $recentPayments = Delivery::with(['fromCity', 'toCity', 'ship'])
-            ->where('sender_name', $user->name)
-            ->orderBy('created_at', 'desc')
-            ->limit(5)
-            ->get();
+        // Build query for filtered payments
+        $query = Delivery::with(['fromCity', 'toCity', 'ship'])
+            ->where('sender_name', $user->name);
 
-        // Get pending payments
+        // Apply status filter
+        if ($status !== 'all') {
+            $query->where('payment_status', $status);
+        }
+
+        // Get filtered payments
+        $recentPayments = $query->orderBy('created_at', 'desc')->get();
+
+        // Get pending payments for quick actions
         $pendingPaymentsList = Delivery::with(['fromCity', 'toCity', 'ship'])
             ->where('sender_name', $user->name)
             ->where('payment_status', 'pending')
@@ -199,9 +208,11 @@ class PaymentController extends Controller
             'totalDeliveries',
             'pendingPayments',
             'paidPayments',
+            'failedPayments',
             'totalAmount',
             'recentPayments',
-            'pendingPaymentsList'
+            'pendingPaymentsList',
+            'status'
         ));
     }
 

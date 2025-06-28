@@ -330,21 +330,51 @@
                 </div>
             </div>
 
+            @if(($status ?? 'all') !== 'all')
+            <div class="summary-card">
+                <div class="summary-item">
+                    <div class="summary-value">
+                        @if($status == 'pending')
+                        {{ $pendingPayments }}
+                        @elseif($status == 'paid')
+                        {{ $paidPayments }}
+                        @elseif($status == 'failed')
+                        {{ $failedPayments ?? 0 }}
+                        @endif
+                    </div>
+                    <div class="summary-label">
+                        @if($status == 'pending')
+                        Pembayaran Menunggu
+                        @elseif($status == 'paid')
+                        Pembayaran Berhasil
+                        @elseif($status == 'failed')
+                        Pembayaran Gagal
+                        @endif
+                    </div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-value">{{ $recentPayments->count() }}</div>
+                    <div class="summary-label">Total Item</div>
+                </div>
+            </div>
+            @endif
+
             <!-- Filter Tabs -->
             <div class="filter-tabs">
-                <a href="{{ route('payment.history', ['status' => 'pending']) }}"
-                    class="filter-tab {{ request('status') == 'pending' ? 'active' : '' }}">
+                <a href="{{ route('payment.dashboard', ['status' => 'pending']) }}"
+                    class="filter-tab {{ ($status ?? 'all') == 'pending' ? 'active' : '' }}">
                     Menunggu
                 </a>
-                <a href="{{ route('payment.history', ['status' => 'paid']) }}"
-                    class="filter-tab {{ request('status') == 'paid' ? 'active' : '' }}">
+                <a href="{{ route('payment.dashboard', ['status' => 'paid']) }}"
+                    class="filter-tab {{ ($status ?? 'all') == 'paid' ? 'active' : '' }}">
                     Terbayar
                 </a>
-                <a href="{{ route('payment.history', ['status' => 'failed']) }}"
-                    class="filter-tab {{ request('status') == 'failed' ? 'active' : '' }}">
+                <a href="{{ route('payment.dashboard', ['status' => 'failed']) }}"
+                    class="filter-tab {{ ($status ?? 'all') == 'failed' ? 'active' : '' }}">
                     Gagal
                 </a>
-                <a href="{{ route('payment.history') }}" class="filter-tab {{ !request('status') ? 'active' : '' }}">
+                <a href="{{ route('payment.dashboard') }}"
+                    class="filter-tab {{ ($status ?? 'all') == 'all' || !isset($status) ? 'active' : '' }}">
                     Riwayat
                 </a>
             </div>
@@ -485,6 +515,42 @@
 
         document.getElementById('statusFilter').addEventListener('change', filterItems);
         document.getElementById('productFilter').addEventListener('change', filterItems);
+
+        // Add visual feedback for filter tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            const activeTab = document.querySelector('.filter-tab.active');
+            if (activeTab) {
+                activeTab.style.backgroundColor = '#f8f9fa';
+            }
+        });
+
+        // Add counter badges to tabs
+        @if(isset($pendingPayments, $paidPayments, $failedPayments))
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.filter-tab');
+            tabs.forEach(tab => {
+                const href = tab.getAttribute('href');
+                let count = 0;
+                
+                if (href.includes('status=pending')) {
+                    count = {{ $pendingPayments }};
+                } else if (href.includes('status=paid')) {
+                    count = {{ $paidPayments }};
+                } else if (href.includes('status=failed')) {
+                    count = {{ $failedPayments ?? 0 }};
+                } else {
+                    count = {{ $totalDeliveries }};
+                }
+                
+                if (count > 0) {
+                    const badge = document.createElement('span');
+                    badge.style.cssText = 'background: #dc3545; color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px; margin-left: 5px;';
+                    badge.textContent = count;
+                    tab.appendChild(badge);
+                }
+            });
+        });
+        @endif
     </script>
 </body>
 
