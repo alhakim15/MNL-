@@ -2,11 +2,11 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lacak Resi Pengiriman Kapal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" />
     <style>
         body {
             background-color: #0f111c;
@@ -15,6 +15,7 @@
             align-items: center;
             justify-content: center;
             font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
         }
 
         .card {
@@ -40,6 +41,16 @@
         .btn-primary:hover {
             background-color: #c2185b;
             border-color: #c2185b;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
         }
 
         .form-control:focus {
@@ -70,8 +81,21 @@
             background-color: #fdecea;
             color: #d32f2f;
         }
-    </style>
 
+        @media (max-width: 576px) {
+            .card-header h2 {
+                font-size: 1.25rem;
+            }
+
+            .card-header p {
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -122,10 +146,17 @@
                                 </div>
                             </div>
 
-                            <div class="d-grid">
+                            <div class="d-grid mb-3">
                                 <button type="submit" class="btn btn-primary btn-lg shadow-sm">
                                     <i class="bi bi-search me-2"></i> Lacak Sekarang
                                 </button>
+                            </div>
+
+                            <!-- Tombol Kembali -->
+                            <div class="d-grid">
+                                <a href="{{ url('/') }}" class="btn btn-secondary btn-lg shadow-sm">
+                                    <i class="bi bi-arrow-left-circle me-2"></i> Kembali ke Halaman Awal
+                                </a>
                             </div>
                         </form>
                     </div>
@@ -139,7 +170,8 @@
         </div>
     </div>
 
-    @include('components.footer')
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

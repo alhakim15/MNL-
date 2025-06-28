@@ -6,6 +6,8 @@ body {
   align-items: center;
   justify-content: center;
   font-family: 'Segoe UI', sans-serif;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .login-container {
@@ -47,6 +49,8 @@ body {
   background: #fff8f9;
   outline: none;
   transition: border 0.2s, background 0.2s;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .login-form input:focus {
@@ -97,4 +101,25 @@ body {
   padding: 10px;
   margin-bottom: 12px;
   font-size: 0.95rem;
+}
+
+/* Media Query untuk layar kecil */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 32px 20px;
+    border-radius: 16px;
+  }
+
+  .login-title {
+    font-size: 1.6rem;
+  }
+
+  .login-form input {
+    font-size: 0.95rem;
+  }
+
+  .login-btn {
+    font-size: 1rem;
+    padding: 10px 0;
+  }
 }

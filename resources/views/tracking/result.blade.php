@@ -10,7 +10,6 @@
     <style>
         body {
             background-color: #0f111c;
-
             min-height: 100vh;
             padding-top: 30px;
             padding-bottom: 30px;
@@ -100,7 +99,6 @@
             border-color: #fce4ec;
         }
 
-        /* Ganti semua biru Bootstrap jadi biru dongker */
         .text-primary,
         .bi-flag-fill,
         .bi-ship,
@@ -120,7 +118,6 @@
             color: #666;
         }
     </style>
-
 </head>
 
 <body>
@@ -209,6 +206,13 @@
                             @endforeach
                         </div>
                         @endif
+
+                        <!-- Tombol Kembali -->
+                        <div class="text-center mt-4">
+                            <a href="{{ url('/') }}" class="btn btn-secondary btn-lg shadow-sm">
+                                <i class="bi bi-arrow-left-circle me-2"></i> Kembali ke Halaman Awal
+                            </a>
+                        </div>
                     </div>
 
                     <!-- Footer -->
