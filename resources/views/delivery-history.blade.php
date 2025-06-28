@@ -196,11 +196,40 @@
             font-size: 0.85rem;
             font-weight: 600;
             transition: background 0.2s ease;
+            display: inline-block;
         }
 
         .track-button:hover {
             background: #1d4ed8;
             color: white;
+        }
+
+        .payment-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .payment-button:hover {
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .payment-status-container {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .text-success {
@@ -385,23 +414,24 @@
                                 default => 'text-warning'
                                 };
                                 @endphp
-                                <span class="{{ $paymentClass }}">
-                                    @if($delivery->payment_status === 'paid')
-                                    <i class="fas fa-check-circle"></i> Sudah Dibayar
-                                    @elseif($delivery->payment_status === 'pending')
-                                    <i class="fas fa-clock"></i> Menunggu Pembayaran
-                                    @elseif($delivery->payment_status === 'failed')
-                                    <i class="fas fa-times-circle"></i> Gagal
-                                    @elseif($delivery->payment_status === 'expired')
-                                    <i class="fas fa-exclamation-circle"></i> Kedaluwarsa
+                                <div class="payment-status-container">
+                                    <span class="{{ $paymentClass }}">
+                                        @if($delivery->payment_status === 'paid')
+                                        <i class="fas fa-check-circle"></i> Sudah Dibayar
+                                        @elseif($delivery->payment_status === 'pending')
+                                        <i class="fas fa-clock"></i> Menunggu Pembayaran
+                                        @elseif($delivery->payment_status === 'failed')
+                                        <i class="fas fa-times-circle"></i> Gagal
+                                        @elseif($delivery->payment_status === 'expired')
+                                        <i class="fas fa-exclamation-circle"></i> Kedaluwarsa
+                                        @endif
+                                    </span>
+                                    @if($delivery->payment_status !== 'paid')
+                                    <a href="{{ route('payment.show', $delivery->resi) }}" class="payment-button">
+                                        <i class="fas fa-credit-card"></i> Bayar Sekarang
+                                    </a>
                                     @endif
-                                </span>
-                                @if($delivery->payment_status !== 'paid')
-                                <a href="{{ route('payment.show', $delivery->resi) }}" class="track-button"
-                                    style="margin-left: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                                    <i class="fas fa-credit-card"></i> Bayar
-                                </a>
-                                @endif
+                                </div>
                             </div>
                         </div>
                     </div>
