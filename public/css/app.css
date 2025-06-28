@@ -331,7 +331,7 @@ body {
   position: relative;
   z-index: 1;
   margin-left: -100px; /* overlap ke kiri */
-  transition: transform 0.3s, z-index 0.3s;
+  /* transition: transform 0.3s, z-index 0.3s; */ /* Removed for instant transitions */
 }
 
 .carousel-item:first-child {
@@ -339,7 +339,7 @@ body {
 }
 
 .carousel-item:hover {
-  transform: scale(1.55);
+  /* transform: scale(1.55); */ /* Removed confusing hover animation */
   z-index: 10;
 }
 
@@ -355,7 +355,7 @@ body {
   z-index: 5;
   flex: 0 0 480px; /* lebih besar dari yang lainnya */
   z-index: 10;
-  transform: scale(1.05); /* bisa ditambah efek pembesaran */
+  /* transform: scale(1.05); */ /* Removed confusing scale animation */
 }
 
 .pilot-section {

@@ -23,9 +23,5 @@ document.addEventListener("DOMContentLoaded", function () {
     updateCarousel();
   });
 
-  setInterval(() => {
-    nextBtn.click();
-  }, 3500);
-
   updateCarousel();
 });

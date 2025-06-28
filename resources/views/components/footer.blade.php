@@ -48,11 +48,6 @@
   </div>
 
   <div class="footer-bottom">
-    <div class="logos">
-      <img src="{{ asset('Gambar/logo1.png') }}" alt="Logo 1">
-      <img src="{{ asset('Gambar/logo2.png') }}" alt="PELINDO">
-      <img src="Gambar/logo3.png" alt="Seunda Kelapa">
-    </div>
     <p>PT. Mutiara Nasional Line</p>
   </div>
 </footer>
