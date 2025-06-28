@@ -19,33 +19,82 @@
 
     <form method="POST" action="{{ route('register.submit') }}" class="register-form" autocomplete="off">
       @csrf
-      <label class="form-label" for="first_name">Nama Depan</label>
-      <input type="text" name="first_name" id="first_name" placeholder="Nama Depan" value="{{ old('first_name') }}"
-        required>
 
-      <label class="form-label" for="last_name">Nama Belakang</label>
-      <input type="text" name="last_name" id="last_name" placeholder="Nama Belakang" value="{{ old('last_name') }}"
-        required>
+      <!-- Personal Information Section -->
+      <div class="form-section">
+        <h3 class="section-title">Informasi Pribadi</h3>
 
-      <label class="form-label" for="reg_email">Alamat Email</label>
-      <input type="email" name="email" id="reg_email" placeholder="email@contoh.com" value="{{ old('email') }}"
-        required>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="first_name">Nama Depan</label>
+            <input type="text" name="first_name" id="first_name" placeholder="Nama Depan"
+              value="{{ old('first_name') }}" required>
+          </div>
 
-      <label class="form-label" for="reg_password">Kata Sandi</label>
-      <div class="input-group">
-        <input type="password" name="password" id="reg_password" placeholder="Password" required>
-        <button class="toggle-password" type="button" tabindex="-1">
-          <span class="fa fa-eye"></span>
-        </button>
+          <div class="form-group">
+            <label class="form-label" for="last_name">Nama Belakang</label>
+            <input type="text" name="last_name" id="last_name" placeholder="Nama Belakang"
+              value="{{ old('last_name') }}" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="date_of_birth">Tanggal Lahir</label>
+            <input type="date" name="date_of_birth" id="date_of_birth" value="{{ old('date_of_birth') }}" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="gender">Jenis Kelamin</label>
+            <select name="gender" id="gender" required>
+              <option value="">Pilih</option>
+              <option value="Laki-laki" {{ old('gender')=='Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+              <option value="Perempuan" {{ old('gender')=='Perempuan' ? 'selected' : '' }}>Perempuan</option>
+            </select>
+          </div>
+        </div>
       </div>
 
-      <label class="form-label" for="password_confirmation">Konfirmasi Kata Sandi</label>
-      <div class="input-group">
-        <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Konfirmasi Password"
-          required>
-        <button class="toggle-password" type="button" tabindex="-1">
-          <span class="fa fa-eye"></span>
-        </button>
+      <!-- Contact Information Section -->
+      <div class="form-section">
+        <h3 class="section-title">Informasi Kontak</h3>
+
+        <div class="form-group">
+          <label class="form-label" for="phone">Nomor Telepon</label>
+          <input type="tel" name="phone" id="phone" placeholder="081234567890" value="{{ old('phone') }}" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg_email">Alamat Email</label>
+          <input type="email" name="email" id="reg_email" placeholder="email@contoh.com" value="{{ old('email') }}"
+            required>
+        </div>
+      </div>
+
+      <!-- Security Section -->
+      <div class="form-section">
+        <h3 class="section-title">Keamanan Akun</h3>
+
+        <div class="form-group">
+          <label class="form-label" for="reg_password">Kata Sandi</label>
+          <div class="input-group">
+            <input type="password" name="password" id="reg_password" placeholder="Minimal 8 karakter" required>
+            <button class="toggle-password" type="button" tabindex="-1">
+              <span class="fa fa-eye"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password_confirmation">Konfirmasi Kata Sandi</label>
+          <div class="input-group">
+            <input type="password" name="password_confirmation" id="password_confirmation"
+              placeholder="Ulangi kata sandi" required>
+            <button class="toggle-password" type="button" tabindex="-1">
+              <span class="fa fa-eye"></span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <button type="submit" class="register-btn">Daftar Sekarang</button>
