@@ -75,6 +75,8 @@
   <!-- Footer -->
   @include('components.footer')
 
+  <script src="{{ asset('js/navbar.js') }}"></script>
+
 </body>
 
 </html>
