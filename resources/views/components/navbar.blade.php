@@ -14,6 +14,7 @@
                 @endcan
                 <li><a href="{{ route('tracking') }}">Tracking</a></li>
                 @auth
+                <li><a href="{{ route('profile.index') }}">Profil</a></li>
                 <li class="nav-item">
                     <form action="{{ route('logout') }}" method="POST" class="logout-form">
                         @csrf
@@ -48,6 +49,7 @@
             @endcan
             <li><a href="{{ route('tracking') }}">Tracking</a></li>
             @auth
+            <li><a href="{{ route('profile.index') }}">Profil</a></li>
             <li>
                 <form action="{{ route('logout') }}" method="POST" class="logout-form">
                     @csrf

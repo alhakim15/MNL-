@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\TrackingController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/deliver', [DeliveryController::class, 'create'])->name('deliveries.create');
     Route::post('/deliver', [DeliveryController::class, 'store'])->name('deliveries.store');
     Route::get('/delivery-history', [DeliveryController::class, 'history'])->name('deliveries.history');
+
+    // Profile routes
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+    Route::delete('/profile', [ProfileController::class, 'deleteAccount'])->name('profile.delete');
 });

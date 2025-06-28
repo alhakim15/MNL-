@@ -21,7 +21,13 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
-        'role'
+        'role',
+        'first_name',
+        'last_name',
+        'date_of_birth',
+        'gender',
+        'phone',
+        'profile_photo'
     ];
 
     protected $hidden = [
@@ -32,6 +38,7 @@ class User extends Authenticatable implements FilamentUser
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'date_of_birth' => 'date',
     ];
 
     public function canAccessFilament(): bool
