@@ -38,7 +38,8 @@ class PopularRoutesChart extends ChartWidget
         ];
 
         foreach ($routes as $index => $route) {
-            $routeName = $route->fromCity->name . ' → ' . $route->toCity->name;
+            $routeName = ($route->fromCity && $route->fromCity->name ? $route->fromCity->name : '-') . ' → ' .
+                ($route->toCity && $route->toCity->name ? $route->toCity->name : '-');
             $routeNames[] = $routeName;
             $routeCounts[] = $route->total;
         }
