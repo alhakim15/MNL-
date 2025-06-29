@@ -20,9 +20,9 @@
     <form method="POST" action="{{ route('register.submit') }}" class="register-form" autocomplete="off">
       @csrf
 
-      <!-- Personal Information Section -->
+      <!-- Informasi Dasar Section -->
       <div class="form-section">
-        <h3 class="section-title">Informasi Pribadi</h3>
+        <h3 class="section-title">Informasi Dasar</h3>
 
         <div class="form-row">
           <div class="form-group">
@@ -36,32 +36,6 @@
             <input type="text" name="last_name" id="last_name" placeholder="Nama Belakang"
               value="{{ old('last_name') }}" required>
           </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="date_of_birth">Tanggal Lahir</label>
-            <input type="date" name="date_of_birth" id="date_of_birth" value="{{ old('date_of_birth') }}" required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="gender">Jenis Kelamin</label>
-            <select name="gender" id="gender" required>
-              <option value="">Pilih</option>
-              <option value="Laki-laki" {{ old('gender')=='Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-              <option value="Perempuan" {{ old('gender')=='Perempuan' ? 'selected' : '' }}>Perempuan</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Contact Information Section -->
-      <div class="form-section">
-        <h3 class="section-title">Informasi Kontak</h3>
-
-        <div class="form-group">
-          <label class="form-label" for="phone">Nomor Telepon</label>
-          <input type="tel" name="phone" id="phone" placeholder="081234567890" value="{{ old('phone') }}" required>
         </div>
 
         <div class="form-group">
@@ -78,7 +52,7 @@
         <div class="form-group">
           <label class="form-label" for="reg_password">Kata Sandi</label>
           <div class="input-group">
-            <input type="password" name="password" id="reg_password" placeholder="Minimal 8 karakter" required>
+            <input type="password" name="password" id="reg_password" placeholder="Minimal 6 karakter" required>
             <button class="toggle-password" type="button" tabindex="-1">
               <span class="fa fa-eye"></span>
             </button>
@@ -95,6 +69,11 @@
             </button>
           </div>
         </div>
+      </div>
+
+      <div class="info-note">
+        <p><strong>Catatan:</strong> Data lainnya seperti tanggal lahir, jenis kelamin, dan nomor telepon dapat
+          dilengkapi nanti melalui halaman profil setelah registrasi.</p>
       </div>
 
       <button type="submit" class="register-btn">Daftar Sekarang</button>

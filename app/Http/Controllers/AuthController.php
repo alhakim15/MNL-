@@ -48,9 +48,6 @@ class AuthController extends Controller
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'date_of_birth' => ['required', 'date', 'before:' . now()->subYears(13)->format('Y-m-d')],
-            'gender' => ['required', 'in:Laki-laki,Perempuan'],
-            'phone' => ['required', 'string', 'max:20'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'min:6', 'confirmed'],
         ]);
@@ -59,9 +56,6 @@ class AuthController extends Controller
             'name' => $request->first_name . ' ' . $request->last_name,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'date_of_birth' => $request->date_of_birth,
-            'gender' => $request->gender,
-            'phone' => $request->phone,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'email_verified_at' => now(),
@@ -72,7 +66,7 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect()->route('login')->with('success', 'Registrasi berhasil! Selamat datang di Mutiara Nasional Line.');
+        return redirect()->route('login')->with('success', 'Registrasi berhasil! Data lainnya dapat dilengkapi nanti di profil Anda.');
     }
     public function showLogin()
     {
