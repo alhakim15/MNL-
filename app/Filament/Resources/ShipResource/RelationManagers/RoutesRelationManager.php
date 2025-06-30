@@ -41,7 +41,7 @@ class RoutesRelationManager extends RelationManager
                                         // Clear destination if same as origin
                                         $destination = $set('destination_city_id', null);
                                     }),
-                                    
+
                                 Forms\Components\Select::make('destination_city_id')
                                     ->label('Destination City')
                                     ->options(function (callable $get) {
@@ -55,7 +55,7 @@ class RoutesRelationManager extends RelationManager
                                     ->preload()
                                     ->reactive(),
                             ]),
-                            
+
                         Forms\Components\Grid::make(3)
                             ->schema([
                                 Forms\Components\TextInput::make('distance_km')
@@ -67,7 +67,7 @@ class RoutesRelationManager extends RelationManager
                                     ->maxValue(10000)
                                     ->step(0.1)
                                     ->helperText('Distance between cities in kilometers'),
-                                    
+
                                 Forms\Components\TextInput::make('estimated_hours')
                                     ->label('Travel Time')
                                     ->numeric()
@@ -76,7 +76,7 @@ class RoutesRelationManager extends RelationManager
                                     ->minValue(1)
                                     ->maxValue(168)
                                     ->helperText('Estimated travel time in hours'),
-                                    
+
                                 Forms\Components\Toggle::make('is_active')
                                     ->label('Active Route')
                                     ->default(true)
@@ -98,34 +98,34 @@ class RoutesRelationManager extends RelationManager
                     ->searchable()
                     ->badge()
                     ->color('primary'),
-                    
+
                 Tables\Columns\IconColumn::make('arrow')
                     ->label('')
                     ->icon('heroicon-m-arrow-right')
                     ->color('gray')
                     ->alignCenter(),
-                    
+
                 Tables\Columns\TextColumn::make('destinationCity.name')
                     ->label('To')
                     ->sortable()
                     ->searchable()
                     ->badge()
                     ->color('success'),
-                    
+
                 Tables\Columns\TextColumn::make('distance_km')
                     ->label('Distance')
                     ->suffix(' km')
                     ->sortable()
                     ->alignEnd()
                     ->color('info'),
-                    
+
                 Tables\Columns\TextColumn::make('estimated_hours')
                     ->label('Travel Time')
                     ->suffix(' hours')
                     ->sortable()
                     ->alignEnd()
                     ->color('warning'),
-                    
+
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Status')
                     ->boolean()
@@ -134,7 +134,7 @@ class RoutesRelationManager extends RelationManager
                     ->trueColor('success')
                     ->falseColor('danger')
                     ->alignCenter(),
-                    
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Created')
                     ->dateTime()
@@ -147,13 +147,13 @@ class RoutesRelationManager extends RelationManager
                     ->options(City::orderBy('name')->pluck('name', 'id'))
                     ->searchable()
                     ->preload(),
-                    
+
                 Tables\Filters\SelectFilter::make('destination_city_id')
                     ->label('Destination City')
                     ->options(City::orderBy('name')->pluck('name', 'id'))
                     ->searchable()
                     ->preload(),
-                    
+
                 Tables\Filters\TernaryFilter::make('is_active')
                     ->label('Active Status')
                     ->boolean()
@@ -172,27 +172,29 @@ class RoutesRelationManager extends RelationManager
                     ->modalHeading('Edit Route')
                     ->modalSubmitActionLabel('Update Route')
                     ->successNotificationTitle('Route updated successfully'),
-                    
+
                 Tables\Actions\DeleteAction::make()
                     ->requiresConfirmation()
                     ->modalHeading('Delete Route')
                     ->modalDescription('Are you sure you want to delete this route? This action cannot be undone.')
                     ->modalSubmitActionLabel('Yes, delete it')
                     ->successNotificationTitle('Route deleted successfully'),
-                    
+
                 Tables\Actions\Action::make('toggle_status')
-                    ->label(fn (ShipRoute $record): string => $record->is_active ? 'Deactivate' : 'Activate')
-                    ->icon(fn (ShipRoute $record): string => $record->is_active ? 'heroicon-o-pause' : 'heroicon-o-play')
-                    ->color(fn (ShipRoute $record): string => $record->is_active ? 'warning' : 'success')
+                    ->label(fn(ShipRoute $record): string => $record->is_active ? 'Deactivate' : 'Activate')
+                    ->icon(fn(ShipRoute $record): string => $record->is_active ? 'heroicon-o-pause' : 'heroicon-o-play')
+                    ->color(fn(ShipRoute $record): string => $record->is_active ? 'warning' : 'success')
                     ->action(function (ShipRoute $record): void {
                         $record->update(['is_active' => !$record->is_active]);
                     })
                     ->requiresConfirmation()
-                    ->modalHeading(fn (ShipRoute $record): string => ($record->is_active ? 'Deactivate' : 'Activate') . ' Route')
-                    ->modalDescription(fn (ShipRoute $record): string => 
+                    ->modalHeading(fn(ShipRoute $record): string => ($record->is_active ? 'Deactivate' : 'Activate') . ' Route')
+                    ->modalDescription(
+                        fn(ShipRoute $record): string =>
                         'Are you sure you want to ' . ($record->is_active ? 'deactivate' : 'activate') . ' this route?'
                     )
-                    ->successNotificationTitle(fn (ShipRoute $record): string => 
+                    ->successNotificationTitle(
+                        fn(ShipRoute $record): string =>
                         'Route ' . ($record->is_active ? 'activated' : 'deactivated') . ' successfully'
                     ),
             ])
@@ -203,7 +205,7 @@ class RoutesRelationManager extends RelationManager
                         ->modalHeading('Delete Selected Routes')
                         ->modalDescription('Are you sure you want to delete the selected routes? This action cannot be undone.')
                         ->modalSubmitActionLabel('Yes, delete them'),
-                        
+
                     Tables\Actions\BulkAction::make('activate')
                         ->label('Activate Selected')
                         ->icon('heroicon-o-play')
@@ -216,7 +218,7 @@ class RoutesRelationManager extends RelationManager
                         ->modalDescription('Are you sure you want to activate the selected routes?')
                         ->modalSubmitActionLabel('Yes, activate them')
                         ->successNotificationTitle('Selected routes activated successfully'),
-                        
+
                     Tables\Actions\BulkAction::make('deactivate')
                         ->label('Deactivate Selected')
                         ->icon('heroicon-o-pause')

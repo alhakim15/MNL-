@@ -58,7 +58,7 @@ class BasicDataSeeder extends Seeder
     private function createCities(): void
     {
         $citiesCreated = 0;
-        
+
         foreach (self::CITIES as $cityName) {
             $city = City::firstOrCreate(['name' => $cityName]);
             if ($city->wasRecentlyCreated) {
@@ -75,7 +75,7 @@ class BasicDataSeeder extends Seeder
     private function createShips(): void
     {
         $shipsCreated = 0;
-        
+
         foreach (self::SHIPS as $shipData) {
             $ship = Ship::firstOrCreate(
                 ['name' => $shipData['name']],

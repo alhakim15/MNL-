@@ -92,8 +92,8 @@ class Delivery extends Model
     {
         return Ship::whereHas('routes', function ($query) use ($fromCityId, $toCityId) {
             $query->where('origin_city_id', $fromCityId)
-                  ->where('destination_city_id', $toCityId)
-                  ->where('is_active', true);
+                ->where('destination_city_id', $toCityId)
+                ->where('is_active', true);
         })->get();
     }
 }

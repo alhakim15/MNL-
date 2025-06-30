@@ -69,14 +69,14 @@ class ShipRouteSeeder extends Seeder
         foreach (self::SHIP_ROUTES as $shipName => $routes) {
             // Find the ship
             $ship = Ship::where('name', $shipName)->first();
-            
+
             if (!$ship) {
                 $this->command->warn("Ship '{$shipName}' not found. Skipping routes.");
                 continue;
             }
 
             $routesCreated = 0;
-            
+
             foreach ($routes as $routeData) {
                 $fromCity = City::where('name', $routeData['from'])->first();
                 $toCity = City::where('name', $routeData['to'])->first();

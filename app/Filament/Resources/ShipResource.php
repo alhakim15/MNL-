@@ -19,7 +19,7 @@ class ShipResource extends Resource
     protected static ?string $model = Ship::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-truck';
-    
+
     protected static ?string $navigationGroup = 'Fleet Management';
 
     public static function form(Form $form): Form
@@ -54,47 +54,47 @@ class ShipResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->weight('medium'),
-                    
+
                 Tables\Columns\TextColumn::make('max_weight')
                     ->label('Max Capacity')
                     ->suffix(' ton')
                     ->sortable()
                     ->alignEnd(),
-                    
+
                 Tables\Columns\TextColumn::make('current_load')
                     ->label('Current Load')
                     ->getStateUsing(fn($record) => $record->deliveries()->sum('weight'))
                     ->suffix(' ton')
                     ->badge()
-                    ->color(function($record) {
+                    ->color(function ($record) {
                         $currentWeight = $record->deliveries()->sum('weight');
                         $percentage = $record->max_weight > 0 ? ($currentWeight / $record->max_weight) * 100 : 0;
                         return $percentage > 80 ? 'danger' : ($percentage > 60 ? 'warning' : 'success');
                     })
                     ->alignEnd(),
-                    
+
                 Tables\Columns\TextColumn::make('load_percentage')
                     ->label('Load %')
-                    ->getStateUsing(function($record) {
+                    ->getStateUsing(function ($record) {
                         $currentWeight = $record->deliveries()->sum('weight');
                         $percentage = $record->max_weight > 0 ? ($currentWeight / $record->max_weight) * 100 : 0;
                         return number_format($percentage, 1) . '%';
                     })
                     ->badge()
-                    ->color(function($record) {
+                    ->color(function ($record) {
                         $currentWeight = $record->deliveries()->sum('weight');
                         $percentage = $record->max_weight > 0 ? ($currentWeight / $record->max_weight) * 100 : 0;
                         return $percentage > 80 ? 'danger' : ($percentage > 60 ? 'warning' : 'success');
                     })
                     ->alignEnd(),
-                    
+
                 Tables\Columns\TextColumn::make('routes_count')
                     ->label('Routes')
-                    ->counts(['routes' => fn (Builder $query) => $query->where('is_active', true)])
+                    ->counts(['routes' => fn(Builder $query) => $query->where('is_active', true)])
                     ->badge()
                     ->color('info')
                     ->alignCenter(),
-                    
+
                 Tables\Columns\TextColumn::make('active_routes')
                     ->label('Available Routes')
                     ->getStateUsing(function ($record) {
@@ -102,11 +102,11 @@ class ShipResource extends Resource
                             ->with(['originCity', 'destinationCity'])
                             ->where('is_active', true)
                             ->get();
-                            
+
                         if ($routes->isEmpty()) {
                             return 'No routes assigned';
                         }
-                        
+
                         return $routes
                             ->map(fn($route) => $route->originCity->name . ' → ' . $route->destinationCity->name)
                             ->join(', ');
@@ -118,12 +118,12 @@ class ShipResource extends Resource
                             ->with(['originCity', 'destinationCity'])
                             ->where('is_active', true)
                             ->get();
-                            
+
                         return $routes
                             ->map(fn($route) => $route->originCity->name . ' → ' . $route->destinationCity->name . ' (' . $route->distance_km . ' km, ' . $route->estimated_hours . ' hours)')
                             ->join("\n");
                     }),
-                    
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Created')
                     ->dateTime()
@@ -140,40 +140,41 @@ class ShipResource extends Resource
                     ->query(function (Builder $query, array $data): Builder {
                         return $query->when(
                             $data['value'] === 'with_routes',
-                            fn (Builder $query) => $query->has('routes')
+                            fn(Builder $query) => $query->has('routes')
                         )->when(
                             $data['value'] === 'without_routes',
-                            fn (Builder $query) => $query->doesntHave('routes')
+                            fn(Builder $query) => $query->doesntHave('routes')
                         );
                     }),
-                    
+
                 Tables\Filters\SelectFilter::make('origin_city')
                     ->label('Origin City')
                     ->options(City::orderBy('name')->pluck('name', 'id'))
                     ->query(function (Builder $query, array $data): Builder {
                         return $query->when(
                             $data['value'],
-                            fn (Builder $query, $value): Builder => $query->whereHas('routes', function ($query) use ($value) {
+                            fn(Builder $query, $value): Builder => $query->whereHas('routes', function ($query) use ($value) {
                                 $query->where('origin_city_id', $value)->where('is_active', true);
                             })
                         );
                     }),
-                    
+
                 Tables\Filters\SelectFilter::make('destination_city')
                     ->label('Destination City')
                     ->options(City::orderBy('name')->pluck('name', 'id'))
                     ->query(function (Builder $query, array $data): Builder {
                         return $query->when(
                             $data['value'],
-                            fn (Builder $query, $value): Builder => $query->whereHas('routes', function ($query) use ($value) {
+                            fn(Builder $query, $value): Builder => $query->whereHas('routes', function ($query) use ($value) {
                                 $query->where('destination_city_id', $value)->where('is_active', true);
                             })
                         );
                     }),
-                    
+
                 Tables\Filters\Filter::make('overloaded')
                     ->label('Overloaded Ships')
-                    ->query(fn (Builder $query): Builder => 
+                    ->query(
+                        fn(Builder $query): Builder =>
                         $query->whereHas('deliveries', function ($query) {
                             $query->selectRaw('SUM(weight) as total_weight')
                                 ->groupBy('ship_id')
@@ -219,7 +220,7 @@ class ShipResource extends Resource
             'edit' => Pages\EditShip::route('/{record}/edit'),
         ];
     }
-    
+
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();

@@ -23,7 +23,7 @@ return new class extends Migration
 
             // Ensure unique route per ship
             $table->unique(['ship_id', 'origin_city_id', 'destination_city_id']);
-            
+
             // Add indexes for better performance
             $table->index(['origin_city_id', 'destination_city_id']);
             $table->index(['ship_id', 'is_active']);

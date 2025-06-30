@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Ship extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'ships';
-    
+
     protected $fillable = [
         'name',
         'max_weight',

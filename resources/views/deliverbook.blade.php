@@ -79,7 +79,8 @@
               <select id="from_city_id" name="from_city_id" required>
                 <option value="">Select departure city</option>
                 @foreach ($cities as $city)
-                <option value="{{ $city->id }}" {{ old('from_city_id') == $city->id ? 'selected' : '' }}>{{ $city->name }}</option>
+                <option value="{{ $city->id }}" {{ old('from_city_id')==$city->id ? 'selected' : '' }}>{{ $city->name }}
+                </option>
                 @endforeach
               </select>
             </div>
@@ -92,7 +93,8 @@
               <select id="to_city_id" name="to_city_id" required>
                 <option value="">Select arrival city</option>
                 @foreach ($cities as $city)
-                <option value="{{ $city->id }}" {{ old('to_city_id') == $city->id ? 'selected' : '' }}>{{ $city->name }}</option>
+                <option value="{{ $city->id }}" {{ old('to_city_id')==$city->id ? 'selected' : '' }}>{{ $city->name }}
+                </option>
                 @endforeach
               </select>
             </div>

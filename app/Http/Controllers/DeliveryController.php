@@ -59,13 +59,13 @@ class DeliveryController extends Controller
         ]);
 
         $ship = Ship::findOrFail($request->ship_id);
-        
+
         // Validate that ship can serve this route
         if (!$ship->canServeRoute($request->from_city_id, $request->to_city_id)) {
             return back()->withErrors([
-                'ship_id' => 'Kapal yang dipilih tidak melayani rute dari ' . 
-                            City::find($request->from_city_id)->name . ' ke ' . 
-                            City::find($request->to_city_id)->name . '.'
+                'ship_id' => 'Kapal yang dipilih tidak melayani rute dari ' .
+                    City::find($request->from_city_id)->name . ' ke ' .
+                    City::find($request->to_city_id)->name . '.'
             ])->withInput();
         }
 
@@ -148,25 +148,25 @@ class DeliveryController extends Controller
         // Get ships that can serve this route
         $ships = Ship::whereHas('routes', function ($query) use ($fromCityId, $toCityId) {
             $query->where('origin_city_id', $fromCityId)
-                  ->where('destination_city_id', $toCityId)
-                  ->where('is_active', true);
+                ->where('destination_city_id', $toCityId)
+                ->where('is_active', true);
         })
-        ->withSum('deliveries', 'weight')
-        ->get()
-        ->map(function ($ship) {
-            $currentLoad = $ship->deliveries_sum_weight ?? 0;
-            $remainingCapacity = $ship->max_weight - $currentLoad;
-            
-            return [
-                'id' => $ship->id,
-                'name' => $ship->name,
-                'max_weight' => $ship->max_weight,
-                'current_load' => $currentLoad,
-                'remaining_capacity' => $remainingCapacity,
-                'capacity_percentage' => round(($currentLoad / $ship->max_weight) * 100, 1),
-                'display_text' => $ship->name . ' (Tersisa: ' . $remainingCapacity . ' ton)',
-            ];
-        });
+            ->withSum('deliveries', 'weight')
+            ->get()
+            ->map(function ($ship) {
+                $currentLoad = $ship->deliveries_sum_weight ?? 0;
+                $remainingCapacity = $ship->max_weight - $currentLoad;
+
+                return [
+                    'id' => $ship->id,
+                    'name' => $ship->name,
+                    'max_weight' => $ship->max_weight,
+                    'current_load' => $currentLoad,
+                    'remaining_capacity' => $remainingCapacity,
+                    'capacity_percentage' => round(($currentLoad / $ship->max_weight) * 100, 1),
+                    'display_text' => $ship->name . ' (Tersisa: ' . $remainingCapacity . ' ton)',
+                ];
+            });
 
         // Get route information
         $route = \App\Models\ShipRoute::where('origin_city_id', $fromCityId)
@@ -183,8 +183,8 @@ class DeliveryController extends Controller
                 'estimated_hours' => $route->estimated_hours,
                 'route_description' => $route->originCity->name . ' → ' . $route->destinationCity->name,
             ] : null,
-            'message' => $ships->isEmpty() 
-                ? 'Tidak ada kapal yang melayani rute ini.' 
+            'message' => $ships->isEmpty()
+                ? 'Tidak ada kapal yang melayani rute ini.'
                 : $ships->count() . ' kapal tersedia untuk rute ini.',
         ]);
     }
