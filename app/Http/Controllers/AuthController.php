@@ -21,8 +21,15 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
+            $user = auth()->user();
+
+            // Check if email is verified
+            if (is_null($user->email_verified_at)) {
+                return redirect()->route('verification.notice')->with('warning', 'Silakan verifikasi email Anda terlebih dahulu untuk melanjutkan.');
+            }
+
             // Redirect berdasarkan role
-            if (auth()->user()->role === 'admin') {
+            if ($user->role === 'admin') {
                 return redirect()->intended('/admin'); // masuk ke Filament
             } else {
                 return redirect()->intended('/'); // user biasa
@@ -58,15 +65,19 @@ class AuthController extends Controller
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'email_verified_at' => now(),
+            'email_verified_at' => null, // Will be set when user verifies email
         ]);
 
         // Role default
         $user->assignRole('user');
+
+        // Send email verification
+        $user->sendEmailVerificationNotification();
+
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect()->route('login')->with('success', 'Registrasi berhasil! Data lainnya dapat dilengkapi nanti di profil Anda.');
+        return redirect()->route('verification.notice')->with('success', 'Registrasi berhasil! Silakan periksa email Anda untuk verifikasi.');
     }
     public function showLogin()
     {

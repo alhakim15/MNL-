@@ -20,7 +20,7 @@ class PaymentController extends Controller
     {
         $delivery = Delivery::with(['fromCity', 'toCity', 'ship'])
             ->where('resi', $resi)
-            ->where('sender_name', auth()->user()->name)
+            ->where('user_id', auth()->id())
             ->firstOrFail();
 
         // Check if payment is already completed
@@ -237,7 +237,7 @@ class PaymentController extends Controller
             ]);
 
             // Now handle the response based on user authentication and ownership
-            if (auth()->check() && $delivery->sender_name === auth()->user()->name) {
+            if (auth()->check() && $delivery->user_id === auth()->id()) {
                 // User is authenticated and owns this delivery
                 if ($delivery->payment_status === 'paid') {
                     Log::info('Redirecting authenticated user to dashboard with success message');
@@ -282,7 +282,7 @@ class PaymentController extends Controller
             $delivery = Delivery::where('resi', $orderId)->first();
 
             if ($delivery) {
-                if (auth()->check() && $delivery->sender_name === auth()->user()->name) {
+                if (auth()->check() && $delivery->user_id === auth()->id()) {
                     // Check if payment is already completed
                     if ($delivery->payment_status === 'paid') {
                         Log::info('Payment already completed for order (unfinish): ' . $orderId);
@@ -317,7 +317,7 @@ class PaymentController extends Controller
             $delivery = Delivery::where('resi', $orderId)->first();
 
             if ($delivery) {
-                if (auth()->check() && $delivery->sender_name === auth()->user()->name) {
+                if (auth()->check() && $delivery->user_id === auth()->id()) {
                     // Check if payment is already completed
                     if ($delivery->payment_status === 'paid') {
                         Log::info('Payment already completed for order (error): ' . $orderId);
@@ -350,27 +350,32 @@ class PaymentController extends Controller
 
     public function dashboard(Request $request)
     {
+        // Check email verification first
+        if (is_null(auth()->user()->email_verified_at)) {
+            return redirect()->route('verification.notice')->with('warning', 'Silakan verifikasi email Anda terlebih dahulu untuk dapat mengakses dashboard pembayaran.');
+        }
+
         $user = auth()->user();
         $status = $request->get('status', 'all');
 
         // Get payment statistics
-        $totalDeliveries = Delivery::where('sender_name', $user->name)->count();
-        $pendingPayments = Delivery::where('sender_name', $user->name)
+        $totalDeliveries = Delivery::where('user_id', $user->id)->count();
+        $pendingPayments = Delivery::where('user_id', $user->id)
             ->where('payment_status', 'pending')
             ->count();
-        $paidPayments = Delivery::where('sender_name', $user->name)
+        $paidPayments = Delivery::where('user_id', $user->id)
             ->where('payment_status', 'paid')
             ->count();
-        $failedPayments = Delivery::where('sender_name', $user->name)
+        $failedPayments = Delivery::where('user_id', $user->id)
             ->where('payment_status', 'failed')
             ->count();
-        $totalAmount = Delivery::where('sender_name', $user->name)
+        $totalAmount = Delivery::where('user_id', $user->id)
             ->where('payment_status', 'paid')
             ->sum('shipping_cost');
 
         // Build query for filtered payments
         $query = Delivery::with(['fromCity', 'toCity', 'ship'])
-            ->where('sender_name', $user->name);
+            ->where('user_id', $user->id);
 
         // Apply status filter
         if ($status !== 'all') {
@@ -382,7 +387,7 @@ class PaymentController extends Controller
 
         // Get pending payments for quick actions
         $pendingPaymentsList = Delivery::with(['fromCity', 'toCity', 'ship'])
-            ->where('sender_name', $user->name)
+            ->where('user_id', $user->id)
             ->where('payment_status', 'pending')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -405,7 +410,7 @@ class PaymentController extends Controller
         $status = $request->get('status', 'all');
 
         $query = Delivery::with(['fromCity', 'toCity', 'ship'])
-            ->where('sender_name', $user->name);
+            ->where('user_id', $user->id);
 
         if ($status !== 'all') {
             $query->where('payment_status', $status);
@@ -419,7 +424,7 @@ class PaymentController extends Controller
     public function checkStatus($resi)
     {
         $delivery = Delivery::where('resi', $resi)
-            ->where('sender_name', auth()->user()->name)
+            ->where('user_id', auth()->id())
             ->firstOrFail();
 
         try {
@@ -490,7 +495,7 @@ class PaymentController extends Controller
         }
 
         $delivery = Delivery::where('resi', $resi)
-            ->where('sender_name', auth()->user()->name)
+            ->where('user_id', auth()->id())
             ->firstOrFail();
 
         try {

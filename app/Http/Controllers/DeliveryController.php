@@ -23,6 +23,11 @@ class DeliveryController extends Controller
 
     public function create()
     {
+        // Check email verification first
+        if (is_null(auth()->user()->email_verified_at)) {
+            return redirect()->route('verification.notice')->with('warning', 'Silakan verifikasi email Anda terlebih dahulu untuk dapat menggunakan fitur pengiriman.');
+        }
+
         $this->authorize('create', Delivery::class);
         $cities = City::all();
         $ships = Ship::withSum('deliveries', 'weight')->get()->map(function ($ship) {
@@ -37,6 +42,11 @@ class DeliveryController extends Controller
 
     public function store(Request $request)
     {
+        // Check email verification first
+        if (is_null(auth()->user()->email_verified_at)) {
+            return redirect()->route('verification.notice')->with('warning', 'Silakan verifikasi email Anda terlebih dahulu untuk dapat menggunakan fitur pengiriman.');
+        }
+
         $this->authorize('create', Delivery::class);
         $request->validate([
             'receiver_name'  => 'required|string|max:255',
@@ -63,6 +73,7 @@ class DeliveryController extends Controller
         );
 
         $delivery = Delivery::create([
+            'user_id'       => Auth::id(),
             'sender_name'   => Auth::user()->name,
             'receiver_name' => $request->receiver_name,
             'from_city_id'  => $request->from_city_id,
@@ -104,7 +115,7 @@ class DeliveryController extends Controller
     public function history()
     {
         $deliveries = Delivery::with(['fromCity', 'toCity', 'ship', 'latestStatus'])
-            ->where('sender_name', Auth::user()->name)
+            ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
