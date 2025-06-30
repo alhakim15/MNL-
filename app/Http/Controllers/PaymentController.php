@@ -133,139 +133,26 @@ class PaymentController extends Controller
 
     public function finish(Request $request)
     {
-        try {
-            // Log the raw request to see what's being sent
-            Log::info('Payment finish method called', [
-                'all_request_data' => $request->all(),
-                'query_string' => $request->getQueryString(),
-                'full_url' => $request->fullUrl(),
-                'method' => $request->method(),
-                'ip' => $request->ip()
-            ]);
+        $orderId = $request->get('order_id');
 
-            $orderId = $request->order_id;
-            $statusCode = $request->status_code;
-            $transactionStatus = $request->transaction_status;
-
-            Log::info('Payment finish callback received', [
-                'order_id' => $orderId,
-                'status_code' => $statusCode,
-                'transaction_status' => $transactionStatus,
-                'user_authenticated' => auth()->check(),
-                'user_name' => auth()->check() ? auth()->user()->name : 'guest'
-            ]);
-
-            // If no order_id is provided, redirect to not found
-            if (!$orderId) {
-                Log::error('No order_id provided in finish callback');
-                return view('payment.not-found');
-            }
-
-            $delivery = Delivery::where('resi', $orderId)->first();
-
-            if (!$delivery) {
-                Log::error('Delivery not found for order_id in finish callback: ' . $orderId);
-                return view('payment.not-found');
-            }
-
-            Log::info('Delivery found for order: ' . $orderId, [
-                'delivery_id' => $delivery->id,
-                'sender_name' => $delivery->sender_name,
-                'current_payment_status' => $delivery->payment_status
-            ]);
-
-            // Always update payment status first based on Midtrans callback or API check
+        if ($orderId) {
             try {
-                $status = \Midtrans\Transaction::status($orderId);
-                $statusArray = json_decode(json_encode($status), true);
+                $delivery = Delivery::where('resi', $orderId)->first();
 
-                Log::info('Midtrans status verification in finish callback', [
-                    'order_id' => $orderId,
-                    'transaction_status' => $statusArray['transaction_status'] ?? 'unknown',
-                    'payment_type' => $statusArray['payment_type'] ?? 'unknown',
-                    'fraud_status' => $statusArray['fraud_status'] ?? 'unknown'
-                ]);
-
-                if (isset($statusArray['transaction_status'])) {
-                    $apiTransactionStatus = $statusArray['transaction_status'];
-                    $fraudStatus = $statusArray['fraud_status'] ?? null;
-
-                    if ($apiTransactionStatus === 'settlement') {
-                        $delivery->update([
-                            'payment_status' => 'paid',
-                            'paid_at' => now(),
-                            'payment_type' => $statusArray['payment_type'] ?? 'unknown'
-                        ]);
-                        Log::info('Payment status updated to paid (settlement) for order: ' . $orderId);
-                    } else if ($apiTransactionStatus === 'capture' && $fraudStatus === 'accept') {
-                        $delivery->update([
-                            'payment_status' => 'paid',
-                            'paid_at' => now(),
-                            'payment_type' => $statusArray['payment_type'] ?? 'unknown'
-                        ]);
-                        Log::info('Payment status updated to paid (capture/accept) for order: ' . $orderId);
-                    } else if ($apiTransactionStatus === 'pending') {
-                        $delivery->update(['payment_status' => 'pending']);
-                        Log::info('Payment status updated to pending for order: ' . $orderId);
-                    } else if ($apiTransactionStatus === 'deny' || $apiTransactionStatus === 'cancel') {
-                        $delivery->update(['payment_status' => 'failed']);
-                        Log::info('Payment status updated to failed for order: ' . $orderId);
-                    } else if ($apiTransactionStatus === 'expire') {
-                        $delivery->update(['payment_status' => 'expired']);
-                        Log::info('Payment status updated to expired for order: ' . $orderId);
-                    }
-                }
-            } catch (\Exception $e) {
-                Log::error('Failed to verify payment status from Midtrans: ' . $e->getMessage());
-                // Fallback to callback parameters
-                if ($transactionStatus === 'settlement' || $transactionStatus === 'capture') {
+                if ($delivery) {
                     $delivery->update([
                         'payment_status' => 'paid',
-                        'paid_at' => now(),
+                        'paid_at' => now()
                     ]);
-                    Log::info('Payment status updated to paid based on callback parameters for order: ' . $orderId);
-                }
-            }
 
-            // Refresh delivery to get updated status
-            $delivery->refresh();
-
-            Log::info('Final delivery status for order: ' . $orderId, [
-                'payment_status' => $delivery->payment_status,
-                'paid_at' => $delivery->paid_at,
-                'payment_type' => $delivery->payment_type
-            ]);
-
-            // Now handle the response based on user authentication and ownership
-            if (auth()->check() && $delivery->user_id === auth()->id()) {
-                // User is authenticated and owns this delivery
-                if ($delivery->payment_status === 'paid') {
-                    Log::info('Redirecting authenticated user to dashboard with success message');
-                    return redirect()->route('payment.dashboard')
-                        ->with('success', 'Pembayaran berhasil! Terima kasih atas pembayaran Anda. Pengiriman akan segera diproses.');
-                } else {
-                    Log::info('Redirecting authenticated user to dashboard with status warning');
-                    return redirect()->route('payment.dashboard')
-                        ->with('warning', 'Status pembayaran: ' . ucfirst($delivery->payment_status));
-                }
-            } else {
-                // User not authenticated or doesn't own this delivery
-                // Show success page if payment is completed, otherwise show not-found
-                if ($delivery->payment_status === 'paid') {
-                    Log::info('Payment successful, showing success page for order: ' . $orderId);
                     return view('payment.success', ['delivery' => $delivery]);
-                } else {
-                    Log::info('User not authenticated or not owner, showing not-found page for order: ' . $orderId);
-                    return view('payment.not-found', ['delivery' => $delivery]);
                 }
+            } catch (\Exception $e) {
+                Log::error('Error in payment finish: ' . $e->getMessage());
             }
-        } catch (\Exception $e) {
-            Log::error('Exception in payment finish method: ' . $e->getMessage());
-            Log::error('Exception trace: ' . $e->getTraceAsString());
-
-            // Return a safe fallback response
-            return view('payment.not-found')->with('error', 'Terjadi kesalahan saat memproses pembayaran.');
         }
+
+        return view('payment.not-found');
     }
 
     public function unfinish(Request $request)

@@ -26,28 +26,7 @@ use App\Http\Controllers\EmailVerificationController;
 
 
 // Payment finish route
-Route::get('/payment/finish', function (\Illuminate\Http\Request $request) {
-    $orderId = $request->get('order_id');
-
-    if ($orderId) {
-        try {
-            $delivery = \App\Models\Delivery::where('resi', $orderId)->first();
-
-            if ($delivery) {
-                $delivery->update([
-                    'payment_status' => 'paid',
-                    'paid_at' => now()
-                ]);
-
-                return view('payment.success', ['delivery' => $delivery]);
-            }
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Error in payment finish: ' . $e->getMessage());
-        }
-    }
-
-    return view('payment.not-found');
-})->name('payment.finish');
+Route::get('/payment/finish', [PaymentController::class, 'finish'])->name('payment.finish');
 
 
 Route::get('/payment/not-found', [PaymentController::class, 'notFound'])->name('payment.not-found');
