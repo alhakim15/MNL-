@@ -77,3 +77,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/payment/{resi}/force-update', [PaymentController::class, 'forceUpdateStatus'])->name('payment.force-update');
     Route::get('/payment/{resi}', [PaymentController::class, 'showPayment'])->name('payment.show');
 });
+
+// API routes for dynamic ship selection
+Route::get('/api/ships-by-route', [DeliveryController::class, 'getShipsByRoute'])->name('api.ships-by-route');

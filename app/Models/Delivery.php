@@ -72,4 +72,28 @@ class Delivery extends Model
     {
         return $this->hasOne(DeliveryStatusLog::class)->latestOfMany('logged_at');
     }
+
+    /**
+     * Check if the selected ship can serve the route from origin to destination.
+     */
+    public function validateShipRoute(): bool
+    {
+        if (!$this->ship_id || !$this->from_city_id || !$this->to_city_id) {
+            return false;
+        }
+
+        return $this->ship->canServeRoute($this->from_city_id, $this->to_city_id);
+    }
+
+    /**
+     * Get available ships for the selected route.
+     */
+    public static function getAvailableShipsForRoute(int $fromCityId, int $toCityId)
+    {
+        return Ship::whereHas('routes', function ($query) use ($fromCityId, $toCityId) {
+            $query->where('origin_city_id', $fromCityId)
+                  ->where('destination_city_id', $toCityId)
+                  ->where('is_active', true);
+        })->get();
+    }
 }

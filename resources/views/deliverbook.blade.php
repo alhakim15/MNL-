@@ -79,7 +79,7 @@
               <select id="from_city_id" name="from_city_id" required>
                 <option value="">Select departure city</option>
                 @foreach ($cities as $city)
-                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                <option value="{{ $city->id }}" {{ old('from_city_id') == $city->id ? 'selected' : '' }}>{{ $city->name }}</option>
                 @endforeach
               </select>
             </div>
@@ -92,10 +92,11 @@
               <select id="to_city_id" name="to_city_id" required>
                 <option value="">Select arrival city</option>
                 @foreach ($cities as $city)
-                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                <option value="{{ $city->id }}" {{ old('to_city_id') == $city->id ? 'selected' : '' }}>{{ $city->name }}</option>
                 @endforeach
               </select>
             </div>
+            <div id="route-info" class="route-info"></div>
           </div>
         </div>
 
@@ -130,17 +131,14 @@
             <label for="ship_id">Pilih Kapal</label>
             <div class="input-with-icon">
               <i class="fas fa-ship"></i>
-              <select id="ship_id" name="ship_id" required>
-                <option value="">Pilih Kapal</option>
-                @foreach ($ships as $ship)
-                <option value="{{ $ship->id }}" data-remaining="{{ $ship->remaining_weight }}"
-                  data-max="{{ $ship->max_weight }}">
-                  {{ $ship->name }} (Max: {{ $ship->max_weight }} ton)
-                </option>
-                @endforeach
+              <select id="ship_id" name="ship_id" required disabled>
+                <option value="">Pilih rute terlebih dahulu</option>
               </select>
             </div>
             <div id="capacity-info" class="capacity-notice"></div>
+            <div id="ship-loading" class="loading-notice" style="display: none;">
+              <i class="fas fa-spinner fa-spin"></i> Memuat kapal yang tersedia...
+            </div>
           </div>
         </div>
 
