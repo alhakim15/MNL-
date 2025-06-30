@@ -13,15 +13,21 @@ return new class extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
-            $table->string('sender_name');        // Nama Pengirim
-            $table->string('receiver_name');      // Nama Penerima
+            $table->string('sender_name');
+            $table->string('receiver_name');
             $table->foreignId('from_city_id');
-            $table->foreignId('ship_id');         // ID kapal
+            $table->foreignId('ship_id');
             $table->foreignId('to_city_id');
-            $table->date('delivery_date');        // Tanggal pengiriman
-            $table->string('item_name');          // Nama barang
-            $table->decimal('weight', 8, 2);      // Berat barang (dalam ton)
+            $table->date('delivery_date');
+            $table->string('item_name');
+            $table->decimal('weight', 8, 2);
             $table->string('resi')->unique();
+            $table->foreignId('user_id')->nullable();
+            $table->decimal('shipping_cost', 10, 2)->default(0);
+            $table->string('payment_status')->default('pending');
+            $table->string('payment_token')->nullable();
+            $table->string('payment_type')->nullable();
+            $table->timestamp('paid_at')->nullable();
             $table->timestamps();
         });
     }
