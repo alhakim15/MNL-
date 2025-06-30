@@ -8,6 +8,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\Infographic;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\InfographicResource\Pages;
 use App\Filament\Resources\InfographicResource\RelationManagers;
+use Illuminate\Console\View\Components\Info;
 
 class InfographicResource extends Resource
 {
@@ -38,6 +40,14 @@ class InfographicResource extends Resource
                     ->image()
                     ->directory('infographics')
                     ->required(),
+                Select::make('status')
+                    ->options([
+                        'active' => 'Active',
+                        'inactive' => 'Inactive',
+                        'draft' => 'Draft',
+                    ])
+                    ->default('active')
+                    ->required(),
             ]);
     }
 
@@ -49,17 +59,46 @@ class InfographicResource extends Resource
                 Tables\Columns\TextColumn::make('title')->searchable(),
                 Tables\Columns\TextColumn::make('description')->limit(50),
                 Tables\Columns\TextColumn::make('caption'),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'active' => 'success',
+                        'inactive' => 'danger',
+                        'draft' => 'warning',
+                        default => 'gray',
+                    })
+                    ->formatStateUsing(fn(string $state): string => ucfirst($state)),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'active' => 'Active',
+                        'inactive' => 'Inactive',
+                        'draft' => 'Draft',
+                    ]),
             ])
             ->actions([
+                Tables\Actions\Action::make('change_status')
+                    ->label('Change Status')
+                    ->icon('heroicon-m-arrow-path')
+                    ->form([
+                        Select::make('status')
+                            ->label('Status')
+                            ->options([
+                                'active' => 'Active',
+                                'inactive' => 'Inactive',
+                                'draft' => 'Draft',
+                            ])
+                            ->default('active')
+                            ->required(),
+                    ])
+                    ->action(function (Infographic $record, array $data) {
+                        $record->update(['status' => $data['status']]);
+                    })
+                    ->color('warning')
+                    ->requiresConfirmation(),
                 Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+
             ]);
     }
 

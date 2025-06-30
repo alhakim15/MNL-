@@ -16,11 +16,4 @@ class ListDeliveries extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
-
-    protected function getHeaderWidgets(): array
-    {
-        return [
-            \App\Filament\Resources\DeliveryResource\Widgets\DeliveryOverviewWidget::class,
-        ];
-    }
 }

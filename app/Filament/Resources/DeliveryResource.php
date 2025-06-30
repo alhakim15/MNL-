@@ -74,6 +74,14 @@ class DeliveryResource extends Resource
                     ->getStateUsing(fn($record) => $record->resi ?: 'Not Available'),
                 TextColumn::make('latestStatus.status')->label('Latest Status')
                     ->getStateUsing(fn($record) => $record->latestStatus ? $record->latestStatus->status : 'No Status Yet')
+                    ->badge()
+                    ->color(fn($state) => match ($state) {
+                        'PENDING' => 'warning',
+                        'IN_TRANSIT' => 'info',
+                        'DELIVERED' => 'success',
+                        'CANCELLED' => 'danger',
+                        default => 'gray',
+                    })
                     ->sortable()
                     ->searchable(),
             ])
@@ -155,13 +163,6 @@ class DeliveryResource extends Resource
             'index' => Pages\ListDeliveries::route('/'),
             'create' => Pages\CreateDelivery::route('/create'),
             'edit' => Pages\EditDelivery::route('/{record}/edit'),
-        ];
-    }
-
-    public static function getWidgets(): array
-    {
-        return [
-            \App\Filament\Resources\DeliveryResource\Widgets\DeliveryOverviewWidget::class,
         ];
     }
 }
