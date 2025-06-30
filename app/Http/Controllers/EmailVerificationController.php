@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
 
-class SimpleEmailVerificationController extends Controller
+class EmailVerificationController extends Controller
 {
     public function verify(Request $request, $id, $hash)
     {
