@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Poiret+One&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/about.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
 </head>
 
 <body>

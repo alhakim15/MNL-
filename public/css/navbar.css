@@ -1,0 +1,325 @@
+/* Additional navbar styles untuk dropdown saja */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.arrow {
+    font-size: 12px;
+    transition: transform 0.3s;
+}
+
+.dropdown:hover .arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    flex-direction: column;
+    gap: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu li {
+    margin: 0;
+}
+
+.dropdown-menu li a {
+    color: #333;
+    padding: 12px 16px;
+    border-radius: 0;
+    display: block;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+    text-decoration: none;
+}
+
+.dropdown-menu li:first-child a {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.dropdown-menu li:last-child a {
+    border-bottom: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f8f9fa;
+}
+
+/* Logout link styling - sama seperti link biasa */
+.logout-link {
+    color: #333 !important;
+    padding: 12px 16px;
+    border-radius: 0;
+    display: block;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: inherit;
+    font-family: inherit;
+    width: 100%;
+    text-align: left;
+}
+
+.logout-link:hover {
+    background-color: #f8f9fa;
+    color: #333 !important;
+}
+
+/* Override hamburger styles from app.css to ensure clickability */
+.hamburger {
+    display: none !important;
+    flex-direction: column !important;
+    cursor: pointer !important;
+    padding: 8px !important;
+    background: none !important;
+    border: none !important;
+    position: relative !important;
+    z-index: 1001 !important;
+    width: 40px !important;
+    height: 40px !important;
+    justify-content: center !important;
+    align-items: center !important;
+    touch-action: manipulation !important;
+}
+
+.hamburger span {
+    width: 25px !important;
+    height: 3px !important;
+    background-color: #000 !important;
+    margin: 3px 0 !important;
+    transition: 0.3s !important;
+    border-radius: 2px !important;
+    display: block !important;
+    pointer-events: none !important;
+}
+
+/* Hamburger Animation */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px) !important;
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0 !important;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px) !important;
+}
+
+/* Mobile Menu Override */
+.mobile-menu {
+    display: none !important;
+    position: fixed !important;
+    top: 80px !important;
+    left: 0 !important;
+    width: 100% !important;
+    background-color: rgba(247, 247, 247, 0.98) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    z-index: 999 !important;
+    max-height: calc(100vh - 80px) !important;
+    overflow-y: auto !important;
+}
+
+.mobile-menu.active {
+    display: block !important;
+}
+
+.mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f8f9fa;
+}
+
+.mobile-menu-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.mobile-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #666;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.mobile-close:hover {
+    background-color: #e9ecef;
+    color: #333;
+}
+
+.mobile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-menu ul li a {
+    display: block;
+    padding: 16px 20px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+    font-size: 16px;
+}
+
+.mobile-menu ul li a:hover {
+    background-color: #f8f9fa;
+}
+
+/* Mobile Dropdowns */
+.mobile-dropdown {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.mobile-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    background-color: #f8f9fa;
+}
+
+.mobile-dropdown-header:hover {
+    background-color: #e9ecef;
+}
+
+.mobile-section-title {
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+}
+
+.mobile-arrow {
+    transition: transform 0.3s ease;
+    color: #666;
+    font-size: 14px;
+}
+
+.mobile-dropdown.active .mobile-arrow {
+    transform: rotate(180deg);
+}
+
+.mobile-dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background-color: #ffffff;
+}
+
+.mobile-dropdown.active .mobile-dropdown-content {
+    max-height: 200px;
+}
+
+.mobile-dropdown-content a {
+    display: block;
+    padding: 12px 20px 12px 40px;
+    color: #555;
+    text-decoration: none;
+    border-bottom: 1px solid #f8f9fa;
+    transition: background-color 0.2s;
+    font-size: 15px;
+}
+
+.mobile-dropdown-content a:hover {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.mobile-dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+/* Special styling for verify email and login buttons */
+.mobile-verify, .mobile-login {
+    background-color: #007bff !important;
+    color: white !important;
+    margin: 8px 16px;
+    border-radius: 6px;
+    border-bottom: none !important;
+}
+
+.mobile-verify:hover, .mobile-login:hover {
+    background-color: #0056b3 !important;
+    color: white !important;
+}
+
+/* Mobile section headers */
+.mobile-section h4 {
+    color: #666;
+    font-size: 14px;
+    margin: 20px 0 10px 0;
+    padding: 0 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}
+
+.mobile-section:first-child h4 {
+    margin-top: 0;
+}
+
+/* Responsive styling - Show hamburger on mobile */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex !important;
+    }
+    
+    nav {
+        display: none !important;
+    }
+    
+    .mobile-menu.active {
+        display: block !important;
+    }
+}
+
+/* Debug hover effect */
+.hamburger:hover {
+    background-color: rgba(0,0,0,0.1) !important;
+    border-radius: 4px !important;
+}

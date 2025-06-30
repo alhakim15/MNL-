@@ -11,9 +11,9 @@ body {
   color: #ffffff; /* Diganti dari #333 agar kontras */
 }
 
-/* Navbar */
-.navbar {
-    background-color: rgba(15, 17, 41, 0.95); /* Background gelap untuk contact page */
+/* Navbar untuk halaman contact - override semua style navbar */
+body .navbar {
+    background-color: #0f1129 !important; /* Background solid, tidak transparan */
     position: fixed;
     width: 100%;
     top: 0;
@@ -23,37 +23,90 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.navbar-container {
+body .navbar-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
 }
 
-.navbar .logo {
+body .navbar .logo {
     font-size: 24px;
     font-weight: bold;
-    color: #ffffff; /* Logo putih untuk kontras dengan background gelap */
+    color: #ffffff !important; /* Logo putih untuk kontras dengan background gelap */
 }
 
-.navbar nav ul {
+body .navbar nav ul {
     list-style: none;
     display: flex;
 }
 
-.navbar nav ul li {
+body .navbar nav ul li {
     margin: 0 15px;
 }
 
-.navbar nav ul li a {
+body .navbar nav ul li a {
     text-decoration: none;
-    color: #ffffff; /* Link putih untuk kontras dengan background gelap */
+    color: #ffffff !important; /* Link putih untuk kontras dengan background gelap */
     font-weight: bold;
     transition: color 0.3s ease;
 }
 
-.navbar nav ul li a:hover {
-    color: #ff0044;
+body .navbar nav ul li a:hover {
+    color: #ff0044 !important;
+}
+
+/* Hamburger menu untuk contact page */
+body .hamburger span {
+    background: #ffffff !important;
+}
+
+/* Mobile menu untuk contact page */
+body .mobile-menu {
+    background: #0f1129 !important;
+}
+
+body .mobile-menu ul li a {
+    color: #ffffff !important;
+}
+
+body .mobile-menu ul li a:hover {
+    background-color: rgba(255, 0, 68, 0.1) !important;
+    color: #ff0044 !important;
+}
+
+/* Verify email button di contact page */
+body .verify-email-btn {
+    background: #ff0044 !important;
+    color: white !important;
+}
+
+/* Dropdown styling untuk contact page */
+body .dropdown-toggle {
+    color: #ffffff !important;
+}
+
+body .dropdown-menu {
+    background: #14162d !important;
+    border: 1px solid #ff0044;
+}
+
+body .dropdown-menu li a {
+    color: #ffffff !important;
+}
+
+body .dropdown-menu li a:hover {
+    background-color: rgba(255, 0, 68, 0.1) !important;
+    color: #ff0044 !important;
+}
+
+.logout-link {
+    color: #ffffff !important;
+}
+
+.logout-link:hover {
+    background-color: rgba(255, 0, 68, 0.1) !important;
+    color: #ff0044 !important;
 }
 
 /* Contact Us Section */
@@ -448,6 +501,46 @@ footer {
 
 .logout-form {
     display: inline;
+}
+
+/* Mobile dropdown styling untuk contact page */
+body .mobile-dropdown-header {
+    background-color: rgba(15, 17, 41, 0.9) !important;
+    color: #ffffff !important;
+}
+
+body .mobile-dropdown-header:hover {
+    background-color: rgba(255, 0, 68, 0.1) !important;
+}
+
+body .mobile-section-title {
+    color: #ffffff !important;
+}
+
+body .mobile-arrow {
+    color: #ffffff !important;
+}
+
+body .mobile-dropdown-content {
+    background-color: #0f1129 !important;
+}
+
+body .mobile-dropdown-content a {
+    color: #ffffff !important;
+}
+
+body .mobile-dropdown-content a:hover {
+    background-color: rgba(255, 0, 68, 0.1) !important;
+    color: #ff0044 !important;
+}
+
+body .logout-link {
+    color: #ffffff !important;
+}
+
+body .logout-link:hover {
+    background-color: rgba(255, 0, 68, 0.1) !important;
+    color: #ff0044 !important;
 }
 
 /* Responsive Navbar */
