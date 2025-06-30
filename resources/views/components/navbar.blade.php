@@ -15,6 +15,14 @@
                 @endcan
                 <li><a href="{{ route('tracking') }}">Tracking</a></li>
                 @auth
+                @if(is_null(auth()->user()->email_verified_at))
+                <li>
+                    <a href="{{ route('verification.notice') }}" class="verify-email-btn"
+                        style="background: #ff9800; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 12px;">
+                        📧 Verifikasi Email
+                    </a>
+                </li>
+                @endif
                 <li><a href="{{ route('profile.index') }}">Profil</a></li>
                 <li class="nav-item">
                     <form action="{{ route('logout') }}" method="POST" class="logout-form">
@@ -51,6 +59,14 @@
             @endcan
             <li><a href="{{ route('tracking') }}">Tracking</a></li>
             @auth
+            @if(is_null(auth()->user()->email_verified_at))
+            <li>
+                <a href="{{ route('verification.notice') }}" class="verify-email-btn"
+                    style="background: #ff9800; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 12px;">
+                    📧 Verifikasi Email
+                </a>
+            </li>
+            @endif
             <li><a href="{{ route('profile.index') }}">Profil</a></li>
             <li>
                 <form action="{{ route('logout') }}" method="POST" class="logout-form">

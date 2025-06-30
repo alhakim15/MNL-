@@ -16,6 +16,37 @@
 <body>
   <!-- Navbar Section -->
   @include('components.navbar')
+
+  <!-- Email Verification Notice Banner -->
+  @auth
+  @if(is_null(auth()->user()->email_verified_at))
+  <div class="email-verification-banner"
+    style="background: linear-gradient(45deg, #ff9800, #f57c00); color: white; padding: 15px 0; text-align: center; position: relative; z-index: 999;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 24px;">📧</span>
+          <span style="font-weight: 600;">Verifikasi email Anda untuk mengakses semua fitur!</span>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <a href="{{ route('verification.notice') }}"
+            style="background: rgba(255,255,255,0.2); color: white; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-weight: 500; border: 1px solid rgba(255,255,255,0.3); transition: all 0.3s ease;">
+            Verifikasi Sekarang
+          </a>
+          <form method="POST" action="{{ route('verification.send') }}" style="display: inline; margin: 0;">
+            @csrf
+            <button type="submit"
+              style="background: transparent; color: white; border: 1px solid rgba(255,255,255,0.5); padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: 500; transition: all 0.3s ease;">
+              Kirim Ulang Email
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  @endif
+  @endauth
+
   <!-- Hero Section with Image -->
   <section class="hero">
     <div class="hero-text">

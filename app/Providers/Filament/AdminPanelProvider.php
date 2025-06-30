@@ -45,6 +45,9 @@ class AdminPanelProvider extends PanelProvider
                 // Default Filament widgets
                 Widgets\AccountWidget::class,
 
+                // User Management widgets
+                \App\Filament\Widgets\UserStatsWidget::class,
+
                 // Custom dashboard widgets
                 \App\Filament\Widgets\DeliveryStatsWidget::class,
                 \App\Filament\Widgets\MonthlyDeliveryChart::class,

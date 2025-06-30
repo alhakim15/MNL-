@@ -8,6 +8,9 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PaymentController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
+use App\Http\Controllers\SimpleEmailVerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,11 +71,16 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Email Verification Routes
+Route::get('/email/verify', [SimpleEmailVerificationController::class, 'notice'])->middleware('auth')->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [SimpleEmailVerificationController::class, 'verify'])->middleware('auth')->name('verification.verify');
+Route::post('/email/verification-notification', [SimpleEmailVerificationController::class, 'send'])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
 Route::post('/tracking', [TrackingController::class, 'search'])->name('tracking.search');
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/deliver', [DeliveryController::class, 'create'])->name('deliveries.create');
     Route::post('/deliver', [DeliveryController::class, 'store'])->name('deliveries.store');
     Route::get('/delivery-history', [DeliveryController::class, 'history'])->name('deliveries.history');

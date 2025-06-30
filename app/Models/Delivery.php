@@ -10,6 +10,7 @@ class Delivery extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'sender_name',
         'receiver_name',
         'from_city_id',
@@ -37,6 +38,12 @@ class Delivery extends Model
         'FAILED' => 'failed',
         'EXPIRED' => 'expired',
     ];
+
+    // Relasi ke user
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     // Relasi ke kota asal
     public function fromCity()

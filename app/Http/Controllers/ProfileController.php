@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 use App\Models\User;
+use App\Models\Delivery;
 
 class ProfileController extends Controller
 {
@@ -48,6 +49,12 @@ class ProfileController extends Controller
 
         $user->fill($data);
         $user->save();
+
+        // Update sender_name in user's deliveries if name changed
+        if ($user->wasChanged('name')) {
+            Delivery::where('user_id', $user->id)
+                ->update(['sender_name' => $user->name]);
+        }
 
         return redirect()->route('profile.index')->with('success', 'Profil berhasil diperbarui!');
     }

@@ -9,10 +9,14 @@ class DeliveryPolicy
 {
 
     /**
-     * Hanya user dengan role 'user' yang bisa create delivery.
+     * Hanya user dengan role 'user' yang bisa create delivery dan email sudah terverifikasi.
      */
     public function create(User $user): bool
     {
-        return $user->hasRole('admin') || $user->hasRole('user');
+        // Check if user has correct role AND email is verified
+        $hasCorrectRole = $user->hasRole('admin') || $user->hasRole('user');
+        $hasVerifiedEmail = !is_null($user->email_verified_at);
+
+        return $hasCorrectRole && $hasVerifiedEmail;
     }
 }
