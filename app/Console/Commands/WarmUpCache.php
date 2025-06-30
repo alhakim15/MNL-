@@ -44,14 +44,23 @@ class WarmUpCache extends Command
 
             // Warm up delivery stats
             CacheService::warmUp();
-            $this->info('✅ Cache warmed up successfully');
+            $this->info('✅ Basic cache warmed up successfully');
 
             // Warm up additional caches
             $this->info('🔥 Warming up additional caches...');
 
-            // Warm up popular shipping routes
-            CacheService::getRouteStats();
-            $this->line('- Route statistics cached');
+            // Warm up infographics
+            CacheService::getActiveInfographics();
+            $this->line('- Active infographics cached');
+
+            // Warm up monthly stats for current month
+            $now = now();
+            CacheService::getMonthlyStats($now->month, $now->year);
+            $this->line('- Monthly statistics cached');
+
+            // Warm up daily revenue for today
+            CacheService::getDailyRevenue($now->toDateString());
+            $this->line('- Daily revenue cached');
 
             // Warm up common shipping costs (sample data)
             $cities = City::limit(5)->get();
@@ -71,7 +80,9 @@ class WarmUpCache extends Command
             $this->line('- Ships list cached');
             $this->line('- Popular routes cached');
             $this->line('- Revenue stats cached');
-            $this->line('- Route statistics cached');
+            $this->line('- Active infographics cached');
+            $this->line('- Monthly statistics cached');
+            $this->line('- Daily revenue cached');
             $this->line('- Shipping costs cached');
 
             return 0;

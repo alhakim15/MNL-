@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('caption')->nullable();
-            $table->string('image'); // path ke file
+            $table->string('image');
+            $table->string('status')->default('active');
             $table->timestamps();
         });
     }

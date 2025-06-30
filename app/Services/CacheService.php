@@ -15,6 +15,11 @@ class CacheService
     const SHIPS_KEY = 'ships_list';
     const POPULAR_ROUTES_KEY = 'popular_routes';
     const REVENUE_STATS_KEY = 'revenue_stats';
+    const INFOGRAPHICS_KEY = 'infographics_active';
+    const TRACKING_KEY = 'tracking_';
+    const USER_DELIVERY_HISTORY_KEY = 'user_deliveries_';
+    const DAILY_REVENUE_KEY = 'daily_revenue_';
+    const MONTHLY_STATS_KEY = 'monthly_stats_';
 
     /**
      * Cache delivery statistics
@@ -168,6 +173,97 @@ class CacheService
     }
 
     /**
+     * Cache active infographics
+     */
+    public static function getActiveInfographics()
+    {
+        return Cache::remember(self::INFOGRAPHICS_KEY, self::CACHE_TTL * 24, function () {
+            return \App\Models\Infographic::where('status', 'active')
+                ->orderBy('id')
+                ->get();
+        });
+    }
+
+    /**
+     * Cache tracking information
+     */
+    public static function getTrackingInfo($trackingNumber)
+    {
+        $key = self::TRACKING_KEY . $trackingNumber;
+
+        return Cache::remember($key, 300, function () use ($trackingNumber) { // 5 minutes
+            $delivery = Delivery::with(['fromCity', 'toCity', 'ship', 'user'])
+                ->where('resi', $trackingNumber)
+                ->first();
+
+            if (!$delivery) return null;
+
+            return [
+                'delivery' => $delivery,
+                'estimated_arrival' => $delivery->created_at->addDays(3), // Example estimation
+            ];
+        });
+    }
+
+    /**
+     * Cache user delivery history
+     */
+    public static function getUserDeliveryHistory($userId, $limit = 10)
+    {
+        $key = self::USER_DELIVERY_HISTORY_KEY . $userId . '_' . $limit;
+
+        return Cache::remember($key, 600, function () use ($userId, $limit) { // 10 minutes
+            return Delivery::where('user_id', $userId)
+                ->with(['fromCity', 'toCity', 'ship'])
+                ->orderBy('created_at', 'desc')
+                ->limit($limit)
+                ->get();
+        });
+    }
+
+    /**
+     * Cache daily revenue by date
+     */
+    public static function getDailyRevenue($date)
+    {
+        $key = self::DAILY_REVENUE_KEY . $date;
+
+        return Cache::remember($key, 1800, function () use ($date) { // 30 minutes
+            return Delivery::where('payment_status', 'paid')
+                ->whereDate('created_at', $date)
+                ->sum('shipping_cost');
+        });
+    }
+
+    /**
+     * Cache monthly statistics
+     */
+    public static function getMonthlyStats($month, $year)
+    {
+        $key = self::MONTHLY_STATS_KEY . $month . '_' . $year;
+
+        return Cache::remember($key, 3600, function () use ($month, $year) { // 1 hour
+            $startDate = \Carbon\Carbon::create($year, $month, 1)->startOfMonth();
+            $endDate = $startDate->copy()->endOfMonth();
+
+            return [
+                'total_deliveries' => Delivery::whereBetween('created_at', [$startDate, $endDate])->count(),
+                'paid_deliveries' => Delivery::whereBetween('created_at', [$startDate, $endDate])
+                    ->where('payment_status', 'paid')->count(),
+                'total_revenue' => Delivery::whereBetween('created_at', [$startDate, $endDate])
+                    ->where('payment_status', 'paid')->sum('shipping_cost'),
+                'average_weight' => Delivery::whereBetween('created_at', [$startDate, $endDate])->avg('weight'),
+                'popular_routes' => Delivery::whereBetween('created_at', [$startDate, $endDate])
+                    ->selectRaw('from_city_id, to_city_id, COUNT(*) as count')
+                    ->groupBy('from_city_id', 'to_city_id')
+                    ->orderByDesc('count')
+                    ->limit(5)
+                    ->get(),
+            ];
+        });
+    }
+
+    /**
      * Clear specific cache
      */
     public static function clearCache($keys = [])
@@ -190,10 +286,21 @@ class CacheService
     /**
      * Clear user-specific cache
      */
-    public static function clearUserCache($userName)
+    public static function clearUserCache($userIdOrName)
     {
-        Cache::forget("payment_dashboard_{$userName}");
-        // Clear related user caches
+        // Clear payment dashboard cache (by username)
+        if (is_string($userIdOrName)) {
+            Cache::forget("payment_dashboard_{$userIdOrName}");
+        }
+
+        // Clear user delivery history cache (by user ID)
+        if (is_numeric($userIdOrName)) {
+            $userId = $userIdOrName;
+            // Clear user delivery history cache
+            for ($i = 5; $i <= 50; $i += 5) {
+                Cache::forget(self::USER_DELIVERY_HISTORY_KEY . $userId . '_' . $i);
+            }
+        }
     }
 
     /**
@@ -206,6 +313,53 @@ class CacheService
         } else {
             // Clear all ship caches
             Cache::forget(self::SHIPS_KEY);
+        }
+    }
+
+    /**
+     * Clear tracking cache
+     */
+    public static function clearTrackingCache($trackingNumber)
+    {
+        Cache::forget(self::TRACKING_KEY . $trackingNumber);
+    }
+
+    /**
+     * Clear infographics cache
+     */
+    public static function clearInfographicsCache()
+    {
+        Cache::forget(self::INFOGRAPHICS_KEY);
+    }
+
+    /**
+     * Clear delivery-related caches when delivery is created/updated
+     */
+    public static function clearDeliveryRelatedCache($delivery = null)
+    {
+        // Clear general stats
+        Cache::forget(self::DELIVERY_STATS_KEY);
+        Cache::forget(self::POPULAR_ROUTES_KEY);
+        Cache::forget(self::REVENUE_STATS_KEY);
+
+        if ($delivery) {
+            // Clear specific tracking cache
+            self::clearTrackingCache($delivery->resi);
+
+            // Clear user cache
+            self::clearUserCache($delivery->user_id);
+
+            // Clear ship capacity cache
+            self::clearShipCache($delivery->ship_id);
+
+            // Clear daily revenue cache
+            $date = $delivery->created_at->toDateString();
+            Cache::forget(self::DAILY_REVENUE_KEY . $date);
+
+            // Clear monthly stats cache
+            $month = $delivery->created_at->month;
+            $year = $delivery->created_at->year;
+            Cache::forget(self::MONTHLY_STATS_KEY . $month . '_' . $year);
         }
     }
 

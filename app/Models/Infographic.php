@@ -9,12 +9,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Infographic extends Model
 {
     use HasFactory;
+    const STATUS = [
+        'active' => 'active',
+        'inactive' => 'inactive',
+        'draft' => 'draft',
+    ];
 
     protected $fillable = [
         'title',
         'description',
         'caption',
         'image',
+        'status',
     ];
 
     protected static function boot()
