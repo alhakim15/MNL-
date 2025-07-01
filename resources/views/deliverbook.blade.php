@@ -13,13 +13,16 @@
 <body>
   <nav class="back-nav">
     <a href="{{ route('home') }}" class="back-button">
-      <i class="fas fa-arrow-left"></i> Back
+      <i class="fas fa-arrow-left"></i>
+      <span>Back</span>
     </a>
     <a href="{{ route('payment.dashboard') }}" class="back-button history-button">
-      <i class="fas fa-credit-card"></i> Payments
+      <i class="fas fa-credit-card"></i>
+      <span>Payments</span>
     </a>
     <a href="{{ route('deliveries.history') }}" class="back-button history-button">
-      <i class="fas fa-history"></i> History
+      <i class="fas fa-history"></i>
+      <span>History</span>
     </a>
   </nav>
 
