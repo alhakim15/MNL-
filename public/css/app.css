@@ -307,7 +307,7 @@ body {
 .explore {
     text-align: center;
     margin: 30px 0;
-    margin-top: 220px;
+    margin-top: 220px; 
 }
 
 .image-boxes {
@@ -325,7 +325,7 @@ body {
     aspect-ratio: 1 / 1;
     border-radius: 12px;
     overflow: hidden;
-    background-color: #f0f0f0; /* supaya kotak gak kosong */
+    background-color: #f0f0f0; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -349,7 +349,7 @@ body {
   display: flex;
   justify-content: space-around;
   background-color: #0a0f1d;
-  padding: 60px 20px;
+  padding: 40px 20px; /* Mengurangi padding dari 60px ke 40px */
   padding-bottom: 2px;
   color: white;
   position: relative;
@@ -376,6 +376,7 @@ body {
   padding-top: 0;  /* Ubah dari 100px ke 0 */
   margin-top: 0;   /* Tambahkan agar tidak ada jarak atas */
   margin-bottom: 6px; /* Jarak ke paragraf */
+  display: flex;
 }
 
 .icon {
@@ -404,7 +405,7 @@ body {
   gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 40px;
+  margin-top: 20px; /* Mengurangi margin dari 40px ke 20px */
 }
 
 .info-box {
@@ -413,7 +414,7 @@ body {
   max-width: 250px;
   /* hapus border-right di sini */
   /* border-right: 2px solid #ff0044; */
-  padding-bottom: 100px;
+  padding-bottom: 60px; /* Mengurangi padding bottom dari 100px ke 60px */
 }
 
 .info-box img {
@@ -570,7 +571,7 @@ body {
 
 .pilot-section {
   text-align: center;
-  padding: 100px 20px;
+  padding: 60px 20px; /* Mengurangi padding dari 100px ke 60px */
   background: white;
   position: relative;
 }
@@ -1036,25 +1037,144 @@ footer {
     max-height: 120px !important;
   }
 }
+/* Mobile responsive styles for hero section */
 @media (max-width: 768px) {
+  .hero {
+    height: 350px; /* Mengurangi tinggi hero di tablet */
+    padding: 80px 0 15px; /* Menghilangkan padding kiri kanan */
+  }
+  
+  .hero-image {
+    width: 100%; /* Full width dari kiri ke kanan */
+    height: 300px; /* Tinggi disesuaikan */
+    left: 0; /* Mulai dari kiri */
+    transform: none; /* Menghilangkan transform center */
+    border-radius: 0; /* Menghilangkan border radius untuk full width */
+  }
+  
   .hero-text {
     margin-left: 20px;
-    margin-top: 0;
+    margin-top: -80px; /* Menyesuaikan posisi teks */
   }
 
   .hero h2 {
     font-size: 2rem;
     margin-right: 0;
-    margin-top: 20px;
+    margin-top: 30px;
   }
 }
 
 @media (max-width: 480px) {
+  .hero {
+    height: 280px; /* Mengurangi tinggi hero di mobile */
+    padding: 60px 0 10px; /* Menghilangkan padding kiri kanan */
+  }
+  
+  .hero-image {
+    width: 100%; /* Full width dari kiri ke kanan */
+    height: 250px; /* Tinggi disesuaikan untuk mobile */
+    left: 0; /* Mulai dari kiri */
+    transform: none; /* Menghilangkan transform center */
+    border-radius: 0; /* Menghilangkan border radius untuk full width */
+  }
+  
   .hero-text {
     margin-left: 15px;
+    margin-top: -60px; /* Menyesuaikan posisi teks di mobile */
   }
 
   .hero h2 {
     font-size: 1.6rem;
+    margin-right: 0;
+    margin-top: 20px;
+  }
+  
+  .button-group {
+    gap: 20px; /* Mengurangi jarak antar tombol */
+  }
+  
+  .search-btn-left, .search-btn-right {
+    padding: 10px 20px; /* Tombol lebih kecil */
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero {
+    height: 250px; /* Lebih kecil lagi untuk layar sangat kecil */
+    padding: 50px 0 10px;
+  }
+  
+  .hero-image {
+    width: 100%; /* Full width dari kiri ke kanan */
+    height: 200px; /* Tinggi disesuaikan untuk layar kecil */
+    left: 0; /* Mulai dari kiri */
+    transform: none; /* Menghilangkan transform center */
+    border-radius: 0; /* Menghilangkan border radius untuk full width */
+  }
+  
+  .hero-text {
+    margin-left: 10px;
+    margin-top: -50px;
+  }
+  
+  .hero h2 {
+    font-size: 1.4rem;
+    margin-top: 15px;
+  }
+}
+
+/* Responsive spacing for mobile */
+@media (max-width: 768px) {
+  .explore {
+    margin-top: 40px; /* Mengurangi jarak untuk tablet */
+  }
+  
+  .infographic-section {
+    padding: 30px 15px; /* Mengurangi padding untuk tablet */
+  }
+  
+  .pilot-section {
+    padding: 40px 15px; /* Mengurangi padding untuk tablet */
+  }
+  
+  .info-container {
+    margin-top: 15px; /* Mengurangi margin untuk tablet */
+  }
+}
+
+@media (max-width: 480px) {
+  .explore {
+    margin-top: 30px; /* Jarak lebih kecil untuk mobile */
+  }
+  
+  .infographic-section {
+    padding: 25px 10px; /* Padding lebih kecil untuk mobile */
+  }
+  
+  .pilot-section {
+    padding: 30px 10px; /* Padding lebih kecil untuk mobile */
+  }
+  
+  .info-box {
+    padding-bottom: 40px; /* Mengurangi padding bottom untuk mobile */
+  }
+  
+  .info-container {
+    margin-top: 10px; /* Margin lebih kecil untuk mobile */
+  }
+}
+
+@media (max-width: 360px) {
+  .explore {
+    margin-top: 25px; /* Jarak paling kecil untuk layar sangat kecil */
+  }
+  
+  .infographic-section {
+    padding: 20px 8px;
+  }
+  
+  .pilot-section {
+    padding: 25px 8px;
   }
 }
