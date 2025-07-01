@@ -40,18 +40,5 @@ class UserProfileSeeder extends Seeder
             'phone' => '081298765432',
             'email_verified_at' => now(),
         ]);
-
-        User::create([
-            'name' => 'Admin MNL',
-            'first_name' => 'Admin',
-            'last_name' => 'MNL',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('password'),
-            'role' => 'admin',
-            'date_of_birth' => '1980-01-01',
-            'gender' => 'Laki-laki',
-            'phone' => '081234567890',
-            'email_verified_at' => now(),
-        ]);
     }
 }
