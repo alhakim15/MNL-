@@ -18,9 +18,6 @@
 </head>
 
 <body>
-    <!-- Navbar Section -->
-    @include('components.navbar')
-
     <div class="profile-container">
         <div class="profile-header">
             <div class="back-button">
