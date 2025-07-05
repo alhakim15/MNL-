@@ -114,7 +114,8 @@ body .dropdown-menu li a:hover {
 .contact-us {
   padding: 120px 20px 60px;
   background-color: #f8f9fa;
-  min-height: 100vh;
+  min-height: calc(100vh - 200px);
+  margin-bottom: 0;
 }
 
 .container {
@@ -410,6 +411,7 @@ body .dropdown-menu li a:hover {
 .map {
   margin-top: 40px;
   width: 100%;
+  margin-bottom: 0;
 }
 
 .map iframe {
@@ -424,14 +426,19 @@ footer {
   background-color: #0f1323;
   color: #ffffff;
   font-size: 14px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
 .footer-top {
-  background-color: #14162d; /* Ganti dari #ffccd5 */
-  padding: 15px;
+  background-color: #e51b48; /* Background merah seperti di screenshot */
+  padding: 15px 0;
   text-align: center;
-  color: #ffffff;
+  color: white;
   font-weight: bold;
+  margin: 0;
+  width: 100%;
 }
 
 .footer-top .contact-info {
@@ -439,10 +446,13 @@ footer {
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .footer-top a {
-  color: #ff0044; /* Sesuaikan warna tautan */
+  color: white;
   text-decoration: none;
 }
 
@@ -455,6 +465,9 @@ footer {
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 40px 20px;
+  background-color: #0f1323;
+  margin: 0;
+  width: 100%;
 }
 
 .footer-column {
@@ -489,6 +502,8 @@ footer {
   background-color: #0b0e1a;
   text-align: center;
   padding: 20px;
+  margin: 0;
+  width: 100%;
 }
 
 .footer-bottom .logos img {
@@ -780,5 +795,22 @@ body .logout-link:hover {
     .mobile-menu {
         top: 65px;
     }
+}
+
+/* Pastikan tidak ada jarak putih di sekitar footer */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Pastikan contact section dan map tidak memiliki margin bottom */
+.contact-us {
+  margin-bottom: 0;
+  padding-bottom: 20px;
+}
+
+.map {
+  margin-bottom: 0;
 }
 

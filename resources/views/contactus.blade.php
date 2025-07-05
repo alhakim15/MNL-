@@ -166,13 +166,13 @@
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- Footer -->
+  <!-- Footer -->
+  @include('components.footer')
 
-    @include('components.footer')
-
-    <script src="{{ asset('js/navbar.js') }}"></script>
-    <script src="{{ asset('js/pages/contact.js') }}"></script>
+  <script src="{{ asset('js/navbar.js') }}"></script>
+  <script src="{{ asset('js/pages/contact.js') }}"></script>
 
 </body>
 
