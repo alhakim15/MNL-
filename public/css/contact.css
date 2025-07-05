@@ -392,18 +392,184 @@ body .dropdown-menu li a:hover {
   }
 }
 
+/* Mobile Design - Modern Clean Style */
 @media (max-width: 480px) {
   .contact-us {
-    padding: 100px 15px 40px;
+    padding: 80px 20px 40px;
+    background: linear-gradient(135deg, #a8e6cf 0%, #88d8c0 50%, #70ceb5 100%);
+    min-height: 100vh;
+  }
+  
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  .header-section {
+    text-align: left;
+    margin-bottom: 30px;
+    padding: 0 10px;
   }
   
   .header-section h2 {
-    font-size: 1.75rem;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 20px;
+    line-height: 1.1;
   }
   
-  .contact-form-section h3,
-  .contact-details-section h3 {
-    font-size: 1.5rem;
+  .header-section h2::after {
+    content: ".";
+    color: #000000;
+  }
+  
+  /* Contact info section */
+  .contact-info-mobile {
+    display: block !important;
+    margin-bottom: 30px;
+    padding: 0 10px;
+  }
+  
+  .contact-info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .contact-info-left {
+    flex: 1;
+  }
+  
+  .contact-info-right {
+    flex: 1;
+    text-align: right;
+  }
+  
+  .header-section p {
+    display: none; /* Hide subtitle on mobile for cleaner look */
+  }
+  
+  .contact-wrapper {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  /* Hide contact details section on mobile */
+  .contact-details-section {
+    display: none;
+  }
+  
+  .contact-form-section {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px 25px;
+    margin: 0 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: none;
+  }
+  
+  .contact-form-section h3 {
+    display: none; /* Hide form title for cleaner mobile look */
+  }
+  
+  /* Mobile form styling */
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: 15px 0;
+    border: none;
+    border-bottom: 1px solid #d0d0d0;
+    border-radius: 0;
+    background: transparent;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+  
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    outline: none;
+    border-bottom-color: #333;
+    box-shadow: none;
+  }
+  
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder {
+    color: #999;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  
+  .contact-form textarea {
+    min-height: 80px;
+    resize: none;
+    border-bottom: 1px solid #d0d0d0;
+  }
+  
+  /* Single column layout for mobile */
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-bottom: 0;
+  }
+  
+  .form-group {
+    margin-bottom: 0;
+  }
+  
+  /* Modern submit button */
+  .submit-btn {
+    width: 100%;
+    background: #000000;
+    color: white;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 25px;
+    box-shadow: none;
+    text-transform: none;
+  }
+  
+  .submit-btn:hover {
+    background-color: #333;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  /* Mobile alert styling */
+  .alert-success,
+  .alert-danger {
+    margin: 0 10px 30px 10px;
+    padding: 15px 20px;
+    border-radius: 15px;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .alert-success {
+    background: rgba(76, 175, 80, 0.1);
+    color: #2e7d32;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+  }
+  
+  .alert-danger {
+    background: rgba(244, 67, 54, 0.1);
+    color: #c62828;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+  }
+  
+  /* Hide footer on mobile */
+  footer {
+    display: none;
   }
 }
 
