@@ -64,11 +64,11 @@ body .hamburger span {
 
 /* Mobile menu untuk contact page */
 body .mobile-menu {
-    background: #0f1129 !important;
+    background: #ffffff !important; /* Background putih */
 }
 
 body .mobile-menu ul li a {
-    color: #ffffff !important;
+    color: #000000 !important; /* Tulisan hitam */
 }
 
 body .mobile-menu ul li a:hover {
@@ -424,28 +424,87 @@ body .dropdown-menu li a:hover {
     color: #000000;
   }
   
+  /* Divider line after Hello */
+  .header-section::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 2px;
+    background-color: #a8e6cf;
+    margin: 15px 0 25px 10px;
+  }
+  
   /* Contact info section */
   .contact-info-mobile {
     display: block !important;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     padding: 0 10px;
   }
   
   .contact-info-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     font-size: 14px;
     color: #333;
+    line-height: 1.5;
   }
   
   .contact-info-left {
     flex: 1;
+    padding-right: 20px;
+  }
+  
+  .contact-info-left div {
+    margin-bottom: 4px;
+    font-weight: 400;
+    color: #2d3748;
   }
   
   .contact-info-right {
     flex: 1;
     text-align: right;
+  }
+  
+  .contact-info-right div {
+    margin-bottom: 4px;
+    font-weight: 400;
+    color: #2d3748;
+  }
+  
+  /* Style khusus untuk email dan website */
+  .contact-info-right div:nth-child(2),
+  .contact-info-right div:nth-child(3) {
+    color: #4a5568;
+    font-size: 13px;
+  }
+  
+  /* Style untuk nomor telepon */
+  .contact-info-right div:first-child {
+    font-weight: 500;
+    color: #2d3748;
+    font-size: 14px;
+  }
+  
+  /* Responsive adjustment untuk contact info */
+  @media (max-width: 380px) {
+    .contact-info-row {
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .contact-info-left {
+      padding-right: 0;
+    }
+    
+    .contact-info-right {
+      text-align: left;
+    }
+    
+    .contact-info-left div,
+    .contact-info-right div {
+      margin-bottom: 3px;
+    }
   }
   
   .header-section p {
@@ -800,7 +859,7 @@ footer {
     top: 80px;
     left: 0;
     width: 100%;
-    background-color: rgba(15, 17, 41, 0.98); /* Dark theme for mobile menu */
+    background-color: #ffffff; /* Background putih untuk contact page */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     z-index: 999;
 }
@@ -819,7 +878,7 @@ footer {
 
 .mobile-menu ul li a {
     text-decoration: none;
-    color: #ffffff; /* White links for dark theme */
+    color: #000000; /* Tulisan hitam untuk contact page */
     font-weight: bold;
     font-size: 18px;
     padding: 10px 0;
@@ -888,8 +947,8 @@ footer {
 
 /* Mobile dropdown styling untuk contact page */
 body .mobile-dropdown-header {
-    background-color: rgba(15, 17, 41, 0.9) !important;
-    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.9) !important; /* Background putih */
+    color: #000000 !important; /* Text hitam */
 }
 
 body .mobile-dropdown-header:hover {
@@ -897,19 +956,19 @@ body .mobile-dropdown-header:hover {
 }
 
 body .mobile-section-title {
-    color: #ffffff !important;
+    color: #000000 !important; /* Text hitam */
 }
 
 body .mobile-arrow {
-    color: #ffffff !important;
+    color: #000000 !important; /* Arrow hitam */
 }
 
 body .mobile-dropdown-content {
-    background-color: #0f1129 !important;
+    background-color: #ffffff !important; /* Background putih */
 }
 
 body .mobile-dropdown-content a {
-    color: #ffffff !important;
+    color: #000000 !important; /* Text hitam */
 }
 
 body .mobile-dropdown-content a:hover {
@@ -918,7 +977,7 @@ body .mobile-dropdown-content a:hover {
 }
 
 body .logout-link {
-    color: #ffffff !important;
+    color: #000000 !important; /* Text hitam */
 }
 
 body .logout-link:hover {
