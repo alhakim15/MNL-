@@ -4,155 +4,159 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Delivery Booking</title>
+  <title>StayHub - Delivery Booking</title>
   <link href="{{ asset('css/deliverbook.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <nav class="back-nav">
-    <a href="{{ route('home') }}" class="back-button">
+  <!-- Include Navbar Component -->
+
+  <!-- Back Button -->
+  <div class="back-button-container">
+    <a href="{{ route('home') }}" class="back-btn">
       <i class="fas fa-arrow-left"></i>
-      <span>Back</span>
+      <span>Kembali</span>
     </a>
-    <a href="{{ route('payment.dashboard') }}" class="back-button history-button">
-      <i class="fas fa-credit-card"></i>
-      <span>Payments</span>
-    </a>
-    <a href="{{ route('deliveries.history') }}" class="back-button history-button">
-      <i class="fas fa-history"></i>
-      <span>History</span>
-    </a>
-  </nav>
-
-  <div class="main-container">
-    <section class="welcome-section">
-      <div class="welcome">
-        <h2>Welcome 👋</h2>
-        <h3>Liners</h3>
-      </div>
-      <div class="subtitle">Pengiriman Aman, Kirim Tepat Waktu</div>
-    </section>
-
-    <section class="booking-container">
-      @if ($errors->any())
-      <div class="error-message">
-        <ul>
-          @foreach ($errors->all() as $error)
-          <li><i class="fas fa-exclamation-circle"></i> {{ $error }}</li>
-          @endforeach
-        </ul>
-      </div>
-      @endif
-
-      @if(session('success'))
-      <div class="success-message">
-        <i class="fas fa-check-circle"></i> {{ session('success') }}
-      </div>
-      @endif
-
-      <form method="POST" action="{{ route('deliveries.store') }}">
-        @csrf
-        <h3 class="form-title">Delivery Information</h3>
-
-        <div class="form-row">
-          <div class="input-group">
-            <label for="sender_name">Nama Pengirim</label>
-            <div class="input-with-icon">
-              <i class="fas fa-user"></i>
-              <input type="text" id="sender_name" name="sender_name" value="{{ Auth::user()->name }}" readonly>
-            </div>
-          </div>
-
-          <div class="input-group">
-            <label for="receiver_name">Nama Penerima</label>
-            <div class="input-with-icon">
-              <i class="fas fa-user-tag"></i>
-              <input type="text" id="receiver_name" name="receiver_name" placeholder="Nama penerima" required>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="input-group">
-            <label for="from_city_id">From</label>
-            <div class="input-with-icon">
-              <i class="fas fa-map-marker-alt"></i>
-              <select id="from_city_id" name="from_city_id" required>
-                <option value="">Select departure city</option>
-                @foreach ($cities as $city)
-                <option value="{{ $city->id }}" {{ old('from_city_id')==$city->id ? 'selected' : '' }}>{{ $city->name }}
-                </option>
-                @endforeach
-              </select>
-            </div>
-          </div>
-
-          <div class="input-group">
-            <label for="to_city_id">To</label>
-            <div class="input-with-icon">
-              <i class="fas fa-map-marker-alt"></i>
-              <select id="to_city_id" name="to_city_id" required>
-                <option value="">Select arrival city</option>
-                @foreach ($cities as $city)
-                <option value="{{ $city->id }}" {{ old('to_city_id')==$city->id ? 'selected' : '' }}>{{ $city->name }}
-                </option>
-                @endforeach
-              </select>
-            </div>
-            <div id="route-info" class="route-info"></div>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="input-group">
-            <label for="delivery_date">Date</label>
-            <div class="input-with-icon">
-              <i class="fas fa-calendar-alt"></i>
-              <input type="date" id="delivery_date" name="delivery_date" required>
-            </div>
-          </div>
-
-          <div class="input-group">
-            <label for="item_name">Nama Barang</label>
-            <div class="input-with-icon">
-              <i class="fas fa-box"></i>
-              <input type="text" id="item_name" name="item_name" placeholder="Nama barang" required>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="input-group">
-            <label for="weight">Weight (ton)</label>
-            <div class="input-with-icon">
-              <i class="fas fa-weight-hanging"></i>
-              <input type="number" id="weight" name="weight" placeholder="Payload Weight" required step="0.1">
-            </div>
-          </div>
-
-          <div class="input-group">
-            <label for="ship_id">Pilih Kapal</label>
-            <div class="input-with-icon">
-              <i class="fas fa-ship"></i>
-              <select id="ship_id" name="ship_id" required disabled>
-                <option value="">Pilih rute terlebih dahulu</option>
-              </select>
-            </div>
-            <div id="capacity-info" class="capacity-notice"></div>
-            <div id="ship-loading" class="loading-notice" style="display: none;">
-              <i class="fas fa-spinner fa-spin"></i> Memuat kapal yang tersedia...
-            </div>
-          </div>
-        </div>
-
-        <button type="submit" class="submit-button">
-          <i class="fas fa-paper-plane"></i> Deliver Now
-        </button>
-      </form>
-    </section>
   </div>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="hero-subtitle">Pengiriman Aman. Tepat Waktu.</p>
+        <h1 class="hero-title">Kirim Paket Dengan Mudah</h1>
+        <p class="hero-description">Layanan pengiriman terpercaya dengan armada kapal modern untuk kebutuhan logistik
+          Anda di seluruh Indonesia.</p>
+      </div>
+
+      <!-- Delivery Booking Form -->
+      <div class="search-form-container">
+        @if ($errors->any())
+        <div class="error-message">
+          <ul>
+            @foreach ($errors->all() as $error)
+            <li><i class="fas fa-exclamation-circle"></i> {{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
+
+        @if(session('success'))
+        <div class="success-message">
+          <i class="fas fa-check-circle"></i> {{ session('success') }}
+        </div>
+        @endif
+
+        <form method="POST" action="{{ route('deliveries.store') }}" class="booking-form">
+          @csrf
+
+          <div class="form-grid">
+            <!-- Sender Name -->
+            <div class="form-field">
+              <label for="sender_name">Nama Pengirim</label>
+              <div class="input-container">
+                <input type="text" id="sender_name" name="sender_name" value="{{ Auth::user()->name }}" readonly>
+                <i class="fas fa-user input-icon"></i>
+              </div>
+            </div>
+
+            <!-- Receiver Name -->
+            <div class="form-field">
+              <label for="receiver_name">Nama Penerima</label>
+              <div class="input-container">
+                <input type="text" id="receiver_name" name="receiver_name" placeholder="Nama penerima" required>
+                <i class="fas fa-user-tag input-icon"></i>
+              </div>
+            </div>
+
+            <!-- From City -->
+            <div class="form-field">
+              <label for="from_city_id">Kota Asal</label>
+              <div class="select-container">
+                <select id="from_city_id" name="from_city_id" required>
+                  <option value="">Pilih kota asal</option>
+                  @foreach ($cities as $city)
+                  <option value="{{ $city->id }}" {{ old('from_city_id')==$city->id ? 'selected' : '' }}>{{ $city->name
+                    }}</option>
+                  @endforeach
+                </select>
+                <i class="fas fa-chevron-down select-arrow"></i>
+                <i class="fas fa-map-marker-alt input-icon"></i>
+              </div>
+            </div>
+
+            <!-- To City -->
+            <div class="form-field">
+              <label for="to_city_id">Kota Tujuan</label>
+              <div class="select-container">
+                <select id="to_city_id" name="to_city_id" required>
+                  <option value="">Pilih kota tujuan</option>
+                  @foreach ($cities as $city)
+                  <option value="{{ $city->id }}" {{ old('to_city_id')==$city->id ? 'selected' : '' }}>{{ $city->name }}
+                  </option>
+                  @endforeach
+                </select>
+                <i class="fas fa-chevron-down select-arrow"></i>
+                <i class="fas fa-map-marker-alt input-icon"></i>
+              </div>
+              <div id="route-info" class="route-info"></div>
+            </div>
+
+            <!-- Delivery Date -->
+            <div class="form-field">
+              <label for="delivery_date">Tanggal Pengiriman</label>
+              <div class="input-container">
+                <input type="date" id="delivery_date" name="delivery_date" required>
+                <i class="fas fa-calendar-alt input-icon"></i>
+              </div>
+            </div>
+
+            <!-- Item Name -->
+            <div class="form-field">
+              <label for="item_name">Nama Barang</label>
+              <div class="input-container">
+                <input type="text" id="item_name" name="item_name" placeholder="Nama barang yang dikirim" required>
+                <i class="fas fa-box input-icon"></i>
+              </div>
+            </div>
+
+            <!-- Weight -->
+            <div class="form-field">
+              <label for="weight">Berat (ton)</label>
+              <div class="input-container">
+                <input type="number" id="weight" name="weight" placeholder="Berat barang" required step="0.1">
+                <i class="fas fa-weight-hanging input-icon"></i>
+              </div>
+            </div>
+
+            <!-- Ship Selection -->
+            <div class="form-field">
+              <label for="ship_id">Pilih Kapal</label>
+              <div class="select-container">
+                <select id="ship_id" name="ship_id" required disabled>
+                  <option value="">Pilih rute terlebih dahulu</option>
+                </select>
+                <i class="fas fa-chevron-down select-arrow"></i>
+                <i class="fas fa-ship input-icon"></i>
+              </div>
+              <div id="capacity-info" class="capacity-notice"></div>
+              <div id="ship-loading" class="loading-notice" style="display: none;">
+                <i class="fas fa-spinner fa-spin"></i> Memuat kapal yang tersedia...
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="discover-btn">
+            <i class="fas fa-paper-plane"></i>
+            Kirim Sekarang
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </section>
 
   {{-- MODAL --}}
   @if(session('deliveryData'))
