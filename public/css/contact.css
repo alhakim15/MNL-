@@ -88,12 +88,13 @@ body .dropdown-toggle {
 }
 
 body .dropdown-menu {
-    background: #14162d !important;
-    border: 1px solid #ff0044;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
 }
 
 body .dropdown-menu li a {
-    color: #ffffff !important;
+    color: #2d3748 !important;
 }
 
 body .dropdown-menu li a:hover {
@@ -102,7 +103,7 @@ body .dropdown-menu li a:hover {
 }
 
 .logout-link {
-    color: #ffffff !important;
+    color: #2d3748 !important;
 }
 
 .logout-link:hover {
@@ -977,7 +978,7 @@ body .mobile-dropdown-content a:hover {
 }
 
 body .logout-link {
-    color: #000000 !important; /* Text hitam */
+    color: #2d3748 !important;
 }
 
 body .logout-link:hover {
