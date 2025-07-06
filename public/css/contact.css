@@ -62,7 +62,6 @@ body .hamburger span {
     background: #2d3748 !important;
 }
 
-/* Mobile menu untuk contact page */
 body .mobile-menu {
     background: #ffffff !important; /* Background putih */
 }
@@ -76,7 +75,6 @@ body .mobile-menu ul li a:hover {
     color: #ff0044 !important;
 }
 
-/* Verify email button di contact page */
 body .verify-email-btn {
     background: #ff0044 !important;
     color: white !important;
