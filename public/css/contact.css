@@ -12,7 +12,6 @@ body {
   line-height: 1.6;
 }
 
-/* Navbar untuk halaman contact - override semua style navbar */
 body .navbar {
     background-color: white; /* Background solid, tidak transparan */
     position: fixed;
