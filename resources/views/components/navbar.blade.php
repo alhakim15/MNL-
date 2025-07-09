@@ -66,21 +66,21 @@
     <div class="mobile-menu">
 
         <ul>
-            <li><a href="{{ route('home') }}">🏠 Home</a></li>
-            <li><a href="{{ route('aboutus') }}">ℹ️ About Us</a></li>
-            <li><a href="{{ route('contactus') }}">📞 Contact Us</a></li>
-            <li><a href="{{ route('tracking') }}">📍 Tracking</a></li>
+            <li><a href="{{ route('home') }}"> Home</a></li>
+            <li><a href="{{ route('aboutus') }}"> About Us</a></li>
+            <li><a href="{{ route('contactus') }}"> Contact Us</a></li>
+            <li><a href="{{ route('tracking') }}"> Tracking</a></li>
 
             @can('create', App\Models\Delivery::class)
             <li class="mobile-dropdown">
                 <div class="mobile-dropdown-header">
-                    <span class="mobile-section-title">🚚 Services</span>
+                    <span class="mobile-section-title"> Services</span>
                     <span class="mobile-arrow">▼</span>
                 </div>
                 <div class="mobile-dropdown-content">
-                    <a href="{{ route('deliveries.create') }}">📦 Deliver Book</a>
-                    <a href="{{ route('deliveries.history') }}">📋 Delivery History</a>
-                    <a href="{{ route('payment.dashboard') }}">💳 Payment Dashboard</a>
+                    <a href="{{ route('deliveries.create') }}"> Deliver Book</a>
+                    <a href="{{ route('deliveries.history') }}"> Delivery History</a>
+                    <a href="{{ route('payment.dashboard') }}"> Payment Dashboard</a>
                 </div>
             </li>
             @endcan
@@ -96,15 +96,15 @@
 
             <li class="mobile-dropdown">
                 <div class="mobile-dropdown-header">
-                    <span class="mobile-section-title">👤 Account</span>
+                    <span class="mobile-section-title"> Account</span>
                     <span class="mobile-arrow">▼</span>
                 </div>
                 <div class="mobile-dropdown-content">
-                    <a href="{{ route('profile.index') }}">👤 Profile</a>
+                    <a href="{{ route('profile.index') }}">Profile</a>
                     <a href="#"
                         onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();"
                         class="logout-link">
-                        🚪 Logout
+                         Logout
                     </a>
                     <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
@@ -112,7 +112,7 @@
                 </div>
             </li>
             @else
-            <li><a href="{{ route('login') }}" class="login-btn mobile-login">🔑 Login</a></li>
+            <li><a href="{{ route('login') }}" class="login-btn mobile-login"> Login</a></li>
             @endauth
         </ul>
     </div>

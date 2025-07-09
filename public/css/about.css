@@ -243,17 +243,17 @@ footer {
 .logout-button:hover {
     background-color: #d9003a; /* Warna hover yang lebih gelap */
     transform: translateY(-1px); /* Efek naik sedikit */
-    box-shadow: 0 2px 8px rgba(255, 0, 68, 0.3); /* Shadow dengan brand color */
+    box-shadow: 0 2px 8px #ff0044; /* Shadow dengan brand color */
 }
 
 .logout-button:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 0, 68, 0.3); /* Focus ring brand color */
+    box-shadow: 0 0 0 3px #ff0044; /* Focus ring brand color */
 }
 
 .logout-button:active {
     transform: translateY(0); /* Kembali ke posisi normal saat diklik */
-    box-shadow: 0 1px 4px rgba(255, 0, 68, 0.2);
+    box-shadow: 0 1px 4px #ff0044;
 }
 .logout-form {
     display: inline;

@@ -48,7 +48,7 @@
         }
 
         .back-btn {
-            color: #6c757d;
+            color:rgb(255, 255, 255);
             font-size: 24px;
             margin-right: 16px;
             text-decoration: none;

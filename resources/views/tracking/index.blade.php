@@ -22,10 +22,11 @@
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 12px 24px rgba(26, 35, 126, 0.25);
+            border: 3px solid #ff0044; /* 👉 Tambahkan stroke di sini */
         }
 
         .card-header {
-            background: #1a237e;
+            background:#0f1323;
         }
 
         .card-header h2,
@@ -34,8 +35,8 @@
         }
 
         .btn-primary {
-            background-color: #e91e63;
-            border-color: #e91e63;
+            background-color: #ff0044;
+            border-color: #ff0044;
         }
 
         .btn-primary:hover {

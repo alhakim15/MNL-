@@ -47,7 +47,7 @@ body::before {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff0044 0%, #ff0044 100%);
   color: white;
   text-decoration: none;
   padding: 14px 24px;
@@ -79,7 +79,7 @@ body::before {
 }
 
 .back-btn:hover {
-  background: linear-gradient(135deg, #5a67d8 0%, #6b5b95 100%);
+  background: linear-gradient(135deg, #ff0044 0%, #ff0044 100%);
   transform: translateX(-5px) translateY(-2px);
   box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
   border-color: rgba(255, 255, 255, 0.3);
@@ -241,7 +241,7 @@ body::before {
 .select-container:focus-within,
 .date-container:focus-within,
 .input-container:focus-within {
-  border-color: #ff6b35;
+  border-color: #ff0044;
   box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
 }
 
@@ -310,14 +310,14 @@ body::before {
 .loading-notice {
   margin-top: 8px;
   font-size: 12px;
-  color: #ff6b35;
+  color: #ff0044;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .discover-btn {
-  background: #ff6b35;
+  background: #ff0044;
   color: white;
   border: none;
   padding: 18px 40px;
@@ -334,9 +334,9 @@ body::before {
 }
 
 .discover-btn:hover {
-  background: #e55a2e;
+  background: #ff0044;
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 10px 30px #ff0044;
 }
 
 /* Follow Section */
@@ -859,7 +859,7 @@ body::before {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, #ff0044, transparent);
   transition: left 0.5s ease;
 }
 
@@ -1118,7 +1118,7 @@ body::before {
   }
   
   .hero-section {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgb(255, 255, 255);
     backdrop-filter: blur(10px);
   }
 }

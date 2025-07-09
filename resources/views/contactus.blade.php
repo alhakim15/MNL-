@@ -26,14 +26,8 @@
         <div class="contact-info-mobile" style="display: none;">
           <div class="contact-info-row">
             <div class="contact-info-left">
-              <div>125 Nichols Rd</div>
-              <div>Toronto, ON</div>
-              <div>B8E 2C6</div>
-            </div>
-            <div class="contact-info-right">
-              <div>(647) 237-2581</div>
-              <div>topman@gmail.com</div>
-              <div>dribbble.com/topman</div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut interdum lorem ipsum, consectetur mattis,
+          placerat non sit.</div>
             </div>
           </div>
         </div>
