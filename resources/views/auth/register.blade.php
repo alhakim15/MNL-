@@ -14,9 +14,16 @@
 
 <body>
   <div class="register-container">
-    <div class="register-title">Buat Akun Baru</div>
-    <div class="register-subtitle">Isi formulir berikut untuk mendaftar</div>
-
+    <div class="register-header">
+  <div class="back-button-container">
+    <a href="{{ route('login') }}" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+  </div>
+  
+  <div class="register-title">Buat Akun Baru</div>
+</div>
+<div class="register-subtitle">Isi formulir berikut untuk mendaftar</div>
     <form method="POST" action="{{ route('register.submit') }}" class="register-form" autocomplete="off">
       @csrf
 

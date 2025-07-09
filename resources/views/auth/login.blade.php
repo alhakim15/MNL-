@@ -9,10 +9,20 @@
   <link rel="stylesheet" href="{{ asset('css/login.css') }}">
   <!-- SweetAlert2 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 </head>
 
 <body>
+
+<!-- Back Button -->
+  <div class="back-button-container">
+    <a href="{{ route('home') }}" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+      <span>Kembali</span>
+    </a>
+  </div>
+
   <div class="login-container">
     <div class="login-title">Login</div>
 

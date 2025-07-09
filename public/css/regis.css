@@ -14,6 +14,31 @@ body {
   padding: 16px;
 }
 
+.register-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+/* Tombol kembali di kiri */
+.back-button-container {
+  position: absolute;
+  left: 0;
+}
+
+/* Judul tetap di tengah */
+.register-title {
+  font-size: 2rem;
+  color: #ff0044;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+}
+
+
+
 .register-container {
   background: white;
   padding: 2rem;
