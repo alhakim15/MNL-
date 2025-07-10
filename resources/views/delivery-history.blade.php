@@ -26,17 +26,13 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            background: linear-gradient(135deg, #0a0f1d 0%, #0a0f1d 100%);
+            background: #ff0044;
             color: white;
             text-decoration: none;
             padding: 14px 24px;
             border-radius: 50px;
             font-size: 14px;
             font-weight: 600;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             letter-spacing: 0.5px;
