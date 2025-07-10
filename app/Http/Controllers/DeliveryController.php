@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\City;
 use App\Models\Ship;
 use App\Models\Delivery;
+use App\Models\ShipRoute;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\DeliveryStatusLog;
@@ -169,7 +170,7 @@ class DeliveryController extends Controller
             });
 
         // Get route information
-        $route = \App\Models\ShipRoute::where('origin_city_id', $fromCityId)
+        $route = ShipRoute::where('origin_city_id', $fromCityId)
             ->where('destination_city_id', $toCityId)
             ->where('is_active', true)
             ->with(['originCity', 'destinationCity'])

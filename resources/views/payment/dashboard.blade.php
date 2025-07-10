@@ -16,13 +16,13 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8f9fa;
+            background-color: #ffffff;
             min-height: 100vh;
         }
 
         .payment-dashboard {
             min-height: 100vh;
-            background-color: #f8f9fa;
+            background-color: #ffffff;
         }
 
         .dashboard-container {
@@ -48,7 +48,7 @@
         }
 
         .back-btn {
-            color:rgb(255, 255, 255);
+            color: rgb(255, 255, 255);
             font-size: 24px;
             margin-right: 16px;
             text-decoration: none;
@@ -276,6 +276,78 @@
             font-size: 14px;
         }
 
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 300px;
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        .notification-success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+
+        .notification-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+
+        .notification-warning {
+            background: #fef3c7;
+            color: #92400e;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            margin-left: auto;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .notification-close:hover {
+            opacity: 1;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
         @media (max-width: 768px) {
             .summary-card {
                 margin: 0 16px 16px 16px;
@@ -308,6 +380,31 @@
 <body>
     <div class="payment-dashboard">
         <div class="dashboard-container">
+            <!-- Notifications -->
+            @if(session('success'))
+            <div class="notification notification-success" id="notification">
+                <i class="fas fa-check-circle"></i>
+                <span>{{ session('success') }}</span>
+                <button onclick="closeNotification()" class="notification-close">&times;</button>
+            </div>
+            @endif
+
+            @if(session('error'))
+            <div class="notification notification-error" id="notification">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>{{ session('error') }}</span>
+                <button onclick="closeNotification()" class="notification-close">&times;</button>
+            </div>
+            @endif
+
+            @if(session('warning'))
+            <div class="notification notification-warning" id="notification">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>{{ session('warning') }}</span>
+                <button onclick="closeNotification()" class="notification-close">&times;</button>
+            </div>
+            @endif
+
             <!-- Header -->
             <div class="dashboard-header">
                 <div class="header-top">
@@ -531,26 +628,136 @@
             tabs.forEach(tab => {
                 const href = tab.getAttribute('href');
                 let count = 0;
+                let tabType = '';
                 
                 if (href.includes('status=pending')) {
                     count = {{ $pendingPayments }};
+                    tabType = 'pending';
                 } else if (href.includes('status=paid')) {
                     count = {{ $paidPayments }};
+                    tabType = 'paid';
                 } else if (href.includes('status=failed')) {
                     count = {{ $failedPayments ?? 0 }};
+                    tabType = 'failed';
                 } else {
                     count = {{ $totalDeliveries }};
+                    tabType = 'all';
                 }
                 
-                if (count > 0) {
+                // Check if this tab was clicked before (stored in localStorage)
+                const wasClicked = localStorage.getItem('tab_clicked_' + tabType) === 'true';
+                
+                if (count > 0 && !wasClicked) {
                     const badge = document.createElement('span');
-                    badge.style.cssText = 'background: #dc3545; color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px; margin-left: 5px;';
+                    badge.style.cssText = 'background: #dc3545; color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px; margin-left: 5px; transition: all 0.3s ease;';
                     badge.textContent = count;
+                    badge.className = 'notification-badge';
+                    badge.setAttribute('data-tab-type', tabType);
                     tab.appendChild(badge);
                 }
             });
         });
         @endif
+
+        // Notification handling
+        function closeNotification() {
+            const notification = document.getElementById('notification');
+            if (notification) {
+                notification.style.animation = 'slideOutRight 0.3s ease-in';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }
+        }
+
+        // Auto-hide notifications after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const notification = document.getElementById('notification');
+            if (notification) {
+                setTimeout(() => {
+                    closeNotification();
+                }, 5000);
+            }
+        });
+
+        // Hide notification when clicking on filter tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            // Use event delegation to handle clicks on filter tabs
+            document.querySelector('.filter-tabs').addEventListener('click', function(e) {
+                const clickedTab = e.target.closest('.filter-tab');
+                if (clickedTab) {
+                    closeNotification();
+                    hideNotificationBadge(clickedTab);
+                }
+            });
+        });
+
+        // Function to hide notification badge
+        function hideNotificationBadge(clickedTab) {
+            // Try different selectors to find the badge
+            let badge = clickedTab.querySelector('.notification-badge');
+            if (!badge) {
+                badge = clickedTab.querySelector('span[style*="background: #dc3545"]');
+            }
+            if (!badge) {
+                badge = clickedTab.querySelector('span[data-tab-type]');
+            }
+            
+            if (badge) {
+                // Get tab type from badge data attribute or determine from href
+                let tabType = badge.getAttribute('data-tab-type');
+                if (!tabType) {
+                    const href = clickedTab.getAttribute('href');
+                    if (href.includes('status=pending')) {
+                        tabType = 'pending';
+                    } else if (href.includes('status=paid')) {
+                        tabType = 'paid';
+                    } else if (href.includes('status=failed')) {
+                        tabType = 'failed';
+                    } else {
+                        tabType = 'all';
+                    }
+                }
+                
+                // Store in localStorage that this tab was clicked
+                if (tabType) {
+                    localStorage.setItem('tab_clicked_' + tabType, 'true');
+                }
+                
+                badge.style.animation = 'fadeOut 0.3s ease-out';
+                setTimeout(() => {
+                    badge.remove();
+                }, 300);
+            }
+        }
+
+        // Add fadeOut animation for badges
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                from {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                to {
+                    opacity: 0;
+                    transform: scale(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Clear localStorage when there are new notifications
+        // This function can be called when new payments are added
+        function resetNotificationBadges() {
+            localStorage.removeItem('tab_clicked_pending');
+            localStorage.removeItem('tab_clicked_paid');
+            localStorage.removeItem('tab_clicked_failed');
+            localStorage.removeItem('tab_clicked_all');
+        }
+
+        // Optional: Clear all badges when user logs out or after a certain time
+        // You can call this from other parts of your application when needed
     </script>
 </body>
 

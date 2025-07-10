@@ -3,13 +3,27 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Payment - Liners Shipping</title>
     <link href="{{ asset('css/deliverbook.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key="{{ config('services.midtrans.client_key') }}"></script>
     <style>
+        body {
+            background: #ffffff !important;
+        }
+
+        body::before {
+            display: none !important;
+        }
+
+        .main-container {
+            background: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
         .payment-container {
             max-width: 600px;
             margin: 2rem auto;
@@ -149,6 +163,34 @@
             background: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
+        }
+
+        /* Mobile responsiveness improvements */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 10px;
+            }
+
+            .payment-container {
+                margin: 1rem auto;
+                padding: 1.5rem;
+                border-radius: 10px;
+            }
+
+            .payment-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .payment-actions {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .btn {
+                padding: 14px 20px;
+                font-size: 16px;
+                width: 100%;
+            }
         }
     </style>
 </head>

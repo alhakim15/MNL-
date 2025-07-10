@@ -13,75 +13,75 @@
             margin: 0 auto;
             padding: 20px;
         }
-        
+
         /* Back Button */
-.back-button-container {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 10;
-}
+        .back-button-container {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 10;
+        }
 
-.back-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: linear-gradient(135deg, #0a0f1d 0%, #0a0f1d 100%);
-  color: white;
-  text-decoration: none;
-  padding: 14px 24px;
-  border-radius: 50px;
-  font-size: 14px;
-  font-weight: 600;
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  letter-spacing: 0.5px;
-}
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #0a0f1d 0%, #0a0f1d 100%);
+            color: white;
+            text-decoration: none;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
 
-.back-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s ease;
-}
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
 
-.back-btn:hover::before {
-  left: 100%;
-}
+        .back-btn:hover::before {
+            left: 100%;
+        }
 
-.back-btn:hover {
-  background: linear-gradient(135deg, #ff0044 0%, #ff0044 100%);
-  transform: translateX(-5px) translateY(-2px);
-  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
-  border-color: rgba(255, 255, 255, 0.3);
-}
+        .back-btn:hover {
+            background: linear-gradient(135deg, #ff0044 0%, #ff0044 100%);
+            transform: translateX(-5px) translateY(-2px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
 
-.back-btn:active {
-  transform: translateX(-3px) translateY(-1px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-}
+        .back-btn:active {
+            transform: translateX(-3px) translateY(-1px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
 
-.back-btn i {
-  font-size: 16px;
-  transition: transform 0.3s ease;
-}
+        .back-btn i {
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
 
-.back-btn:hover i {
-  transform: translateX(-3px);
-}
+        .back-btn:hover i {
+            transform: translateX(-3px);
+        }
 
-.back-btn span {
-  font-weight: 600;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
+        .back-btn span {
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
 
 
         .page-header {
@@ -222,6 +222,7 @@
             padding: 15px;
             background: #f8fafc;
             border-radius: 8px;
+            flex-wrap: wrap;
         }
 
         .route-city {
@@ -231,6 +232,12 @@
 
         .route-arrow {
             color: #64748b;
+        }
+
+        .route-display>div:last-child {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
         }
 
         .empty-state {
@@ -317,9 +324,17 @@
             font-weight: 600;
         }
 
-        
+
 
         @media (max-width: 768px) {
+            body {
+                background: #ffffff !important;
+            }
+
+            body::before {
+                display: none !important;
+            }
+
             .delivery-details {
                 grid-template-columns: 1fr;
             }
@@ -333,16 +348,36 @@
             .page-header h1 {
                 font-size: 2rem;
             }
+
+            .route-display {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .route-display>div:last-child {
+                margin-left: 0 !important;
+                align-self: flex-start;
+            }
+
+            .track-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                min-width: 80px;
+                height: 36px;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="back-button-container">
-    <a href="{{ route('home') }}" class="back-btn">
-      <i class="fas fa-arrow-left"></i>
-    </a>
-  </div>
+        <a href="{{ route('home') }}" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
 
     <div class="history-container">
         <div class="page-header">
