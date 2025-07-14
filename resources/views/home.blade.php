@@ -15,7 +15,7 @@
 </head>
 
 <body>
-  <!-- Navbar Section -->
+  <!-- Navbar Sectiond -->
   @include('components.navbar')
 
   <!-- Email Verification Notice Banner -->
